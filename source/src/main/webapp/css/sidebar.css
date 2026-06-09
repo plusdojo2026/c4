@@ -1,0 +1,61 @@
+@import url(./common.css);
+
+.global-sidebar {
+  width: 80px;
+  height: 100vh;
+
+  background-color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+/* アイコンの配置 */
+.sidebar-top,
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/*各メニュー項目 */
+.sidebar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 0;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ホバー時 */
+.sidebar-item:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/*アイコン画像 */
+.sidebar-icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* 一言説明 */
+.sidebar-label {
+  font-size: 11px;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* 仮）設定用の白い丸 */
+.dummy-circle {
+  width: 28px;
+  height: 28px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
