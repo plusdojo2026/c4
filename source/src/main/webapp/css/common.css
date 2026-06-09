@@ -1,0 +1,12 @@
+/* color theme */
+:root {
+  --primary: #908D3C;
+  --secondary: #6C6A2D;
+  --tertiary: #363517;
+}
+
+/* css変数の使い方
+プロパティの使いたいところで var(--primary)のように使用する
+
+例)
+background-color: var(--primary); */
