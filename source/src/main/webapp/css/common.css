@@ -10,3 +10,39 @@
 
 例)
 background-color: var(--primary); */
+
+/* 1. レイアウト崩れを防ぐ（必須） */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. bodyの不要な余白を消す */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. aタグの装飾（青文字・下線）を無効化 */
+a {
+  text-decoration: none;
+  color: inherit;
+  /* 親要素の色を引き継ぐ */
+}
+
+/* 4. リスト（ul, ol）の黒ポチと余白を消す */
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* 5. 画像が親要素からはみ出すのを防ぐ */
+img, picture {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 6. フォーム部品のフォントを親と揃える */
+input, button, textarea, select {
+  font: inherit;
+}
