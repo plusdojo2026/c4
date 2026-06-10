@@ -74,3 +74,24 @@ input {
   /* 「ログイン」を太字にする */
   text-align: center;
 }
+
+
+.input-year {
+  width: 100px;
+  height: 30px;
+}
+
+.wrapper {
+  width: 50%;
+
+}
+
+.birth-date {
+  width: 100%;
+  display: flex;
+  margin: 9px;
+}
+
+.birth-date select {
+  flex: 1;
+}
