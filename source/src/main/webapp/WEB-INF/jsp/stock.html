@@ -1,0 +1,62 @@
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- dev -->
+  <link rel="stylesheet" href="/webapp/css/common.css">
+  <link rel="stylesheet" href="/webapp/css/stock.css">
+
+  <!-- product -->
+  <!-- <link rel="stylesheet" href="/webapp/css/common.css"> -->
+  <title>サカグラ | 在庫一覧</title>
+</head>
+
+<body>
+  <!-- ここでheader.jspをinclude -->
+  <!-- <%@ include file="/WEB-INF/jsp/header.jsp" %> -->
+
+  <!-- sidebarと機能画面のラッパー用div -->
+  <div class="wrapper">
+    <!-- ここでsidebar.jspをinclude -->
+    <!-- <%@ include file="/WEB-INF/jsp/sidebar.jsp" %> -->
+    <main class="stock-content">
+      <section class="stock-card">
+        <div class="video-wrapper">
+          <video id="video" autoplay playsinline></video>
+          <div class="barcode-frame">
+
+          </div>
+        </div>
+        <div class="button-wrapper">
+          <button id="edit-button">
+            <img class="active" src="/webapp/img/edit_square_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="編集">
+          </button>
+          <button id="camera-button">
+            <img id="camera-on" class="active" src="/webapp/img/videocam_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="カメラON">
+            <img id="camera-off" class="" src="/webapp/img/videocam_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+              alt="カメラOFF">
+          </button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>商品画像</th>
+              <th>JANコード</th>
+              <th>商品名</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <script src="/webapp/js/stock.js" type="module"></script>
+</body>
+
+</html>
