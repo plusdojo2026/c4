@@ -85,3 +85,26 @@
   border-radius: 50%;
   border: 2px solid var(--primary);
 }
+
+@media screen and (max-width: 480px) {
+  .global-header {
+    padding: 0 12px;
+  }
+
+  .header-logo,
+  .header-notification {
+    width: auto;
+  }
+
+  .search-input {
+    min-width: auto;
+    width: 100%;
+    margin: 0 10px;
+    padding: 8px 10px;
+  }
+
+  .logo-text {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+}
