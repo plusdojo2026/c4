@@ -1,0 +1,75 @@
+@import url(./common.css);
+
+/* ログイン、リセットページ共通の設定(背景) */
+.login-reset-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+}
+
+/* フォームの囲い */
+.login-reset {
+  position: relative;
+  padding: 40px 0 50px 0;
+  /* 1番下のボタンが枠ぎりぎりにならないように余白を作る */
+  margin-top: 120px;
+  border: 3px solid var(--primary);
+  border-radius: 24px;
+  width: 500px;
+  /* 幅を固定 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* 左右中央揃え */
+  align-items: center;
+  /* 上下中央揃え */
+}
+
+.login h1 {
+  font-size: 36px;
+  text-align: center;
+  padding-top: 50px;
+  color: var(--color-text);
+}
+
+/* フォーム内を中央に寄せる */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+/* テキストボックスの枠とフォーカス時の線をなくす */
+input:focus {
+  border: none;
+  outline: none;
+}
+
+input {
+  border: none;
+}
+
+/* それぞれの隙間 */
+.input-box,
+.remember-forgot,
+.login-btn {
+  margin: 10px 10px;
+}
+
+/* ログインボタンのデザイン */
+.login-btn button {
+  width: 200px;
+  height: 45px;
+  border: var(--primary);
+  outline: var(--primary);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--color-text);
+  font-weight: 600;
+  /* 「ログイン」を太字にする */
+  text-align: center;
+}
