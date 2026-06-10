@@ -23,6 +23,7 @@ background-color: var(--primary); */
 body {
   margin: 0;
   padding: 0;
+  color: var(--color-text);
 }
 
 /* 3. aタグの装飾（青文字・下線）を無効化 */
