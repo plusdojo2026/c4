@@ -81,7 +81,8 @@
   gap: 8px;
 }
 
-button {
+#edit-button,
+#camera-button {
   width: 40px;
   height: 40px;
   border: none;
@@ -96,18 +97,21 @@ button {
   transition: all .2s ease;
 }
 
-button img {
+#edit-button img,
+#camera-button img {
   width: 20px;
   height: 20px;
   pointer-events: none;
   display: none;
 }
 
-button img:is(.active) {
+#edit-button img:is(.active),
+#camera-button img:is(.active) {
   display: block;
 }
 
-button:hover {
+#edit-button:hover,
+#camera-button:hover {
   box-shadow:
     0 2px 4px rgba(0, 0, 0, 0.3);
 
@@ -116,7 +120,8 @@ button:hover {
     #908D3C;
 }
 
-button:active {
+#edit-button:active,
+#camera-button:active {
   background:
     linear-gradient(rgba(0, 0, 0, .12), rgba(0, 0, 0, .12)),
     #908D3C;
@@ -127,7 +132,8 @@ button:active {
   transform: scale(0.98);
 }
 
-button:focus-visible {
+#edit-button:focus-visible,
+#camera-button:focus-visible {
   outline: 3px solid rgba(144, 141, 60, 0.35);
   outline-offset: 2px;
 }
