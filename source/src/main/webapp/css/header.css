@@ -57,6 +57,8 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  position: relative;
+  /* 【変更】モーダル配置の基準点にするため追加 */
 }
 
 .notification-wrapper {
@@ -86,6 +88,90 @@
   border: 2px solid var(--primary);
 }
 
+/* 通知モーダルエリア */
+.notification-modal {
+  display: none;
+  /* 初期状態は非表示 */
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 320px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+/* JavaScriptでこのクラスを付与して表示させる */
+.notification-modal.is-active {
+  display: block;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.notification-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f9fafb;
+  font-size: 13px;
+  color: #444;
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  background-color: #f9fafb;
+}
+
+/* 未読のお知らせ用の薄い青背景 */
+.notification-item.unread {
+  background-color: #f0f7ff;
+}
+
+.notification-item p {
+  margin: 0 0 4px 0;
+  line-height: 1.4;
+}
+
+.notification-item .time {
+  display: block;
+  font-size: 11px;
+  color: #888;
+}
+
+
 @media screen and (max-width: 480px) {
   .global-header {
     padding: 0 12px;
@@ -106,5 +192,11 @@
   .logo-text {
     padding: 6px 8px;
     font-size: 13px;
+  }
+
+  .notification-modal {
+    position: fixed;
+    top: 60px;
+    right: 12px;
   }
 }
