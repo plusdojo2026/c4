@@ -30,6 +30,7 @@
   flex-grow: 1;
   display: flex;
   justify-content: center;
+  gap: 10px;
 }
 
 .search-input {
