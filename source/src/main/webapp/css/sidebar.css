@@ -3,7 +3,6 @@
 .global-sidebar {
   width: 80px;
   height: 100vh;
-
   background-color: var(--primary);
   display: flex;
   flex-direction: column;
@@ -19,7 +18,11 @@
   width: 100%;
 }
 
-/*各メニュー項目 */
+.sidebar-bottom {
+  position: relative;
+}
+
+/* 各メニュー項目 */
 .sidebar-item {
   display: flex;
   flex-direction: column;
@@ -37,7 +40,7 @@
   background-color: rgba(255, 255, 255, 0.15);
 }
 
-/*アイコン画像 */
+/* アイコン画像 */
 .sidebar-icon {
   width: 28px;
   height: 28px;
@@ -58,4 +61,97 @@
   height: 28px;
   background-color: #ffffff;
   border-radius: 50%;
+}
+
+/* アカウントモーダル */
+.account-modal {
+  position: absolute;
+  bottom: 12px;
+  left: 90px;
+  width: 220px;
+  background-color: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 100;
+}
+
+/* JavaScriptで非表示状態にするためのクラス */
+.account-modal.hidden {
+  display: none;
+}
+
+/* ユーザー情報エリア */
+.modal-user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* モーダル内の円形アイコンエリア */
+.modal-user-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* ログアウトボタン */
+.modal-logout-btn {
+  background-color: #c62828;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 0;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+}
+
+/* ログアウトボタンホバー時 */
+.modal-logout-btn:hover {
+  background-color: #e53935;
+}
+
+
+@media screen and (max-width: 480px) {
+  .global-sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+
+  .sidebar-top,
+  .sidebar-bottom {
+    flex-direction: row;
+    width: auto;
+  }
+
+  .sidebar-top {
+    gap: 50px;
+  }
+
+  .account-modal {
+    bottom: 70px;
+    left: auto;
+    right: 20px;
+  }
 }
