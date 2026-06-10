@@ -60,7 +60,8 @@ input {
 }
 
 /* ログインボタンのデザイン */
-.login-btn button {
+.login-btn button,
+.pw-reset-btn {
   width: 200px;
   height: 45px;
   border: var(--primary);
