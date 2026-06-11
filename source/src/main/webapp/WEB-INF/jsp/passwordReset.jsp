@@ -16,7 +16,7 @@
 		<h1>パスワード再設定</h1>
 		<form action="/webapp/PasswordResetServlet" id="form" method="POST">
 
-			<p id="msg"></p>
+			<p id="msg">${msg}</p>
 			社員番号と生年月日、新規パスワードを入力してください。<br>
 
 
@@ -27,9 +27,8 @@
 
 			<div class="birth-date">
 				生年月日<br>
-				<input type="date" name="dateOfBirth">
+				<!-- <input type="date" name="dateOfBirth"> -->
 				<select name="year" required="required" style="width: 100px; height:30px;">
-					<option value="">-</option>
 					<option value="1900">1900</option>
 					<option value="1901">1901</option>
 					<option value="1902">1902</option>
@@ -93,7 +92,7 @@
 					<option value="1960">1960</option>
 					<option value="1961">1961</option>
 					<option value="1962">1962</option>
-					<option value="1963">1963</option>
+					<option value="1963" selected>1963</option>
 					<option value="1964">1964</option>
 					<option value="1965">1965</option>
 					<option value="1966">1966</option>
@@ -161,8 +160,7 @@
 				</select>年
 
 				<select name="month" required="required" style="width: 100px; height:30px;">
-					<option value="">-</option>
-					<option value="1">1</option>
+					<option value="1"selected>1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
 					<option value="4">4</option>
@@ -178,8 +176,7 @@
 				</select>月
 
 				<select name="day" required="required" style="width: 100px; height:30px;">
-					<option value="">-</option>
-					<option value="1">1</option>
+					<option value="1"selected>1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
 					<option value="4">4</option>
