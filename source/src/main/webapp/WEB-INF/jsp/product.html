@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>商品一覧</title>
+	<!-- /webappつける -->
 	<link rel="stylesheet" href="/webapp/css/common.css">
 	<link rel="stylesheet" href="/webapp/css/stock.css">
 	<link rel="stylesheet" href="/webapp/css/product.css">
@@ -48,17 +49,22 @@
 				<table>
 					<thead>
 						<tr>
+							<th></th>
 							<th>商品画像</th>
 							<th>JANコード</th>
 							<th>商品名</th>
 						</tr>
 					</thead>
-					<tbody>
-						<script>
-							'use strict';
-
-
-						</script>
+					<tbody id="product-table-body">
+						<!-- サーブレット完成次第 -->
+						 <!-- <c:forEach var="p" items="${productList}"></c:forEach>
+						 <tr>
+							<td><input type="checkbox"></td>
+                <td><img src="${p.imgPath}"></td>
+                <td>${p.jan}</td>
+                <td>${p.name}</td>
+            </tr>
+        </c:forEach> -->
 					</tbody>
 				</table>
 			</section>
@@ -76,14 +82,14 @@
 	<dialog class="newmodal">
 		<button id="cancel" class="btn">閉じる</button>
 		<img src="#" class="product-photo">
-		<form action="#" method="#">
+		<form action="product" method="post">
 			<div class="newform">
 				<input type="text" id="JAN" name="JAN" placeholder="JANを入力" required>
 				<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
 				<input type="text" id="term" name="term" placeholder="期間を入力" required>
 			</div>
 		</form>
-		<button class="btn regist">登録</button>
+		<button type="submit" class="btn regist">登録</button>
 	</dialog>
 
 	<!-- 削除確認ポップアップ -->
