@@ -95,3 +95,13 @@ input {
 .birth-date select {
   flex: 1;
 }
+
+.input-error {
+  border: 2px solid #ff4d4d !important;
+  background-color: #fff5f5;
+}
+
+.text-error {
+  color: #ff4d4d;
+  font-weight: bold;
+}
