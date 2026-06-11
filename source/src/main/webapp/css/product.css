@@ -38,21 +38,32 @@ newmodal .product-photo {
   height: auto;
 }
 
-newmadal .input {
-  display: block;
-  /* 縦並びにする */
-  width: 90%;
-  /* 横幅を揃える（調整可） */
-  margin: 10px auto;
-  /* 上下余白＋中央寄せ */
-  padding: 8px;
-  /* 入力しやすいように余白 */
-  font-size: 16px;
-  /* 見やすく */
-  box-sizing: border-box;
+.newmodal .newform {
+  display: flex;
+  flex-direction: column;
+  /* 縦並び */
+  gap: 12px;
+  /* 入力欄の間隔 */
+  width: 80%;
+  margin: 0 auto;
+  /* 中央寄せ */
 }
 
+.newmodal .newform input {
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+
 .regist {
+  margin-top: 10px;
   background-color: rgb(35, 242, 35);
   color: #ffffff;
+}
+
+#cancel {
+  margin: 0 30px 15px 0;
+  left: 0;
 }
