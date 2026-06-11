@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.AccountDAO;
-import dto.AccountDTO;
+import model.Account;
 
 /**
  * Servlet implementation class LoginServlet
@@ -51,12 +51,17 @@ public class LoginServlet extends HttpServlet {
     // 2.AccountDAOを指定してインスタンス化する
     AccountDAO accountDao = new AccountDAO();
 
-		// 3.ログイン処理を行う(DAOの引数にint型のidとString型のパスワードを渡す)
-			if (accountDao.isLoginOK(id, password)) { 
-        
-			// ログイン成功：セッションスコープに社員番号/権限IDを格納する
+    // 3.DAOのloginCheckメソッドを呼び出し、アカウント情報を取得する
+    Account loginUserAccount = accountDao.loginCheck(id, password);
+
+		// 4.nullでなければログイン成功
+			if (loginUserAccount != null) { 
+
+			// ログイン成功：セッションスコープに社員番号を格納する
 			HttpSession session = request.getSession();
-			session.setAttribute("id", new LoginUser(idStr));
+			session.setAttribute("id", new model.LoginUser(idStr));
+
+      //取得したアカウント情報から権限IDを取り出してセッションに格納
       session.setAttribute("permissionsId", loginUserAccount.getPermissionsId());
 
 			// プロダクトサーブレットにリダイレクトする
@@ -65,7 +70,7 @@ public class LoginServlet extends HttpServlet {
       // ログイン失敗
 			// リクエストスコープに入力された社員番号を戻す
       request.setAttribute("id", idStr);
-			request.setAttribute("result", new Result("ログインできませんでした。", "社員番号またはパスワードに間違いがあります。", "/webapp/LoginServlet"));
+			request.setAttribute("result", new model.Result("ログインできませんでした。", "社員番号またはパスワードに間違いがあります。", "/webapp/LoginServlet"));
 
 			// ログインページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
