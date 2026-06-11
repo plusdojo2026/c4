@@ -27,8 +27,28 @@ document.addEventListener("DOMContentLoaded", () => {
     dialog1.close();
     dialog2.showModal();
   });
+	// 削除確認ポップアップ
+  const dialog3 = document.querySelector(".deletecheck");
+	// 削除結果通知ポップアップ
+  const dialog4 = document.querySelector(".deleteresult");
 
-});
+// 削除記号押す　→　dialog3開く
+	const showButton3 = document.querySelector("delete-check");
+  showButton3.addEventListener("click", () => {
+    dialog3.showModal();
+  });
+// dialog3 の「キャンセル」
+  const closeButton3 = document.querySelector("cancel2");
+  closeButton3.addEventListener("click", () => {
+    dialog3.close();
+  });
+// dialog3 の「削除する」→ dialog3 を閉じて dialog4 を開く
+  const showButton2 = document.querySelector("#add");
+  showButton2.addEventListener("click", () => {
+    dialog3.close();
+    dialog4.showModal();
+  });
+
 // camera制御
 const video = document.getElementById('video');
 const cameraButton = document.getElementById('camera-button');
@@ -81,3 +101,4 @@ cameraButton.addEventListener('click', () => {
     startCamera();
   }
 });
+})

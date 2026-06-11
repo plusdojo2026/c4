@@ -67,3 +67,8 @@ newmodal .product-photo {
   margin: 0 30px 15px 0;
   left: 0;
 }
+
+/* 各種操作ボタン（新規追加以外） */
+.option{
+  margin-top: 10px;
+}
