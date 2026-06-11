@@ -53,13 +53,16 @@ public class LoginServlet extends HttpServlet {
 
 		// 3.ログイン処理を行う(DAOの引数にint型のidとString型のパスワードを渡す)
 			if (accountDao.isLoginOK(id, password)) { 
-			// ログイン成功：セッションスコープに社員番号を格納する
+        
+			// ログイン成功：セッションスコープに社員番号/権限IDを格納する
 			HttpSession session = request.getSession();
 			session.setAttribute("id", new LoginUser(idStr));
+      session.setAttribute("permissionsId", loginUserAccount.getPermissionsId());
 
 			// プロダクトサーブレットにリダイレクトする
 			response.sendRedirect("/webapp/ProductServlet");
-		} else { // ログイン失敗
+		} else {
+      // ログイン失敗
 			// リクエストスコープに入力された社員番号を戻す
       request.setAttribute("id", idStr);
 			request.setAttribute("result", new Result("ログインできませんでした。", "社員番号またはパスワードに間違いがあります。", "/webapp/LoginServlet"));
