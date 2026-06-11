@@ -15,8 +15,7 @@ public class PasswordResetServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-		dispatcher.forward(request, response);
+		request.setCharacterEncoding("UTF-8");
 
 		String employeeNumber = request.getParameter("employeeNumber");
 		String year = request.getParameter("year");
@@ -28,9 +27,16 @@ public class PasswordResetServlet extends HttpServlet {
 		System.out.println("生年月日 : " + year + "/" + month + "/" + day);
 		System.out.println("新規パスワード : " + newPassword);
 
-		request.setAttribute("msg", "入力内容を受けとりました。");
+		// 仮の判定(あとでDAOの結果に置き換える)
+		boolean result = true;
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");
+		if (result) {
+			response.sendRedirect("/webapp/LoginServlet");
+		} else {
+			request.setAttribute("msg","社員番号または生年月日が間違っています");
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");
 		dispatcher.forward(request, response);
+		}
 	}
 }
