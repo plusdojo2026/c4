@@ -1,49 +1,59 @@
-<!DOCTYPE html>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+	<!DOCTYPE html>
+	<html>
 
-<head>
-	<meta charset="UTF-8">
-	<title>サカグラ｜ログイン</title>
-	<link rel="stylesheet" href="/webapp/css/login.css">
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<title>サカグラ｜ログイン</title>
+		<link rel="stylesheet" href="/webapp/css/login.css">
+	</head>
 
-<body class="login-reset-page">
+	<body class="login-reset-page">
 
-	<header>
+		<header>
 
-	</header>
-	<div class="login-reset">
-		<h1>ログイン</h1>
-		<form id="form" method="post" action="">
+		</header>
+		<div class="login-reset">
+			<h1>ログイン</h1>
+			<form id="form" method="post" action="/sevlet/LoginServlet.java">
 
-			<p id="msg">社員番号とパスワードを入力してください。</p>
-			<div class="wrapper">
-				<fieldset class="input-box">
-					<legend>社員番号</legend>
-					<input type="text" id="employeeNumber" name="employeeNumber">
-				</fieldset>
+				<p id="msg">
+					<c:choose>
+						<c:when test="${not empty result}">
+							${result.message}<!--サーバー側のエラー(DBの不一致等)があればそれを表示-->
+						</c:when>
+						<c:otherwise>
+							社員番号とパスワードを入力してください。<!--初期表示-->
+						</c:otherwise>
+					</c:choose>
+				</p>
+				<div class="wrapper">
+					<fieldset class="input-box">
+						<legend>社員番号</legend>
+						<input type="text" id="employeeNumber" name="employeeNumber" value="${employeeNumber}">
+					</fieldset>
 
-				<fieldset class="input-box">
-					<legend>パスワード</legend>
-					<input type="password" id="password" name="password">
-				</fieldset>
-			</div>
+					<fieldset class="input-box">
+						<legend>パスワード</legend>
+						<input type="password" id="password" name="password">
+					</fieldset>
+				</div>
 
-			<div class="remember-forgot">
-				パスワードを忘れた方は<a href="#">こちら</a>
-			</div>
+				<div class="remember-forgot">
+					パスワードを忘れた方は<a href="passwordReset.jsp">こちら</a>
+				</div>
 
-			<div class="login-btn">
-				<button type="submit" id="loginBtn" name="loginBtn" value="ログイン">ログイン</button>
-			</div>
+				<div class="login-btn">
+					<button type="submit" id="loginBtn" name="loginBtn" value="ログイン">ログイン</button>
+				</div>
 
-		</form>
+			</form>
 
-	</div>
-	<footer>
+		</div>
+		<footer>
 
-	</footer>
-	<script src="/webapp/js/login.js"></script>
-</body>
+		</footer>
+		<script src="/webapp/js/login.js"></script>
+	</body>
 
-</html>
+	</html>
