@@ -1,3 +1,10 @@
+-- データベース「c4」を作成
+CREATE DATABASE IF NOT EXISTS c4;
+
+-- 作成した「c4」データベースを選択
+USE c4;
+
+
 -- 1. 権限テーブル
 CREATE TABLE `permissions` (
     `id` INT AUTO_INCREMENT PRIMARY KEY COMMENT '権限ID',
