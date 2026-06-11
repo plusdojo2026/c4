@@ -27,26 +27,53 @@ document.addEventListener("DOMContentLoaded", () => {
     dialog1.close();
     dialog2.showModal();
   });
+
+	
 	// 削除確認ポップアップ
   const dialog3 = document.querySelector(".deletecheck");
 	// 削除結果通知ポップアップ
   const dialog4 = document.querySelector(".deleteresult");
 
 // 削除記号押す　→　dialog3開く
-	const showButton3 = document.querySelector("delete-check");
+	const showButton3 = document.querySelector("#delete-check");
   showButton3.addEventListener("click", () => {
     dialog3.showModal();
   });
 // dialog3 の「キャンセル」
-  const closeButton3 = document.querySelector("cancel2");
+  const closeButton3 = document.querySelector("#cancel2");
   closeButton3.addEventListener("click", () => {
     dialog3.close();
   });
 // dialog3 の「削除する」→ dialog3 を閉じて dialog4 を開く
-  const showButton2 = document.querySelector("#add");
-  showButton2.addEventListener("click", () => {
+  const showButton4 = document.querySelector("#delete");
+  showButton4.addEventListener("click", () => {
     dialog3.close();
     dialog4.showModal();
+  });
+// dialog3 の「キャンセル」
+  const closeButton4 = document.querySelector("#cancel3");
+  closeButton4.addEventListener("click", () => {
+    dialog4.close();
+  });
+
+
+// 編集ポップアップ
+	const dialog5 = document.querySelector(".edit");
+// 編集記号押す　→　dialog5開く
+	const showButton5 = document.querySelector("#edit-button");
+  showButton5.addEventListener("click", () => {
+    dialog5.showModal();
+  });
+// dialog1 の「キャンセル」
+  const closeButton5 = document.querySelector("#cancel4");
+  closeButton5.addEventListener("click", () => {
+    dialog5.close();
+  });
+// 編集ポップアップから削除ポップアップ
+	const showButton6 = document.querySelector("#delete-check2");
+  showButton6.addEventListener("click", () => {
+		dialog5.close();
+    dialog3.showModal();
   });
 
 // camera制御
