@@ -16,6 +16,7 @@ public class StockDAO {
     private static final String USER = "root";
     private static final String PASS = "password";
 
+    // 全ての在庫情報を取得します。
     public List<Stock> selectAll() {
         Connection conn = null;
         List<Stock> stockList = new ArrayList<>();
@@ -49,6 +50,7 @@ public class StockDAO {
         return stockList;
     }
 
+    // 新しい商品の在庫枠を初期登録します。
     public boolean insert(Stock stock) {
         Connection conn = null;
         boolean result = false;
@@ -69,6 +71,7 @@ public class StockDAO {
         return result;
     }
 
+    // 特定の商品の総在庫数を更新します（入出庫や棚卸し時）。
     public boolean updateQuantity(String janCode, int newQuantity) {
         Connection conn = null;
         boolean result = false;

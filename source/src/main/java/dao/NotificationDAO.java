@@ -15,6 +15,7 @@ public class NotificationDAO {
     private static final String USER = "root";
     private static final String PASS = "password";
 
+    // ユーザー画面に表示する有効な通知一覧を取得します。
     public List<Notification> selectActiveNotifications() {
         Connection conn = null;
         List<Notification> notificationList = new ArrayList<>();
@@ -47,6 +48,28 @@ public class NotificationDAO {
         return notificationList;
     }
 
+    // 新しい通知をデータベースに登録します。
+    public boolean insert(Notification notification) {
+        Connection conn = null;
+        boolean result = false;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(URL, USER, PASS);
+            
+            // is_read, is_deleted, created_at はDBのデフォルト値に任せる
+            String sql = "INSERT INTO notifications (message) VALUES (?)";
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+            pStmt.setString(1, notification.getMessage());
+
+            if (pStmt.executeUpdate() == 1) { result = true; }
+        } catch (SQLException | ClassNotFoundException e) { e.printStackTrace();
+        } finally {
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        }
+        return result;
+    }
+
+    // 指定されたIDの通知を「既読」状態（is_read = 1）に更新します。
     public boolean markAsRead(int id) {
         Connection conn = null;
         boolean result = false;

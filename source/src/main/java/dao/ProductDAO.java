@@ -16,6 +16,7 @@ public class ProductDAO {
     private static final String USER = "root";
     private static final String PASS = "password";
 
+    // 登録されている全商品の一覧を取得します。
     public List<Product> selectAll() {
         Connection conn = null;
         List<Product> productList = new ArrayList<>();
@@ -51,6 +52,7 @@ public class ProductDAO {
         return productList;
     }
 
+    // 新しい商品を商品マスターに登録します。
     public boolean insert(Product product) {
         Connection conn = null;
         boolean result = false;
@@ -74,6 +76,7 @@ public class ProductDAO {
         return result;
     }
 
+    // 既存の商品情報を更新します（JANコードをキーに書き換え）。
     public boolean update(Product product) {
         Connection conn = null;
         boolean result = false;
@@ -97,6 +100,7 @@ public class ProductDAO {
         return result;
     }
 
+    // 指定されたJANコードの商品をマスターから削除します。
     public boolean delete(String janCode) {
         Connection conn = null;
         boolean result = false;
