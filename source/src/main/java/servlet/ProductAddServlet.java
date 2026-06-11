@@ -21,9 +21,9 @@ public class ProductAddServlet extends HttpServlet {
 		String term = request.getParameter("term");
 		
 		//確認用		
-		//request.setAttribute("jan", jan);
-		//request.setAttribute("name", name);
-		//request.setAttribute("term", term);
+		request.setAttribute("jan", jan);
+		request.setAttribute("name", name);
+		request.setAttribute("term", term);
 		
 		RequestDispatcher dispatcher =
 	            request.getRequestDispatcher("/WEB-INF/jsp/product.jsp");

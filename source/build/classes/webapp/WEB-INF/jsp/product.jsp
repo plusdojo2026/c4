@@ -58,21 +58,24 @@
 					</thead>
 					<tbody id="product-table-body">
 						<!-- サーブレット完成次第 -->
-						  <c:forEach var="p" items="${productList}"></c:forEach>
-						 <tr>
-							<td><input type="checkbox"></td>
-                <td><img src="${p.imgPath}"></td>
-                <td>${p.jan}</td>
-                <td>${p.name}</td>
-								<td>${p.term}</td>
-            </tr>
-        </c:forEach> 
+						  <!-- <c:forEach var="p" items="${productList}"> 
+						 		<tr>
+									<td><input type="checkbox"></td>
+                	<td><img src="${p.imgPath}"></td>
+                	<td>${p.jan}</td>
+                	<td>${p.name}</td>
+									<td>${p.term}</td>
+            		</tr>
+        			</c:forEach> -->
 					</tbody>
 				</table>
 			</section>
 		</main>
 	</div>
-	
+				<!-- 確認用 -->
+				<p>JAN: ${jan}</p> 
+				<p>商品名: ${name}</p>
+				<p>期間: ${term}</p>
 	<!-- 新規追加ポップアップ（確認） -->
 	<dialog class="newcheck">
 		<p>新規商品を追加しますか？</p>
@@ -86,7 +89,7 @@
 		<img src="/webapp/ProductAddServlet" class="product-photo">
 		<form action="/ProductAddServlet" method="post">
 			<div class="newform">
-				<input type="text" id="JAN" name="JAN" placeholder="JANを入力" required>
+				<input type="text" id="JAN" name="jan" placeholder="JANを入力" required>
 				<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
 				<input type="text" id="term" name="term" placeholder="期間を入力" required>
 			</div>
