@@ -130,7 +130,7 @@
 					<option value="1998">1998</option>
 					<option value="1999">1999</option>
 					<option value="2000">2000</option>
-					<option Value="2001">2001</option>
+					<option value="2001">2001</option>
 					<option value="2002">2002</option>
 					<option value="2003">2003</option>
 					<option value="2004">2004</option>
@@ -160,7 +160,7 @@
 				</select>年
 
 				<select name="month" required="required" style="width: 100px; height:30px;">
-					<option value="1"selected>1</option>
+					<option value="1" selected>1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
 					<option value="4">4</option>
@@ -176,7 +176,7 @@
 				</select>月
 
 				<select name="day" required="required" style="width: 100px; height:30px;">
-					<option value="1"selected>1</option>
+					<option value="1" selected>1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
 					<option value="4">4</option>
@@ -214,7 +214,7 @@
 
 			<fieldset class="input-box">
 				<legend>新規パスワード</legend>
-				<input type="text" name="newPassword">
+				<input type="password" name="newPassword">
 			</fieldset>
 
 			<div class="btn pw-reset-btn">
