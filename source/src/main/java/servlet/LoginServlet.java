@@ -20,10 +20,6 @@ import model.Account;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// ログインページにフォワードする
@@ -31,46 +27,44 @@ public class LoginServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String idStr = request.getParameter("employeeNumber");//クライアントが送ってきたデータの名前
+		String idStr = request.getParameter("employeeNumber");
 		String password = request.getParameter("password");
 
-    // 1.社員番号を数値(int)に変換する
-    int id = 0;
-    if (idStr != null && !idStr.isEmpty()) {
-      id = Integer.parseInt(idStr);
-    }
+		// 1.社員番号を数値(int)に変換する
+		int id = 0;
+		if (idStr != null && !idStr.isEmpty()) {
+			id = Integer.parseInt(idStr);
+		}
 
-    // 2.AccountDAOを指定してインスタンス化する
-    AccountDAO accountDao = new AccountDAO();
+		// 2.AccountDAOを指定してインスタンス化する
+		AccountDAO accountDao = new AccountDAO();
 
-    // 3.DAOのloginCheckメソッドを呼び出し、アカウント情報を取得する
-    Account loginUserAccount = accountDao.loginCheck(id, password);
+		// 3.DAOのloginCheckメソッドを呼び出し、アカウント情報を取得する
+		Account loginUserAccount = accountDao.loginCheck(id, password);
 
 		// 4.nullでなければログイン成功
-			if (loginUserAccount != null) { 
+		if (loginUserAccount != null) { 
 
-			// ログイン成功：セッションスコープに社員番号を格納する
+			// ログイン成功：セッションスコープに社員番号（文字列）をそのまま格納する
 			HttpSession session = request.getSession();
-			session.setAttribute("id", new model.LoginUser(idStr));
+			session.setAttribute("id", idStr); //文字列として保存
 
-      //取得したアカウント情報から権限IDを取り出してセッションに格納
-      session.setAttribute("permissionsId", loginUserAccount.getPermissionsId());
+			// 取得したアカウント情報から権限IDを取り出してセッションに格納
+			session.setAttribute("permissionsId", loginUserAccount.getPermissionsId());
 
 			// プロダクトサーブレットにリダイレクトする
-			response.sendRedirect("/webapp/ProductServlet");
+			response.sendRedirect("/c4/ProductServlet");
 		} else {
-      // ログイン失敗
+			// ログイン失敗
 			// リクエストスコープに入力された社員番号を戻す
-      request.setAttribute("id", idStr);
-			request.setAttribute("result", new model.Result("ログインできませんでした。", "社員番号またはパスワードに間違いがあります。", "/webapp/LoginServlet"));
+			request.setAttribute("id", idStr);
+			
+			//文字列としてエラーメッセージを格納する
+			request.setAttribute("errorMsg", "社員番号またはパスワードに間違いがあります。");
 
 			// ログインページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");

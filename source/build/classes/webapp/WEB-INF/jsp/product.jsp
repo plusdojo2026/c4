@@ -115,15 +115,13 @@
 	 <dialog class="edit">
 		<button id="cancel4" class="btn">閉じる</button>
 		<img src="#" class="product-photo">
-		<form action="#" method="#">
-			<div class="newform">
+		<form action="/c4/source/src/main/java/servlet/ProductEditServlet.java" method="post">
 				<input type="text" id="JAN" name="JAN" placeholder="JANを入力" required>
 				<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
 				<input type="text" id="term" name="term" placeholder="期間を入力" required>
-			</div>
-		</form>
-		<button class="btn edit">保存</button>
+			<button class="btn edit">保存</button>
 		<button id="delete-check2" class="btn delete">削除</button>
+		</form>
 	</dialog>
 
 
