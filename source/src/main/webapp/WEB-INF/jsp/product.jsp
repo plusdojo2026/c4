@@ -13,6 +13,8 @@
 </head>
 
 <body>
+
+	<div class="product">
 	<!-- ここでheader.jspをinclude -->
 	<!-- <%@ include file="/WEB-INF/jsp/header.jsp" %> -->
 
@@ -41,12 +43,16 @@
 					<!-- 新規追加ボタン -->
 					<button id="add-btn">新規追加</button>
 				</div>
+
+
 				<div>
 					<!-- 全選択チェックボックス -->
-					<input type="checkbox" class="option">
+					<input type="checkbox" class="option" id="select-all">
 					<!-- 削除ボタン -->
 					<button id="delete-check" class="option">削除</button>
 				</div>
+
+
 				<table>
 					<thead>
 						<tr>
@@ -60,11 +66,11 @@
 						<!-- サーブレット完成次第 -->
 						  <!-- <c:forEach var="p" items="${productList}"> 
 						 		<tr>
-									<td><input type="checkbox"></td>
-                	<td><img src="${p.imgPath}"></td>
-                	<td>${p.jan}</td>
-                	<td>${p.name}</td>
-									<td>${p.term}</td>
+									<td><input type="checkbox" class="edit-check" value="${p.id}"></td>
+                	<td><img src="${p.photoPath}"></td>
+                	<td class="td-jan">${p.janCode}</td>
+                	<td class="td-name">${p.productName}</td>
+									<td class="td-term">${p.durationDays}</td>
             		</tr>
         			</c:forEach> -->
 					</tbody>
@@ -72,16 +78,21 @@
 			</section>
 		</main>
 	</div>
+
+
 				<!-- 確認用 -->
 				<p>JAN: ${jan}</p> 
 				<p>商品名: ${name}</p>
 				<p>期間: ${term}</p>
+
+
 	<!-- 新規追加ポップアップ（確認） -->
 	<dialog class="newcheck">
 		<p>新規商品を追加しますか？</p>
 		<button id="closedialog" class="btn">キャンセル</button>
 		<button id="add" class="btn">追加する</button>
 	</dialog>
+
 
 	<!-- 新規追加モーダル -->
 	<dialog class="newmodal">
@@ -97,6 +108,13 @@
 		</form>
 	</dialog>
 
+
+	<!-- 削除フォーム -->
+	 	<form id="delete-form" action="/product/delete" method="post">
+    	<input type="hidden" name="deleteIds" id="delete-ids">
+		</form>
+
+
 	<!-- 削除確認ポップアップ -->
 	 <dialog class="deletecheck">
 		<p>〇件選択されています。<br>選択商品を削除しますか？</p>
@@ -104,29 +122,52 @@
 		<button id="delete" class="btn">削除する</button>
 	</dialog>
 
+
 	<!-- 削除結果通知ポップアップ -->
 	 <dialog class="deleteresult">
-		<p>成功:〇件<br>失敗:〇件</p>
-		<p>「JANコード」は在庫があるため削除できませんでした。</p>
+		<p>成功: ${success} 件<br>失敗: ${fail} 件</p>
+		<c:if test="${fail > 0}">
+			<p>「JANコード」は在庫があるため削除できませんでした。</p>
+		</c:if>
 		<button id="cancel3" class="btn">キャンセル</button>
 	</dialog>
 
+
+	<!-- 削除通知 -->
+	<c:if test="${showDeleteResult}">
+	<script>
+			document.addEventListener("DOMContentLoaded", () => {
+					document.querySelector(".deleteresult").showModal();
+			});
+	</script>
+	</c:if>
+
+
 <!-- 編集ポップアップ -->
 	 <dialog class="edit">
+
 		<button id="cancel4" class="btn">閉じる</button>
-		<img src="#" class="product-photo">
-		<form action="/c4/source/src/main/java/servlet/ProductEditServlet.java" method="post">
-				<input type="text" id="JAN" name="JAN" placeholder="JANを入力" required>
-				<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
-				<input type="text" id="term" name="term" placeholder="期間を入力" required>
+		
+		<form action="/product/edit" method="post">
+			<input type="hidden" name="id" id="edit-id">
+				<!-- 表示項目 -->
+    		<input type="hidden" id="edit-photo" name="photoPath">
+				<input type="text" id="edit-jan" name="janCode" placeholder="JANを入力" required>
+				<input type="text" id="edit-name" name="productName" placeholder="商品名を入力" required>
+				<input type="number" id="edit-term" name="durationDays" placeholder="期間を入力" required>
+				<!-- 非表示項目 -->
+				<input type="hidden" id="edit-base" name="baseProductId">
+    		<input type="hidden" id="edit-case" name="caseQuantity">
+
 			<button class="btn edit">保存</button>
 		<button id="delete-check2" class="btn delete">削除</button>
 		</form>
+
 	</dialog>
 
 
 	<script src="/webapp/js/product.js"></script>
-
+	</div>
 </body>
 
 </html>
