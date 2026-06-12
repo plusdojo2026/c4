@@ -11,9 +11,6 @@
 
 	<body>
 	<div class="login-reset-page">
-		<header>
-
-		</header>
 		<div class="login-reset">
 			<h1>ログイン</h1>
 			<form id="form" method="post" action="/c4/LoginServlet">
