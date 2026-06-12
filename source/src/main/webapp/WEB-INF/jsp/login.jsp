@@ -9,8 +9,8 @@
 		<link rel="stylesheet" href="/c4/css/login.css">
 	</head>
 
-	<body class="login-reset-page">
-
+	<body>
+	<div class="login-reset-page">
 		<header>
 
 		</header>
@@ -57,6 +57,7 @@
 
 		</footer>
 		<script src="/c4/js/login.js"></script>
+		</div>
 	</body>
 
 	</html>
