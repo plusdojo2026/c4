@@ -13,7 +13,7 @@
 	<div class="login-reset-page">
 		<div class="login-reset">
 			<h1>ログイン</h1>
-			<form id="form" method="post" action="/c4/LoginServlet">
+			<form id="login-form" method="post" action="/c4/LoginServlet">
 
 				<div id="msg">
 					<c:choose>
