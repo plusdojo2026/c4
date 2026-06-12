@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ProductDAO;
+
 @WebServlet("/product/delete")
 public class ProductDeleteServlet extends HttpServlet {
 
@@ -15,35 +17,39 @@ public class ProductDeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 
-        // ① JSP から受け取る（カンマ区切りの ID）
-        String idsParam = request.getParameter("deleteIds");
+        request.setCharacterEncoding("UTF-8");
 
-        // ② null チェック（何も選択されていない場合）
-        if (idsParam == null || idsParam.isEmpty()) {
-            request.setAttribute("success", 0);
-            request.setAttribute("fail", 0);
-            request.setAttribute("showDeleteResult", true);
+        // hidden に入っている 文字列を取得
+        String ids = request.getParameter("deleteIds");
 
-            request.getRequestDispatcher("/WEB-INF/jsp/product.jsp")
-                   .forward(request, response);
+        if (ids == null || ids.isEmpty()) {
+            // 何も選択されていない場合は一覧へ戻す
+            response.sendRedirect("/product");
             return;
         }
 
-        // ③ 配列に変換
-        String[] ids = idsParam.split(",");
+        String[] janCodes = ids.split(",");
 
-        // ④ 成功・失敗の件数
-        int success = ids.length; // 全部成功したと仮定
+        ProductDAO dao = new ProductDAO();
+
+        int success = 0;
         int fail = 0;
 
-        // ⑤ JSP に渡す
+        // JANコードごとに削除
+        for (String jan : janCodes) {
+            if (dao.delete(jan)) {
+                success++;
+            } else {
+                fail++;
+            }
+        }
+
+        // JSP に結果を渡す
         request.setAttribute("success", success);
         request.setAttribute("fail", fail);
-
-        // ⑥ 削除結果ポップアップを開くためのフラグ
         request.setAttribute("showDeleteResult", true);
 
-        // ⑦ product.jsp に戻す
+        // 一覧 JSP に forward（ProductServlet を通さない）
         request.getRequestDispatcher("/WEB-INF/jsp/product.jsp")
                .forward(request, response);
     }

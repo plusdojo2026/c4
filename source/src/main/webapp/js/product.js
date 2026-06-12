@@ -29,32 +29,47 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 	
-	// 削除確認ポップアップ
-  const dialog3 = document.querySelector(".deletecheck");
-	// 削除結果通知ポップアップ
-  const dialog4 = document.querySelector(".deleteresult");
+// 削除確認ポップアップ
+const dialog3 = document.querySelector(".deletecheck");
+// 削除結果通知ポップアップ
+const dialog4 = document.querySelector(".deleteresult");
 
 // 削除記号押す　→　dialog3開く
-	const showButton3 = document.querySelector("#delete-check");
-  showButton3.addEventListener("click", () => {
-    dialog3.showModal();
-  });
+const showButton3 = document.querySelector("#delete-check");
+showButton3.addEventListener("click", () => {
+  dialog3.showModal();
+});
+
 // dialog3 の「キャンセル」
-  const closeButton3 = document.querySelector("#cancel2");
-  closeButton3.addEventListener("click", () => {
-    dialog3.close();
-  });
-// dialog3 の「削除する」→ dialog3 を閉じて dialog4 を開く
-  const showButton4 = document.querySelector("#delete");
-  showButton4.addEventListener("click", () => {
-    dialog3.close();
-    dialog4.showModal();
-  });
-// dialog3 の「キャンセル」
-  const closeButton4 = document.querySelector("#cancel3");
-  closeButton4.addEventListener("click", () => {
-    dialog4.close();
-  });
+const closeButton3 = document.querySelector("#cancel2");
+closeButton3.addEventListener("click", () => {
+  dialog3.close();
+});
+
+// dialog4 の「キャンセル」
+const closeButton4 = document.querySelector("#cancel3");
+closeButton4.addEventListener("click", () => {
+  dialog4.close();
+});
+
+// 削除フォーム
+const deleteForm = document.querySelector("#delete-form");
+const deleteIdsInput = document.querySelector("#delete-ids");
+
+// dialog3 の「削除する」ボタンに本物の削除処理を追加
+document.querySelector("#delete").addEventListener("click", () => {
+
+  // チェックされた項目を取得
+  const checked = document.querySelectorAll(".edit-check:checked");
+  const ids = Array.from(checked).map(c => c.value);
+
+  // hidden にセット
+  deleteIdsInput.value = ids.join(",");
+
+  // フォーム送信
+  deleteForm.submit();
+});
+
 
 
 // 編集ポップアップ
@@ -75,6 +90,40 @@ document.addEventListener("DOMContentLoaded", () => {
 		dialog5.close();
     dialog3.showModal();
   });
+// 行クリックで編集モーダルを開く
+document.addEventListener("click", function(e) {
+
+  // 編集モードでなければ何もしない
+  if (!showButton5.classList.contains("active")) return;
+
+  const row = e.target.closest("tr");
+  if (!row) return;
+
+  // 行のデータ取得
+  const id = row.querySelector(".edit-check").value;
+  const janCode = row.querySelector(".td-jan").textContent;
+  const productName = row.querySelector(".td-name").textContent;
+  const durationDays = row.querySelector(".td-term").textContent;
+  const photoPath = row.querySelector("img").getAttribute("src");
+
+  // data- 属性から取得（JSP に追加済み）
+  const baseProductId = row.dataset.baseProductId;
+  const caseQuantity = row.dataset.caseQuantity;
+
+  // モーダルに値をセット
+  document.getElementById("edit-id").value = id;
+  document.getElementById("edit-jan").value = janCode;
+  document.getElementById("edit-name").value = productName;
+  document.getElementById("edit-term").value = durationDays;
+
+  document.getElementById("edit-photo").value = photoPath;
+  document.getElementById("edit-base").value = baseProductId;
+  document.getElementById("edit-case").value = caseQuantity;
+
+  // モーダルを開く
+  dialog5.showModal();
+});
+
 
 // camera制御
 const video = document.getElementById('video');
@@ -128,4 +177,5 @@ cameraButton.addEventListener('click', () => {
     startCamera();
   }
 });
-})
+
+});

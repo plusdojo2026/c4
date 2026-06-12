@@ -65,8 +65,11 @@
 					<tbody id="product-table-body">
 						<!-- サーブレット完成次第 -->
 						  <!-- <c:forEach var="p" items="${productList}"> 
-						 		<tr>
-									<td><input type="checkbox" class="edit-check" value="${p.id}"></td>
+						 		<tr
+									 	data-base-product-id="${p.baseProductId}"
+    								data-case-quantity="${p.caseQuantity}"
+								>
+									<td><input type="checkbox" class="edit-check" value="${p.janCode}"></td>
                 	<td><img src="${p.photoPath}"></td>
                 	<td class="td-jan">${p.janCode}</td>
                 	<td class="td-name">${p.productName}</td>
@@ -97,7 +100,7 @@
 	<!-- 新規追加モーダル -->
 	<dialog class="newmodal">
 		<button id="cancel" class="btn">閉じる</button>
-		<img src="/webapp/ProductAddServlet" class="product-photo">
+		<img src="#" class="product-photo">
 		<form action="/ProductAddServlet" method="post">
 			<div class="newform">
 				<input type="text" id="JAN" name="jan" placeholder="JANを入力" required>
