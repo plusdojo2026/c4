@@ -8,12 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://unpkg.com/@zxing/library@latest"></script>
-  <!-- dev -->
   <link rel="stylesheet" href="/webapp/css/common.css">
   <link rel="stylesheet" href="/webapp/css/stock.css">
 
-  <!-- product -->
-  <!-- <link rel="stylesheet" href="/webapp/css/common.css"> -->
   <title>サカグラ | 在庫一覧</title>
 </head>
 
@@ -34,9 +31,6 @@
           </div>
         </div>
         <div class="button-wrapper">
-          <!-- <button id="edit-button">
-            <img class="active" src="/webapp/img/edit_square_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="編集">
-          </button> -->
           <button id="camera-button">
             <img id="camera-on" class="active" src="/webapp/img/videocam_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
               alt="カメラON">
@@ -147,14 +141,18 @@
       <p>JAN: <span class="dialog-jan"></span></p>
       <p>商品名: <span class="dialog-name"></span></p>
       <p>在庫数: <span class="dialog-stock"></span></p>
-      <div class="dialog-btn-wrapper">
-        <button type="button" class="cancel-btn btn">
-          キャンセル
-        </button>
-        <button type="submit" class="btn">
-          登録
-        </button>
-      </div>
+      <form action="/stock/e" method="post">
+        <button type="button" class="btn">入庫 +</button>
+        <button type="button" class="btn">出庫 -</button>
+        <div class="dialog-btn-wrapper">
+          <button type="button" class="cancel-btn btn">
+            キャンセル
+          </button>
+          <button type="submit" class="btn">
+            登録
+          </button>
+        </div>
+      </form>
     </dialog>
   </div>
   <script src="/webapp/js/stock.js"></script>

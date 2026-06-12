@@ -142,9 +142,43 @@ table {
   border-collapse: collapse;
 }
 
+thead tr {
+  color: #ffffff;
+}
+
+thead th {
+  padding: 12px;
+  background-color: var(--primary);
+}
+
+thead th:nth-of-type(1) {
+  border-radius: 24px 0 0 24px;
+}
+
+thead th:nth-of-type(4) {
+  border-radius: 0 24px 24px 0;
+}
+
+tbody tr {
+  cursor: pointer;
+}
+
+tbody tr:nth-of-type(2n-1) {
+  color: var(--color-text);
+}
+
 tbody tr:nth-of-type(2n) {
   border-radius: 24px;
   background-color: var(--primary);
+  color: #ffffff;
+}
+
+tbody tr:nth-of-type(2n) td:nth-of-type(1) {
+  border-radius: 24px 0 0 24px;
+}
+
+tbody tr:nth-of-type(2n) td:nth-of-type(4) {
+  border-radius: 0 24px 24px 0;
 }
 
 td {
@@ -154,4 +188,17 @@ td {
 
 td img {
   border-radius: 24px;
+}
+
+dialog {
+  border: none;
+  padding: 24px;
+  border-radius: 24px;
+}
+
+.dialog-btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }

@@ -157,3 +157,32 @@ async function scanBarcode() {
 
   isScanning = false;
 }
+
+// ダイアログ処理
+const stockDialog = document.querySelector('.stock-add-dialog');
+
+const dialogJan = stockDialog.querySelector('.dialog-jan');
+const dialogName = stockDialog.querySelector('.dialog-name');
+const dialogStock = stockDialog.querySelector('.dialog-stock');
+
+document.querySelectorAll('.stock-row').forEach((row) => {
+  row.addEventListener('click', () => {
+    const {
+      jan,
+      name,
+      stock,
+    } = row.dataset;
+
+    dialogJan.textContent = jan;
+    dialogName.textContent = name;
+    dialogStock.textContent = stock;
+
+    stockDialog.showModal();
+  });
+});
+
+document.querySelectorAll('.cancel-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    btn.closest('dialog')?.close();
+  });
+});
