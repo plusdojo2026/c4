@@ -58,15 +58,15 @@
 					</thead>
 					<tbody id="product-table-body">
 						<!-- サーブレット完成次第 -->
-						  <c:forEach var="p" items="${productList}">
-						 <tr>
-							<td><input type="checkbox"></td>
-                <td><img src="${p.imgPath}"></td>
-                <td>${p.jan}</td>
-                <td>${p.name}</td>
+						<c:forEach var="p" items="${productList}">
+							<tr>
+								<td><input type="checkbox"></td>
+								<td><img src="${p.imgPath}"></td>
+								<td>${p.jan}</td>
+								<td>${p.name}</td>
 								<td>${p.term}</td>
-            </tr>
-        </c:forEach> 
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 				<!-- 確認用 -->
@@ -76,7 +76,7 @@
 			</section>
 		</main>
 	</div>
-	
+
 	<!-- 新規追加ポップアップ（確認） -->
 	<dialog class="newcheck">
 		<p>新規商品を追加しますか？</p>
@@ -96,25 +96,25 @@
 			</div>
 			<button type="submit" class="btn regist">登録</button>
 		</form>
-		
+
 	</dialog>
 
 	<!-- 削除確認ポップアップ -->
-	 <dialog class="deletecheck">
+	<dialog class="deletecheck">
 		<p>〇件選択されています。<br>選択商品を削除しますか？</p>
 		<button id="cancel2" class="btn">キャンセル</button>
 		<button id="delete" class="btn">削除する</button>
 	</dialog>
 
 	<!-- 削除結果通知ポップアップ -->
-	 <dialog class="deleteresult">
+	<dialog class="deleteresult">
 		<p>成功:〇件<br>失敗:〇件</p>
 		<p>「JANコード」は在庫があるため削除できませんでした。</p>
 		<button id="cancel3" class="btn">キャンセル</button>
 	</dialog>
 
-<!-- 編集ポップアップ -->
-	 <dialog class="edit">
+	<!-- 編集ポップアップ -->
+	<dialog class="edit">
 		<button id="cancel4" class="btn">閉じる</button>
 		<img src="#" class="product-photo">
 		<form action="#" method="#">

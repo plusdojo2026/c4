@@ -69,6 +69,8 @@
   transform: translate(-50%, -50%);
   width: min(80%, 500px);
   height: 120px;
+  width: min(500px, 85%);
+  height: 140px;
   border: 2px dashed rgba(255, 255, 255, .9);
   border-radius: 24px;
   /* box-shadow: 0 0 0 9999px rgba(0, 0, 0, .35); */
@@ -142,11 +144,30 @@ table {
   border-collapse: collapse;
 }
 
+tbody tr:hover {
+  cursor: pointer;
+}
+
+tbody tr:nth-of-type(2n-1) {
+  color: var(--color-text);
+
+thead tr,
 tbody tr:nth-of-type(2n) {
-  border-radius: 24px;
+  color: #ffffff;
   background-color: var(--primary);
 }
 
+th:nth-of-type(1),
+td:nth-of-type(1) {
+  border-radius: 24px 0 0 24px;
+}
+
+th:nth-of-type(4),
+td:nth-of-type(4) {
+  border-radius: 0 24px 24px 0;
+}
+
+th,
 td {
   padding: 12px;
   text-align: center;
@@ -154,4 +175,17 @@ td {
 
 td img {
   border-radius: 24px;
+}
+
+dialog {
+  border: none;
+  border-radius: 24px;
+  padding: 24px;
+}
+
+.dialog-btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
