@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -9,22 +10,31 @@
 </head>
 
 <body>
-
-	<header>
-
-	</header>
-	<div>
+	<div class="login-reset-page">
+		<div class="login-reset">
 		<h1>パスワード再設定</h1>
 		<form action="/webapp/PasswordResetServlet" id="form" method="POST">
+		
+		<div id="msg">
+    <c:choose>
+        <c:when test="${not empty errorMsg}">
+            <span style="color: red; font-weight: bold;">
+                ${errorMsg}
+            </span>
+        </c:when>
+        <c:otherwise>
+            社員番号と生年月日、新規パスワードを入力してください。
+        </c:otherwise>
+    </c:choose>
+</div>
 
-			<p id="msg">${msg}</p>
-			社員番号と生年月日、新規パスワードを入力してください。<br>
+<div class="wrapper">
 
+    <fieldset class="input-box">
+        <legend>社員番号</legend>
+        <input type="text" name="employeeNumber">
+    </fieldset>
 
-			<fieldset class="input-box">
-				<legend>社員番号</legend>
-				<input type="text" name="employeeNumber">
-			</fieldset>
 
 			<div class="birth-date">
 				生年月日<br>
@@ -217,7 +227,7 @@
 				<legend>新規パスワード</legend>
 				<input type="password" name="newPassword">
 			</fieldset>
-
+			
 			<div class="btn pw-reset-btn">
 				<button type="submit" name="resetBtn" value="再設定">再設定</button>
 				<a href=""></a>
@@ -225,6 +235,7 @@
 
 		</form>
 	</div>
+</div>
 	<footer>
 
 	</footer>

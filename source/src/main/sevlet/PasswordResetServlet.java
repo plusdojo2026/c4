@@ -33,7 +33,7 @@ public class PasswordResetServlet extends HttpServlet {
 		if (result) {
 			response.sendRedirect("/webapp/LoginServlet");
 		} else {
-			request.setAttribute("msg","社員番号または生年月日が間違っています");
+			request.setAttribute("errorMsg","社員番号または生年月日が間違っています");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");
 		dispatcher.forward(request, response);
