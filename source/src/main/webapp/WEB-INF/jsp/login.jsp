@@ -18,16 +18,18 @@
 			<h1>ログイン</h1>
 			<form id="form" method="post" action="/c4/LoginServlet">
 
-				<p id="msg">
+				<div id="msg">
 					<c:choose>
-						<c:when test="${not empty errorMsg}">
+					<c:when test="${not empty errorMsg}">
+						<span style="color: red; font-weight: bold;">						
 							${errorMsg}<!--サーバー側のエラー(DBの不一致等)があればそれを表示-->
+						</span>
 						</c:when>
 						<c:otherwise>
 							社員番号とパスワードを入力してください。<!--初期表示-->
 						</c:otherwise>
 					</c:choose>
-				</p>
+				</div>
 				<div class="wrapper">
 					<fieldset class="input-box">
 						<legend>社員番号</legend>
