@@ -176,6 +176,6 @@ cameraButton.addEventListener('click', () => {
   } else {
     startCamera();
   }
-});
+  });
 
 });
