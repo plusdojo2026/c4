@@ -9,11 +9,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/PasswordResetServlet")
+@WebServlet("/ProductAddServlet")
 public class ProductAddServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/product.jsp");
-		dispatcher.forward(request, response);
+		
+		String jan = request.getParameter("jan");
+		String name = request.getParameter("productname");
+		String term = request.getParameter("term");
+		
+		//確認用		
+		request.setAttribute("jan", jan);
+		request.setAttribute("name", name);
+		request.setAttribute("term", term);
+		
+		RequestDispatcher dispatcher =
+	            request.getRequestDispatcher("/WEB-INF/jsp/product.jsp");
+	        dispatcher.forward(request, response);
+	}
+}
+	

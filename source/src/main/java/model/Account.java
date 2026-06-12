@@ -28,6 +28,16 @@ public class Account implements Serializable {
         this.password = password;
         this.permissionsId = permissionsId;
     }
+    
+ // 引数3つのコンストラクタ
+    public Account(int id, String name, int permissionsId) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.permissionsId = permissionsId;
+        this.birthday = "";
+        this.password = null;
+    }
 
     public Account() {
         super();

@@ -58,20 +58,24 @@
 					</thead>
 					<tbody id="product-table-body">
 						<!-- サーブレット完成次第 -->
-						 <!-- <c:forEach var="p" items="${productList}"></c:forEach>
-						 <tr>
-							<td><input type="checkbox"></td>
-                <td><img src="${p.imgPath}"></td>
-                <td>${p.jan}</td>
-                <td>${p.pname}</td>
-            </tr>
-        </c:forEach> -->
+						  <!-- <c:forEach var="p" items="${productList}"> 
+						 		<tr>
+									<td><input type="checkbox"></td>
+                	<td><img src="${p.imgPath}"></td>
+                	<td>${p.jan}</td>
+                	<td>${p.name}</td>
+									<td>${p.term}</td>
+            		</tr>
+        			</c:forEach> -->
 					</tbody>
 				</table>
 			</section>
 		</main>
 	</div>
-	
+				<!-- 確認用 -->
+				<p>JAN: ${jan}</p> 
+				<p>商品名: ${name}</p>
+				<p>期間: ${term}</p>
 	<!-- 新規追加ポップアップ（確認） -->
 	<dialog class="newcheck">
 		<p>新規商品を追加しますか？</p>
@@ -83,14 +87,14 @@
 	<dialog class="newmodal">
 		<button id="cancel" class="btn">閉じる</button>
 		<img src="/webapp/ProductAddServlet" class="product-photo">
-		<form action="product" method="post">
+		<form action="/ProductAddServlet" method="post">
 			<div class="newform">
-				<input type="text" id="JAN" name="JAN" placeholder="JANを入力" required>
+				<input type="text" id="JAN" name="jan" placeholder="JANを入力" required>
 				<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
 				<input type="text" id="term" name="term" placeholder="期間を入力" required>
 			</div>
+			<button type="submit" class="btn regist">登録</button>
 		</form>
-		<button type="submit" class="btn regist">登録</button>
 	</dialog>
 
 	<!-- 削除確認ポップアップ -->
@@ -111,15 +115,13 @@
 	 <dialog class="edit">
 		<button id="cancel4" class="btn">閉じる</button>
 		<img src="#" class="product-photo">
-		<form action="#" method="#">
-			<div class="newform">
+		<form action="/c4/source/src/main/java/servlet/ProductEditServlet.java" method="post">
 				<input type="text" id="JAN" name="JAN" placeholder="JANを入力" required>
 				<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
 				<input type="text" id="term" name="term" placeholder="期間を入力" required>
-			</div>
-		</form>
-		<button class="btn edit">保存</button>
+			<button class="btn edit">保存</button>
 		<button id="delete-check2" class="btn delete">削除</button>
+		</form>
 	</dialog>
 
 

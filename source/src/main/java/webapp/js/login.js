@@ -4,7 +4,7 @@ form.onsubmit = function (event) {
 
   console.log('test');
 
-  // 2. スタイル（塗りつぶし）を変更するために、入力欄の「要素そのもの」を取得
+  // スタイル（塗りつぶし）を変更するために、入力欄の「要素そのもの」を取得
   let employeeNumberInput = document.getElementById('employeeNumber');
   let passwordInput = document.getElementById('password');
   let msgElement = document.getElementById('msg');
