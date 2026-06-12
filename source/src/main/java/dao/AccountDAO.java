@@ -22,7 +22,7 @@ public class AccountDAO {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(URL, USER, PASS);
 
-            String sql = "SELECT id, name, birthday, password, permissions_id FROM accounts WHERE id = ? AND password = ?";
+            String sql = "SELECT id, name, permissions_id FROM accounts WHERE id = ? AND password = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setInt(1, id);
             pStmt.setString(2, password);
@@ -33,8 +33,6 @@ public class AccountDAO {
                 account = new Account(
                     rs.getInt("id"),
                     rs.getString("name"),
-                    rs.getString("birthday"),
-                    rs.getString("password"),
                     rs.getInt("permissions_id")
                 );
             }
