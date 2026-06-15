@@ -37,6 +37,12 @@ const dialog4 = document.querySelector(".deleteresult");
 // 削除記号押す　→　dialog3開く
 const showButton3 = document.querySelector("#delete-check");
 showButton3.addEventListener("click", () => {
+// 削除件数表示
+const checked = querySelectorAll(".edit-check:checked").length;
+
+document.querySelector(".deletecheck p").innerHTML =
+    `${checked} 件選択されています。<br>選択商品を削除しますか？`;
+
   dialog3.showModal();
 });
 

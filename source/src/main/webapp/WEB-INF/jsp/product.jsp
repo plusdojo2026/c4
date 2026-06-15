@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -6,9 +7,9 @@
 	<meta charset="UTF-8">
 	<title>商品一覧</title>
 	<!-- /webappつける -->
-	<link rel="stylesheet" href="/webapp/css/common.css">
-	<link rel="stylesheet" href="/webapp/css/stock.css">
-	<link rel="stylesheet" href="/webapp/css/product.css">
+	<link rel="stylesheet" href="/c4/css/common.css">
+	<link rel="stylesheet" href="/c4/css/stock.css">
+	<link rel="stylesheet" href="/c4/css/product.css">
 
 </head>
 
@@ -169,7 +170,7 @@
 	</dialog>
 
 
-	<script src="/webapp/js/product.js"></script>
+	<script src="/c4/js/product.js"></script>
 	</div>
 </body>
 
