@@ -10,6 +10,8 @@
 </head>
 
 <body>
+		 <%-- ヘッダーの読み込み --%>
+	<%@ include file="header.jsp"%>
 	<div class="login-reset-page">
 		<div class="login-reset">
 		<h1>パスワード再設定</h1>
