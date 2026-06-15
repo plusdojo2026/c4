@@ -13,14 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import dao.ProductDAO;
 import model.Product;
 
-@WebServlet("/ProductServlet")
+@WebServlet("/product")
 public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 
-        // ① DAO から商品一覧を取得（DAO完成次第）
+        // ① DAO から商品一覧を取得
         ProductDAO dao = new ProductDAO();
         List<Product> productList = dao.selectAll();
 

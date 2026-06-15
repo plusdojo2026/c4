@@ -65,7 +65,7 @@ public class ProductAddServlet extends HttpServlet {
         dao.insert(p);
         
         //一覧へ
-        response.sendRedirect("/c4/ProductServlet");
+        response.sendRedirect("/c4/Product");
 		
 	}
 }
