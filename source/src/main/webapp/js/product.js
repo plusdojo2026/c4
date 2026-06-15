@@ -34,11 +34,11 @@ const dialog3 = document.querySelector(".deletecheck");
 // 削除結果通知ポップアップ
 const dialog4 = document.querySelector(".deleteresult");
 
-// 削除記号押す　→　dialog3開く
+// 削除記号押す　→　dialog3（削除確認）開く
 const showButton3 = document.querySelector("#delete-check");
 showButton3.addEventListener("click", () => {
 // 削除件数表示
-const checked = querySelectorAll(".edit-check:checked").length;
+const checked = document.querySelectorAll(".edit-check:checked").length;
 
 document.querySelector(".deletecheck p").innerHTML =
     `${checked} 件選択されています。<br>選択商品を削除しますか？`;
@@ -52,7 +52,7 @@ closeButton3.addEventListener("click", () => {
   dialog3.close();
 });
 
-// dialog4 の「キャンセル」
+// dialog4（削除結果通知） の「キャンセル」
 const closeButton4 = document.querySelector("#cancel3");
 closeButton4.addEventListener("click", () => {
   dialog4.close();
@@ -62,7 +62,7 @@ closeButton4.addEventListener("click", () => {
 const deleteForm = document.querySelector("#delete-form");
 const deleteIdsInput = document.querySelector("#delete-ids");
 
-// dialog3 の「削除する」ボタンに本物の削除処理を追加
+// dialog3 の「削除する」ボタンに削除処理を追加
 document.querySelector("#delete").addEventListener("click", () => {
 
   // チェックされた項目を取得
