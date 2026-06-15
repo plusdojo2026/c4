@@ -141,9 +141,15 @@
       <p>JAN: <span class="dialog-jan"></span></p>
       <p>商品名: <span class="dialog-name"></span></p>
       <p>在庫数: <span class="dialog-stock"></span></p>
-      <form action="/stock/e" method="post">
-        <button type="button" class="btn">入庫 +</button>
-        <button type="button" class="btn">出庫 -</button>
+      <form id="stock-form" action="" method="post">
+        <input type="hidden" value="0" name="change-quantity">
+        <div class="">
+          <div class="">
+            <button type="button" class="btn increment-btn">入庫 +</button>
+            <button type="button" class="btn decrement-btn">出庫 -</button>
+          </div>
+          <p class="change-quantity">変更数量: 0</p>
+        </div>
         <div class="dialog-btn-wrapper">
           <button type="button" class="cancel-btn btn">
             キャンセル

@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://unpkg.com/@zxing/library@latest"></script>
-  <link rel="stylesheet" href="/webapp/css/common.css">
-  <link rel="stylesheet" href="/webapp/css/stock.css">
+  <link rel="stylesheet" href="/c4/css/common.css">
+  <link rel="stylesheet" href="/c4/css/stock.css">
 
   <title>サカグラ | 在庫一覧</title>
 </head>
@@ -32,95 +32,29 @@
         </div>
         <div class="button-wrapper">
           <button id="camera-button">
-            <img id="camera-on" class="active" src="/webapp/img/videocam_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+            <img id="camera-on" class="active" src="/c4/img/videocam_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
               alt="カメラON">
-            <img id="camera-off" class="" src="/webapp/img/videocam_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+            <img id="camera-off" class="" src="/c4/img/videocam_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
               alt="カメラOFF">
           </button>
         </div>
         <table>
           <thead>
             <tr>
-              <th>商品画像</th>
               <th>JANコード</th>
-              <th>商品名</th>
               <th>在庫数</th>
             </tr>
           </thead>
           <tbody id="stock-table-body">
-            <c:forEach var="s" items="${stocks}">
+            <c:forEach var="s" items="${stockList}">
               <tr
                 class="stock-row"
-                data-jan="${item.jan}"
-                data-name="${item.name}"
-                data-stock="${item.stock}">
-                <td>
-                  <img src="${s.imgPath}" alt="${s.name}" width="128" height="128" draggable="false">
-                </td>
-                <td>${s.jan}</td>
-                <td>${s.name}</td>
-                <td>${s.stock}</td>
+                data-jan="${s.jancode}"
+                data-stock-quantity="${s.stockQuantity}">
+                <td>${s.jancode}</td>
+                <td>${s.stockQuantity}</td>
               </tr>
             </c:forEach>
-            <script>
-              'use strict';
-
-              const sampleData = [
-                {
-                  jan: '4901234567890',
-                  name: 'アサヒ スーパードライ',
-                  imageId: 11,
-                  stock: 101,
-                },
-                {
-                  jan: '4901234567891',
-                  name: 'キリン 一番搾り',
-                  imageId: 22,
-                  stock: 102,
-                },
-                {
-                  jan: '4901234567892',
-                  name: 'サッポロ 黒ラベル',
-                  imageId: 33,
-                  stock: 103,
-                },
-                {
-                  jan: '4901234567893',
-                  name: 'プレミアムモルツ',
-                  imageId: 44,
-                  stock: 104,
-                },
-                {
-                  jan: '4901234567894',
-                  name: 'ヱビスビール',
-                  imageId: 55,
-                  stock: 105,
-                }
-              ];
-
-              const tbody = document.getElementById('stock-table-body');
-
-              tbody.innerHTML = sampleData.map((item) => `
-                <tr
-                  class="stock-row"
-                  data-jan="${item.jan}"
-                  data-name="${item.name}"
-                  data-stock="${item.stock}">
-                  <td>
-                    <img
-                      src="https://picsum.photos/id/${item.imageId}/80/80"
-                      alt="${item.name}"
-                      width="128"
-                      height="128"
-                      draggable="false"
-                    >
-                  </td>
-                  <td>${item.jan}</td>
-                  <td>${item.name}</td>
-                  <td>${item.stock}</td>
-                </tr>
-              `).join('');
-            </script>
           </tbody>
         </table>
       </section>
@@ -139,23 +73,29 @@
     </dialog>
     <dialog class="stock-add-dialog">
       <p>JAN: <span class="dialog-jan"></span></p>
-      <p>商品名: <span class="dialog-name"></span></p>
       <p>在庫数: <span class="dialog-stock"></span></p>
-      <form action="" method="post">
-        <button type="button" class="btn">入庫 +</button>
-        <button type="button" class="btn">出庫 -</button>
+      <form id="stock-form" action="/stock/edit" method="post">
+        <input class="jancode" type="hidden" name="jancode" value="">
+        <input class="new-quantity" type="hidden" name="newQuantity" value="">
+        <div class="">
+          <label>在庫変更数: <input class="change-quantity" type="number" name="changeQuantity" value="0"></label>
+          <div class="">
+            <button type="button" class="btn increment-btn">入庫 +</button>
+            <button type="button" class="btn decrement-btn">出庫 -</button>
+          </div>
+        </div>
         <div class="dialog-btn-wrapper">
           <button type="button" class="cancel-btn btn">
             キャンセル
           </button>
           <button type="submit" class="btn">
-            登録
+            更新
           </button>
         </div>
       </form>
     </dialog>
   </div>
-  <script src="/webapp/js/stock.js"></script>
+  <script src="/c4/js/stock.js"></script>
 </body>
 
 </html>
