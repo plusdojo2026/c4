@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,18 +11,13 @@ import java.util.List;
 import model.Stock;
 
 public class StockDAO {
-    private static final String URL = "jdbc:mysql://localhost:3306/c4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true";
-    private static final String USER = "root";
-    private static final String PASS = "password";
-
     // 全ての在庫情報を取得します。
     public List<Stock> selectAll() {
         Connection conn = null;
         List<Stock> stockList = new ArrayList<>();
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
 
             String sql = "SELECT id, jancode, stock_quantity, created_at, updated_at, stores FROM stocks ORDER BY id DESC";
             PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -40,7 +34,7 @@ public class StockDAO {
                 );
                 stockList.add(stock);
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {
@@ -55,8 +49,7 @@ public class StockDAO {
         Connection conn = null;
         boolean result = false;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
             String sql = "INSERT INTO stocks (jancode, stock_quantity, stores) VALUES (?, ?, ?)";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, stock.getJancode());
@@ -64,7 +57,7 @@ public class StockDAO {
             pStmt.setInt(3, stock.getStores());
 
             if (pStmt.executeUpdate() == 1) { result = true; }
-        } catch (SQLException | ClassNotFoundException e) { e.printStackTrace();
+        } catch (SQLException e) { e.printStackTrace();
         } finally {
             if (conn != null) { try { conn.close(); } catch (SQLException e) { e.printStackTrace(); } }
         }
@@ -76,15 +69,14 @@ public class StockDAO {
         Connection conn = null;
         boolean result = false;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
             String sql = "UPDATE stocks SET stock_quantity = ? WHERE jancode = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setInt(1, newQuantity);
             pStmt.setString(2, janCode);
 
             if (pStmt.executeUpdate() == 1) { result = true; }
-        } catch (SQLException | ClassNotFoundException e) { e.printStackTrace();
+        } catch (SQLException e) { e.printStackTrace();
         } finally {
             if (conn != null) { try { conn.close(); } catch (SQLException e) { e.printStackTrace(); } }
         }

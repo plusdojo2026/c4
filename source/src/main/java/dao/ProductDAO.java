@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,18 +11,13 @@ import java.util.List;
 import model.Product;
 
 public class ProductDAO {
-    private static final String URL = "jdbc:mysql://localhost:3306/c4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true";
-    private static final String USER = "root";
-    private static final String PASS = "password";
-
     // 登録されている全商品の一覧を取得します。
     public List<Product> selectAll() {
         Connection conn = null;
         List<Product> productList = new ArrayList<>();
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
 
             String sql = "SELECT jan_code, product_name, base_product_id, case_quantity, photo_path, duration_days, created_at, updated_at FROM products ORDER BY jan_code ASC";
             PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -42,7 +36,7 @@ public class ProductDAO {
                 );
                 productList.add(product);
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {
@@ -57,8 +51,7 @@ public class ProductDAO {
         Connection conn = null;
         boolean result = false;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
             String sql = "INSERT INTO products (jan_code, product_name, base_product_id, case_quantity, photo_path, duration_days) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, product.getJanCode());
@@ -69,7 +62,7 @@ public class ProductDAO {
             pStmt.setInt(6, product.getDurationDays());
 
             if (pStmt.executeUpdate() == 1) { result = true; }
-        } catch (SQLException | ClassNotFoundException e) { e.printStackTrace();
+        } catch (SQLException e) { e.printStackTrace();
         } finally {
             if (conn != null) { try { conn.close(); } catch (SQLException e) { e.printStackTrace(); } }
         }
@@ -81,8 +74,7 @@ public class ProductDAO {
         Connection conn = null;
         boolean result = false;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
             String sql = "UPDATE products SET product_name = ?, base_product_id = ?, case_quantity = ?, photo_path = ?, duration_days = ? WHERE jan_code = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, product.getProductName());
@@ -93,7 +85,7 @@ public class ProductDAO {
             pStmt.setString(6, product.getJanCode());
 
             if (pStmt.executeUpdate() == 1) { result = true; }
-        } catch (SQLException | ClassNotFoundException e) { e.printStackTrace();
+        } catch (SQLException e) { e.printStackTrace();
         } finally {
             if (conn != null) { try { conn.close(); } catch (SQLException e) { e.printStackTrace(); } }
         }
@@ -105,13 +97,12 @@ public class ProductDAO {
         Connection conn = null;
         boolean result = false;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
             String sql = "DELETE FROM products WHERE jan_code = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             pStmt.setString(1, janCode);
             if (pStmt.executeUpdate() == 1) { result = true; }
-        } catch (SQLException | ClassNotFoundException e) { e.printStackTrace();
+        } catch (SQLException e) { e.printStackTrace();
         } finally {
             if (conn != null) { try { conn.close(); } catch (SQLException e) { e.printStackTrace(); } }
         }

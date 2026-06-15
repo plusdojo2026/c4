@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,18 +8,13 @@ import java.sql.SQLException;
 import model.Account;
 
 public class AccountDAO {
-    private static final String URL = "jdbc:mysql://localhost:3306/c4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true";
-    private static final String USER = "root";
-    private static final String PASS = "password";
-
     // ログインチェック (社員番号とパスワードで検索)
     public Account loginCheck(int id, String password) {
         Connection conn = null;
         Account account = null;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
 
             String sql = "SELECT id, name, permissions_id FROM accounts WHERE id = ? AND password = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -36,7 +30,7 @@ public class AccountDAO {
                     rs.getInt("permissions_id")
                 );
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {
@@ -52,8 +46,7 @@ public class AccountDAO {
         boolean result = false;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
 
             String sql = "INSERT INTO accounts (name, birthday, password, permissions_id) VALUES (?, ?, ?, ?)";
             PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -65,7 +58,7 @@ public class AccountDAO {
             if (pStmt.executeUpdate() == 1) {
                 result = true;
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {
@@ -81,8 +74,7 @@ public class AccountDAO {
         boolean result = false;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
 
             String sql = "UPDATE accounts SET password = ? WHERE id = ? AND birthday = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -93,7 +85,7 @@ public class AccountDAO {
             if (pStmt.executeUpdate() == 1) {
                 result = true;
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {

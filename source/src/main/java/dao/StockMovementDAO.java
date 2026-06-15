@@ -1,7 +1,6 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
@@ -9,18 +8,13 @@ import java.util.List;
 import model.StockMovement;
 
 public class StockMovementDAO {
-    private static final String URL = "jdbc:mysql://localhost:3306/c4?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true";
-    private static final String USER = "root";
-    private static final String PASS = "password";
-
     // 指定された日付が「通知日（notify_at）」に設定されている入出庫履歴を検索して取得します。
     public List<StockMovement> selectByNotifyDate(java.time.LocalDate targetDate) {
         Connection conn = null;
         List<StockMovement> movementList = new java.util.ArrayList<>();
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
 
             String sql = "SELECT jancode, stock_id, reason, quantity, received_at, notify_at FROM stock_movements WHERE notify_at = ?";
             PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -39,7 +33,7 @@ public class StockMovementDAO {
                 );
                 movementList.add(movement);
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {
@@ -55,8 +49,7 @@ public class StockMovementDAO {
         boolean result = false;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(URL, USER, PASS);
+            conn = DBConnection.getConnection();
 
             String sql = "INSERT INTO stock_movements (jancode, stock_id, reason, quantity, received_at, notify_at) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -70,7 +63,7 @@ public class StockMovementDAO {
             if (pStmt.executeUpdate() == 1) {
                 result = true;
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {
