@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.AccountDAO;
 
-@WebServlet("/PasswordResetServlet")
+@WebServlet("/PasswordReset")
 public class PasswordResetServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
