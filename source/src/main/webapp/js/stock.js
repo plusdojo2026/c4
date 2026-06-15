@@ -162,20 +162,27 @@ async function scanBarcode() {
 const stockDialog = document.querySelector('.stock-add-dialog');
 
 const dialogJan = stockDialog.querySelector('.dialog-jan');
-const dialogName = stockDialog.querySelector('.dialog-name');
 const dialogStock = stockDialog.querySelector('.dialog-stock');
+
+let changeQuantity;
+let currentStock;
+let currentJancode;
 
 document.querySelectorAll('.stock-row').forEach((row) => {
   row.addEventListener('click', () => {
     const {
       jan,
-      name,
-      stock,
+      stockQuantity,
     } = row.dataset;
 
+    currentJancode = jan;
+    currentStock = Number(stockQuantity);
+    changeQuantity = 0;
+
     dialogJan.textContent = jan;
-    dialogName.textContent = name;
-    dialogStock.textContent = stock;
+    dialogStock.textContent = stockQuantity;
+
+    updateDisplay();
 
     stockDialog.showModal();
   });
@@ -185,4 +192,26 @@ document.querySelectorAll('.cancel-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
     btn.closest('dialog')?.close();
   });
+});
+
+const incrementBtn = document.querySelector(".increment-btn");
+const decrementBtn = document.querySelector(".decrement-btn");
+const janCode = document.querySelector(".jancode");
+const changeQuantityEl = document.querySelector(".change-quantity");
+const newQuantityEl = document.querySelector(".new-quantity");
+
+function updateDisplay() {
+  janCode.value = currentJancode;
+  changeQuantityEl.value = changeQuantity;
+  newQuantityEl.value = currentStock + changeQuantity;
+}
+
+incrementBtn.addEventListener("click", () => {
+  changeQuantity++;
+  updateDisplay();
+});
+
+decrementBtn.addEventListener("click", () => {
+  changeQuantity--;
+  updateDisplay();
 });
