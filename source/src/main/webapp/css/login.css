@@ -33,7 +33,7 @@
 }
 
 /* フォーム内を中央に寄せる */
-form {
+#login-form {
   width: 100%;
   display: flex;
   flex-direction: column;
