@@ -17,4 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
       accountModal.classList.add('hidden');
     }
   });
+
+  // 現在のURLのパスを取得
+  const currentPath = window.location.pathname;
+
+  // すべてのサイドバーのリンク処理
+  const sidebarLinks = document.querySelectorAll('a.sidebar-item');
+  sidebarLinks.forEach(link => {
+    // リンクのhref属性の値が、現在のURLに含まれているかチェック
+    if (currentPath.includes(link.getAttribute('href'))) {
+      link.classList.add('active');
+    }
+  });
 });

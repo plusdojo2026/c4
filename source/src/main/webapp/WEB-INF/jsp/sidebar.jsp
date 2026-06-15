@@ -6,15 +6,15 @@
   <aside class="global-sidebar">
     <div class="sidebar-top">
 
-      <div class="sidebar-item" title="商品管理">
+      <a href="/c4/product" class="sidebar-item" title="商品管理">
         <img src="/c4/img/package_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" class="sidebar-icon" alt="商品管理">
         <span class="sidebar-label">商品管理</span>
-      </div>
+      </a>
 
-      <div class="sidebar-item" title="在庫管理">
+      <a href="/c4/inventory" class="sidebar-item" title="在庫管理">
         <img src="/c4/img/package_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" class="sidebar-icon" alt="在庫管理">
         <span class="sidebar-label">在庫管理</span>
-      </div>
+      </a>
     </div>
 
     <div class="sidebar-bottom">
