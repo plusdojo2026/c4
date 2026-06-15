@@ -11,7 +11,7 @@
 
 <body>
 	<div class="login-reset-page">
-		<div class="login-reset"></div>
+		<div class="login-reset">
 		<h1>パスワード再設定</h1>
 		<form action="/c4/PasswordResetServlet" id="form" method="POST">
 
@@ -25,9 +25,8 @@
 			</fieldset>
 
 			<div class="birthday">
-				生年月日<br>
 				<!-- <input type="date" name="dateOfBirth"> -->
-				<select name="year" required="required" style="width: 100px; height:30px;">
+				<select name="year" required="required" >
 					<option value="1900">1900</option>
 					<option value="1901">1901</option>
 					<option value="1902">1902</option>
@@ -156,9 +155,9 @@
 					<option value="2025">2025</option>
 					<option value="2026">2026</option>
 
-				</select>年
+				</select>
 
-				<select name="month" required="required" style="width: 100px; height:30px;">
+				<select name="month" required="required" >
 					<option value="1" selected>1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -172,9 +171,9 @@
 					<option value="11">11</option>
 					<option value="12">12</option>
 
-				</select>月
+				</select>
 
-				<select name="day" required="required" style="width: 100px; height:30px;">
+				<select name="day" required="required">
 					<option value="1" selected>1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -207,7 +206,7 @@
 					<option value="30">30</option>
 					<option value="31">31</option>
 
-				</select>日
+				</select>
 
 			</div>
 
@@ -223,6 +222,7 @@
 
 		</form>
 	</div>
+</div>
 	<footer>
 
 	</footer>
