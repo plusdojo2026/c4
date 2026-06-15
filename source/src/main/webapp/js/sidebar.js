@@ -29,4 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
       link.classList.add('active');
     }
   });
+
+  const logoutBtn = document.querySelector('.modal-logout-btn');
+
+  // クリックされたときの処理
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      window.location.href = '/c4/logout';
+    });
+  }
 });
