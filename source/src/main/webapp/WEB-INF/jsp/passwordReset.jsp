@@ -6,37 +6,25 @@
 <head>
 	<meta charset="UTF-8">
 	<title>サカグラ｜パスワード再設定</title>
-	<link rel="stylesheet" href="/webapp/css/login.css">
+	<link rel="stylesheet" href="/c4/css/login.css">
 </head>
 
 <body>
 	<div class="login-reset-page">
-		<div class="login-reset">
+		<div class="login-reset"></div>
 		<h1>パスワード再設定</h1>
-		<form action="/webapp/PasswordResetServlet" id="form" method="POST">
-		
-		<div id="msg">
-    <c:choose>
-        <c:when test="${not empty errorMsg}">
-            <span style="color: red; font-weight: bold;">
-                ${errorMsg}
-            </span>
-        </c:when>
-        <c:otherwise>
-            社員番号と生年月日、新規パスワードを入力してください。
-        </c:otherwise>
-    </c:choose>
-</div>
+		<form action="/c4/PasswordResetServlet" id="form" method="POST">
 
-<div class="wrapper">
-
-    <fieldset class="input-box">
-        <legend>社員番号</legend>
-        <input type="text" name="employeeNumber">
-    </fieldset>
+			<p id="msg">${errorMsg}</p>
+			社員番号と生年月日、新規パスワードを入力してください。<br>
 
 
-			<div class="birth-date">
+			<fieldset class="input-box">
+				<legend>社員番号</legend>
+				<input type="text" name="employeeNumber" required>
+			</fieldset>
+
+			<div class="birthday">
 				生年月日<br>
 				<!-- <input type="date" name="dateOfBirth"> -->
 				<select name="year" required="required" style="width: 100px; height:30px;">
@@ -225,9 +213,9 @@
 
 			<fieldset class="input-box">
 				<legend>新規パスワード</legend>
-				<input type="password" name="newPassword">
+				<input type="password" name="newPassword" required>
 			</fieldset>
-			
+
 			<div class="btn pw-reset-btn">
 				<button type="submit" name="resetBtn" value="再設定">再設定</button>
 				<a href=""></a>
@@ -235,7 +223,6 @@
 
 		</form>
 	</div>
-</div>
 	<footer>
 
 	</footer>

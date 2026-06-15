@@ -9,11 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.AccountDAO;
+
 @WebServlet("/PasswordResetServlet")
 public class PasswordResetServlet extends HttpServlet {
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");
+        dispatcher.forward(request, response);
+    }
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 
@@ -22,21 +30,66 @@ public class PasswordResetServlet extends HttpServlet {
 		String month = request.getParameter("month");
 		String day = request.getParameter("day");
 		String newPassword = request.getParameter("newPassword");
+		
+		 if (employeeNumber == null || employeeNumber.isEmpty()) {
+        request.setAttribute("errorMsg", "社員番号を入力してください");
+
+        RequestDispatcher dispatcher =
+                request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");
+        dispatcher.forward(request, response);
+        return;
+    }
 
 		System.out.println("社員番号 : " + employeeNumber);
 		System.out.println("生年月日 : " + year + "/" + month + "/" + day);
 		System.out.println("新規パスワード : " + newPassword);
 
 		// 仮の判定(あとでDAOの結果に置き換える)
-		boolean result = true;
+		boolean result = false;
 
-		if (result) {
-			response.sendRedirect("/webapp/LoginServlet");
-		} else {
-			request.setAttribute("errorMsg","社員番号または生年月日が間違っています");
+		try {
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");
-		dispatcher.forward(request, response);
-		}
+            int id = Integer.parseInt(employeeNumber);
+
+            // birthdayカラムが DATE型(例: 2000-01-15)の場合
+            String birthday = year + "-" + month + "-" + day;
+
+            AccountDAO dao = new AccountDAO();
+
+            result = dao.updatePassword(
+                    id,
+                    birthday,
+                    newPassword);
+
+        } catch (NumberFormatException e) {
+
+            request.setAttribute(
+                    "errorMsg",
+                    "社員番号は数字で入力してください");
+
+            RequestDispatcher dispatcher =
+                    request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
+        if (result) {
+
+            response.sendRedirect(
+                    request.getContextPath() + "/LoginServlet");
+
+        } else {
+
+            request.setAttribute(
+                    "errorMsg",
+                    "社員番号または生年月日が間違っています");
+
+            RequestDispatcher dispatcher =
+                    request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");
+
+            dispatcher.forward(request, response);
+        }
+
+		
 	}
 }

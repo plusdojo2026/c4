@@ -85,13 +85,13 @@ input {
 
 }
 
-.birth-date {
+.birthday {
   width: 100%;
   display: flex;
   margin: 9px;
 }
 
-.birth-date select {
+.birthday select {
   flex: 1;
 }
 
