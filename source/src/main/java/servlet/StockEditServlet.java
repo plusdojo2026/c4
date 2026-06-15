@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.StockDAO;
 
 
-@WebServlet("/product/edit")
+@WebServlet("/stock/edit")
 public class StockEditServlet extends HttpServlet {
 
     @Override
@@ -24,7 +24,7 @@ public class StockEditServlet extends HttpServlet {
         StockDAO dao = new StockDAO();
         dao.updateQuantity(jancode, newQuantity);
 
-        response.sendRedirect("/stock");
+        response.sendRedirect(request.getContextPath() + "/stock");
     }
 }
 

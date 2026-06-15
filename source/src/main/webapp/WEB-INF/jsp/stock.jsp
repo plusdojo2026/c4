@@ -74,7 +74,7 @@
     <dialog class="stock-add-dialog">
       <p>JAN: <span class="dialog-jan"></span></p>
       <p>在庫数: <span class="dialog-stock"></span></p>
-      <form id="stock-form" action="/stock/edit" method="post">
+      <form id="stock-form" action="${pageContext.request.contextPath}/stock/edit" method="post">
         <input class="jancode" type="hidden" name="jancode" value="">
         <input class="new-quantity" type="hidden" name="newQuantity" value="">
         <div class="">
