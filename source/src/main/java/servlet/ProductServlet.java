@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.ProductDAO;
 import model.Product;
 
-@WebServlet("/product")
+@WebServlet("/ProductServlet")
 public class ProductServlet extends HttpServlet {
 
     @Override

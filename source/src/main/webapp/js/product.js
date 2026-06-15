@@ -27,7 +27,17 @@ document.addEventListener("DOMContentLoaded", () => {
     dialog1.close();
     dialog2.showModal();
   });
+  // 画像追加
+  document.getElementById("add-photo").addEventListener("change" , function(e){
+    const file = e.target.files[0];
+    if(!file)return;
 
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        document.getElementById("preview").src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  })
 	
 // 削除確認ポップアップ
 const dialog3 = document.querySelector(".deletecheck");

@@ -65,7 +65,7 @@
 					</thead>
 					<tbody id="product-table-body">
 						<!-- サーブレット完成次第 -->
-						  <!-- <c:forEach var="p" items="${productList}"> 
+						   <c:forEach var="p" items="${productList}"> 
 						 		<tr
 									 	data-base-product-id="${p.baseProductId}"
     								data-case-quantity="${p.caseQuantity}"
@@ -76,7 +76,7 @@
                 	<td class="td-name">${p.productName}</td>
 									<td class="td-term">${p.durationDays}</td>
             		</tr>
-        			</c:forEach> -->
+        			</c:forEach>
 					</tbody>
 				</table>
 			</section>
@@ -84,11 +84,7 @@
 	</div>
 
 
-				<!-- 確認用 -->
-				<p>JAN: ${jan}</p> 
-				<p>商品名: ${name}</p>
-				<p>期間: ${term}</p>
-
+				
 
 	<!-- 新規追加ポップアップ（確認） -->
 	<dialog class="newcheck">
@@ -101,12 +97,13 @@
 	<!-- 新規追加モーダル -->
 	<dialog class="newmodal">
 		<button id="cancel" class="btn">閉じる</button>
-		<img src="#" class="product-photo">
-		<form action="/ProductAddServlet" method="post">
+		<img src="#" class="product-photo" id="preview">
+		<form action="/c4/ProductAddServlet" method="post" enctype="multipart/form-data">
 			<div class="newform">
-				<input type="text" id="JAN" name="jan" placeholder="JANを入力" required>
+				<input type="file" id="add-photo" name="add-photo" accept="image/*">
+				<input type="number" id="JAN" name="jan" placeholder="JANを入力" required>
 				<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
-				<input type="text" id="term" name="term" placeholder="期間を入力" required>
+				<input type="number" id="term" name="term" placeholder="期間を入力" required>
 			</div>
 			<button type="submit" class="btn regist">登録</button>
 		</form>
