@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Notification implements Serializable {
     private int id; // ID
@@ -9,6 +10,15 @@ public class Notification implements Serializable {
     private LocalDateTime createdAt; // 作成日
     private int isRead; // 既読フラグ (0: 未読)
     private int isDeleted; // 削除フラグ (0: 未削除)
+
+    // JSP表示用にフォーマットされた日時を返すメソッド
+    public String getFormattedCreatedAt() {
+        if (this.createdAt == null) {
+            return "";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+        return this.createdAt.format(formatter);
+    }
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
