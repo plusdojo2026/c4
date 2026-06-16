@@ -2,7 +2,8 @@
 
 .wrapper {
   display: flex;
-  height: calc(100vh - 60px);
+  height:   100dvh;
+  padding-top: 60px;
 }
 
 .wrapper>aside {
@@ -10,7 +11,7 @@
   top: 60px;
   left: 0;
   width: 80px;
-  height: calc(100vh - 60px);
+  height: calc(100dvh - 60px);
   z-index: 10;
 }
 
