@@ -65,6 +65,7 @@ const {
 } = ZXing;
 
 const frame = document.querySelector('.barcode-frame');
+const searchInput = document.getElementById('search-input');
 
 let scanInterval = null;
 let isScanning = false;
@@ -147,6 +148,9 @@ async function scanBarcode() {
     lastJan = jan;
 
     console.log('JAN:', jan);
+
+    searchInput.innerText = jan;
+    searchInput.value = jan;
 
     setTimeout(() => {
       lastJan = '';

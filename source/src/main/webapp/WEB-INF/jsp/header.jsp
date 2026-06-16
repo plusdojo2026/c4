@@ -12,7 +12,7 @@
 			<!-- not empty sessionScope.id -->
 			<c:if test="${true}">
 				<form id="header-search" class="header-search">
-					<input id="search-input" type="text" class="search-input" placeholder="検索バー">
+					<input id="search-input" type="text" class="search-input" placeholder="検索バー" value="">
 					<button class="btn">検索</button>
 				</form>
 
