@@ -2,7 +2,8 @@
 
 .wrapper {
   display: flex;
-  height:   100dvh;
+  min-height: 100dvh;
+  height:   fit-content;
   padding-top: 60px;
 }
 

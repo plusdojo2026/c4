@@ -61,7 +61,6 @@
   justify-content: flex-end;
   align-items: center;
   position: relative;
-  /* 【変更】モーダル配置の基準点にするため追加 */
 }
 
 .notification-wrapper {

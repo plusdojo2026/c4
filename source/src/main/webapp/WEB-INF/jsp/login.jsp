@@ -15,7 +15,7 @@
 	<div class="login-reset-page">
 		<div class="login-reset">
 			<h1>ログイン</h1>
-			<form id="login-form" method="post" action="/c4/LoginServlet">
+			<form id="login-form" method="post" action="/c4/login">
 
 				<div id="msg">
 					<c:choose>
@@ -42,7 +42,7 @@
 				</div>
 
 				<div class="remember-forgot">
-					パスワードを忘れた方は<a href="passwordReset.jsp">こちら</a>
+					パスワードを忘れた方は<a href="/c4/passwordReset">こちら</a>
 				</div>
 
 				<div class="login-btn">

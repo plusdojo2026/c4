@@ -12,7 +12,7 @@
 			<!-- not empty sessionScope.id -->
 			<c:if test="${true}">
 				<form id="header-search" class="header-search">
-					<input id="search-input" type="text" class="search-input" placeholder="検索バー">
+					<input id="search-input" type="text" class="search-input" placeholder="検索バー" value="">
 					<button class="btn">検索</button>
 				</form>
 
@@ -20,7 +20,7 @@
 					<div class="notification-wrapper" id="notificationBtn">
 						<img class="notification-icon" src="/c4/img/notifications_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 							alt="通知">
-						<span class="notification-badge"></span>
+						<span id="badge" class=""></span>
 					</div>
 
 					<div class="notification-modal" id="notificationModal">

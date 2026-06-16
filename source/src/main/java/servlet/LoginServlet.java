@@ -16,7 +16,7 @@ import model.Account;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/Login")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("permissionsId", loginUserAccount.getPermissionsId());
 
 			// プロダクトサーブレットにリダイレクトする
-			response.sendRedirect("/c4/ProductServlet");
+			response.sendRedirect("/c4/product");
 		} else {
 			// ログイン失敗
 			// リクエストスコープに入力された社員番号を戻す

@@ -3,12 +3,31 @@ document.addEventListener('DOMContentLoaded', () => {
   const notificationModal = document.getElementById('notificationModal');
   const closeModalBtn = document.getElementById('closeModalBtn');
 
+  // ページ初期読み込み時に未読アイテムがあればバッジを表示
+  const initialUnreadItems = document.querySelectorAll('.notification-item.unread');
+  if (initialUnreadItems.length > 0) {
+    const badge = document.getElementById('badge');
+    if (badge) {
+      badge.classList.add('notification-badge');
+    }
+  }
+
   // ベルマークをクリックしたときの処理
   notificationBtn.addEventListener('click', (e) => {
     e.stopPropagation();
 
     // モーダルの開閉を切り替え
     notificationModal.classList.toggle('is-active');
+
+    // 画面上の未読アイテムを取得
+    const unreadItems = document.querySelectorAll('.notification-item.unread');
+    if (unreadItems.length > 0) {
+      // 未読アイテムが存在する場合、ベルマークの赤いバッジを追加
+      const badge = document.getElementById('badge');
+      if (badge) {
+        badge.classList.add('notification-badge');
+      }
+    }
 
     // モーダルが「開いた」状態の場合のみ既読処理を実行
     if (notificationModal.classList.contains('is-active')) {
