@@ -149,7 +149,7 @@ async function scanBarcode() {
 
     console.log('JAN:', jan);
 
-    searchInput.innerText = jan;
+    searchInput.value = jan;
 
     setTimeout(() => {
       lastJan = '';
