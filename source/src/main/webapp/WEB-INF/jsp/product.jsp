@@ -109,7 +109,7 @@
 
 
 					<!-- 削除フォーム -->
-					<form id="delete-form" action="/product/delete" method="post">
+					<form id="delete-form" action="/c4/product/delete" method="post">
 						<input type="hidden" name="deleteIds" id="delete-ids">
 					</form>
 

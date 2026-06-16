@@ -50,7 +50,6 @@ public class ProductDeleteServlet extends HttpServlet {
         request.setAttribute("showDeleteResult", true);
 
         // 一覧 JSP に forward（ProductServlet を通さない）
-        request.getRequestDispatcher("/WEB-INF/jsp/product.jsp")
-               .forward(request, response);
+        response.sendRedirect("/c4/product");
     }
 }
