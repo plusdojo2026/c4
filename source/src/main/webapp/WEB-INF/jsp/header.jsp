@@ -20,7 +20,7 @@
 					<div class="notification-wrapper" id="notificationBtn">
 						<img class="notification-icon" src="/c4/img/notifications_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 							alt="通知">
-						<span class="notification-badge"></span>
+						<span id="badge" class=""></span>
 					</div>
 
 					<div class="notification-modal" id="notificationModal">
