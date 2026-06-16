@@ -30,6 +30,7 @@ public class PasswordResetServlet extends HttpServlet {
 		String month = request.getParameter("month");
 		String day = request.getParameter("day");
 		String newPassword = request.getParameter("newPassword");
+		String checkPassword = request.getParameter('checkPassword');
 		
 		 if (employeeNumber == null || employeeNumber.isEmpty()) {
         request.setAttribute("errorMsg", "社員番号を入力してください");
@@ -43,6 +44,8 @@ public class PasswordResetServlet extends HttpServlet {
 		System.out.println("社員番号 : " + employeeNumber);
 		System.out.println("生年月日 : " + year + "/" + month + "/" + day);
 		System.out.println("新規パスワード : " + newPassword);
+		System.out.println("確認用パスワード : " + checkPassword);
+
 
 		// 仮の判定(あとでDAOの結果に置き換える)
 		boolean result = false;
@@ -50,9 +53,6 @@ public class PasswordResetServlet extends HttpServlet {
 		try {
 
             int id = Integer.parseInt(employeeNumber);
-
-            // birthdayカラムが DATE型(例: 2000-01-15)の場合
-            String birthday = year + "-" + month + "-" + day;
 
             AccountDAO dao = new AccountDAO();
 
@@ -75,7 +75,7 @@ public class PasswordResetServlet extends HttpServlet {
 
         if (result) {
             response.sendRedirect(
-                    request.getContextPath() + "/;login");
+                    request.getContextPath() + "/login");
         } else {
             request.setAttribute(
                     "errorMsg",
