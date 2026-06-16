@@ -209,6 +209,17 @@ dialog {
   gap: 16px;
 }
 
+#stock-form fieldset {
+  border-radius: 8px;
+}
+
+#stock-form fieldset input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: #ffffff;
+}
+
 #stock-form div:nth-of-type(1) > div {
   display: flex;
   gap: 16px;
@@ -217,6 +228,6 @@ dialog {
 .dialog-btn-wrapper {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: right;
   gap: 16px;
 }
