@@ -93,7 +93,7 @@ document.querySelector("#delete").addEventListener("click", () => {
 // 編集記号押す　→　dialog5開く
 	const showButton5 = document.querySelector("#edit-button");
   showButton5.addEventListener("click", () => {
-    dialog5.showModal();
+    
   });
 // dialog1 の「キャンセル」
   const closeButton5 = document.querySelector("#cancel4");

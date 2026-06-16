@@ -24,7 +24,7 @@ public class ProductDeleteServlet extends HttpServlet {
 
         if (ids == null || ids.isEmpty()) {
             // 何も選択されていない場合は一覧へ戻す
-            response.sendRedirect("/product");
+            response.sendRedirect("/c4/product");
             return;
         }
 

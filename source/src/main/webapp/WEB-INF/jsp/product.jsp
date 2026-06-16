@@ -33,14 +33,14 @@
 									</div>
 									<div class="button-wrapper">
 										<button id="edit-button">
-											<img class="active" src="/webapp/img/edit_square_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+											<img class="active" src="/c4/img/edit_square_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 												alt="編集">
 										</button>
 										<button id="camera-button">
 											<img id="camera-on" class="active"
-												src="/webapp/img/videocam_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="カメラON">
+												src="/c4/img/videocam_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="カメラON">
 											<img id="camera-off" class=""
-												src="/webapp/img/videocam_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="カメラOFF">
+												src="/c4/img/videocam_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="カメラOFF">
 										</button>
 										<!-- 新規追加ボタン -->
 										<button id="add-btn">新規追加</button>
