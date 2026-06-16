@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("permissionsId", loginUserAccount.getPermissionsId());
 
 			// プロダクトサーブレットにリダイレクトする
-			response.sendRedirect("/c4/ProductServlet");
+			response.sendRedirect("/c4/product");
 		} else {
 			// ログイン失敗
 			// リクエストスコープに入力された社員番号を戻す
