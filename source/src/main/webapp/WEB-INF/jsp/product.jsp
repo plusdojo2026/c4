@@ -147,19 +147,19 @@
 
 						<button id="cancel4" class="btn">閉じる</button>
 
-						<form action="/product/edit" method="post">
+						<form action="/c4/product/edit" method="post">
 							<input type="hidden" name="id" id="edit-id">
 							<!-- 表示項目 -->
 							<input type="hidden" id="edit-photo" name="photoPath">
-							<input type="text" id="edit-jan" name="janCode" placeholder="JANを入力" required>
+							<input type="number" id="edit-jan" name="janCode" placeholder="JANを入力" required>
 							<input type="text" id="edit-name" name="productName" placeholder="商品名を入力" required>
 							<input type="number" id="edit-term" name="durationDays" placeholder="期間を入力" required>
 							<!-- 非表示項目 -->
 							<input type="hidden" id="edit-base" name="baseProductId">
 							<input type="hidden" id="edit-case" name="caseQuantity">
 
-							<button class="btn edit">保存</button>
-							<button id="delete-check2" class="btn delete">削除</button>
+							<button type="submit" class="btn edit">保存</button>
+							<button type="button" id="delete-check2" class="btn delete">削除</button>
 						</form>
 
 					</dialog>

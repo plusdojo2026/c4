@@ -30,7 +30,7 @@ public class ProductEditServlet extends HttpServlet {
         ProductDAO dao = new ProductDAO();
         dao.update(p);
 
-        response.sendRedirect("/product");
+        response.sendRedirect("/c4/product");
     }
 }
 

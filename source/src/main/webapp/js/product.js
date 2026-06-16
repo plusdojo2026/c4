@@ -104,16 +104,36 @@ document.querySelector("#delete").addEventListener("click", () => {
 	const showButton6 = document.querySelector("#delete-check2");
   showButton6.addEventListener("click", () => {
 		dialog5.close();
+
+    const checked = document.querySelectorAll(".edit-check:checked").length;
+
+document.querySelector(".deletecheck p").innerHTML =
+    `${checked} 件選択されています。<br>選択商品を削除しますか？`;
+
+
     dialog3.showModal();
   });
-// 行クリックで編集モーダルを開く
-document.addEventListener("click", function(e) {
 
-  // 編集モードでなければ何もしない
-  if (!showButton5.classList.contains("active")) return;
+document.querySelector("#edit-button").addEventListener("click", () => {
 
-  const row = e.target.closest("tr");
-  if (!row) return;
+    // チェックされた行を取得
+    const checked = document.querySelectorAll(".edit-check:checked");
+
+    // 0 件 → エラー
+    if (checked.length === 0) {
+        alert("編集する商品を 1 件選択してください");
+        return;
+    }
+
+    // 2 件以上 → エラー
+    if (checked.length > 1) {
+        alert("編集できるのは 1 件だけです");
+        return;
+    }
+
+    // 1 件だけ選択されている
+    const checkbox = checked[0];
+    const row = checkbox.closest("tr");
 
   // 行のデータ取得
   const id = row.querySelector(".edit-check").value;
