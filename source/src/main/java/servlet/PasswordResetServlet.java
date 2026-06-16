@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.AccountDAO;
 
-@WebServlet("/PasswordReset")
+@WebServlet("/passwordReset")
 public class PasswordResetServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -74,12 +74,9 @@ public class PasswordResetServlet extends HttpServlet {
         }
 
         if (result) {
-
             response.sendRedirect(
-                    request.getContextPath() + "/LoginServlet");
-
+                    request.getContextPath() + "/;login");
         } else {
-
             request.setAttribute(
                     "errorMsg",
                     "社員番号または生年月日が間違っています");
