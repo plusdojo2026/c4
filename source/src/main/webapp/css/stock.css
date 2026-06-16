@@ -150,11 +150,11 @@ thead th {
   background-color: var(--primary);
 }
 
-thead th:nth-of-type(1) {
+thead th:first-child {
   border-radius: 24px 0 0 24px;
 }
 
-thead th:nth-of-type(2) {
+thead th:last-child {
   border-radius: 0 24px 24px 0;
 }
 
@@ -172,11 +172,11 @@ tbody tr:nth-of-type(2n) {
   color: #ffffff;
 }
 
-tbody tr:nth-of-type(2n) td:nth-of-type(1) {
+tbody tr:nth-of-type(2n) td:first-child {
   border-radius: 24px 0 0 24px;
 }
 
-tbody tr:nth-of-type(2n) td:nth-of-type(2) {
+tbody tr:nth-of-type(2n) td:last-child {
   border-radius: 0 24px 24px 0;
 }
 
