@@ -12,8 +12,8 @@ form.onsubmit = function (event) {
   // 一度、前回のエラーの塗りつぶしをリセットする
   employeeNumberInput.style.backgroundColor = '';
   passwordInput.style.backgroundColor = '';
-  msgElement.style.fontWeight = 'bold';//太字にする
-  msgElement.style.color = 'red';//赤字にする
+  msgElement.style.fontWeight = '';//太字にする
+  msgElement.style.color = '';//赤字にする
 
   //入力された「文字（値）」を取得
   let employeeNumber = employeeNumberInput.value;
