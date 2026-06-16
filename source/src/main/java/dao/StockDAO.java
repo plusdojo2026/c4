@@ -19,7 +19,7 @@ public class StockDAO {
         try {
             conn = DBConnection.getConnection();
 
-            String sql = "SELECT id, jancode, stock_quantity, created_at, updated_at, stores FROM stocks ORDER BY id DESC";
+            String sql = "SELECT id, jancode, product_name, stock_quantity, duration_days, stores FROM stocks CROSS JOIN products ON stocks.jancode = products.jan_code ORDER BY id DESC";            
             PreparedStatement pStmt = conn.prepareStatement(sql);
             ResultSet rs = pStmt.executeQuery();
 
@@ -27,9 +27,9 @@ public class StockDAO {
                 Stock stock = new Stock(
                     rs.getInt("id"),
                     rs.getString("jancode"),
+                    rs.getString("product_name"),
                     rs.getInt("stock_quantity"),
-                    rs.getObject("created_at", LocalDateTime.class),
-                    rs.getObject("updated_at", LocalDateTime.class),
+                    rs.getInt("duration_days"),
                     rs.getInt("stores")
                 );
                 stockList.add(stock);
