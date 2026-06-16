@@ -42,7 +42,9 @@
           <thead>
             <tr>
               <th>JANコード</th>
+              <th>商品名</th>
               <th>在庫数</th>
+              <th>期限</th>
             </tr>
           </thead>
           <tbody id="stock-table-body">
@@ -50,9 +52,13 @@
               <tr
                 class="stock-row"
                 data-jan="${s.jancode}"
-                data-stock-quantity="${s.stockQuantity}">
+                data-product-name="${s.productName}"
+                data-stock-quantity="${s.stockQuantity}"
+                data-duration-days="${s.durationDays}">
                 <td>${s.jancode}</td>
+                <td>${s.productName}</td>
                 <td>${s.stockQuantity}</td>
+                <td>${s.durationDays}日</td>
               </tr>
             </c:forEach>
           </tbody>
@@ -73,15 +79,29 @@
     </dialog>
     <dialog class="stock-add-dialog">
       <p>JAN: <span class="dialog-jan"></span></p>
+      <p>商品名: <span class="dialog-product-name"></span></p>
       <p>在庫数: <span class="dialog-stock"></span></p>
       <form id="stock-form" action="${pageContext.request.contextPath}/stock/edit" method="post">
         <input class="jancode" type="hidden" name="jancode" value="">
         <input class="new-quantity" type="hidden" name="newQuantity" value="">
         <div class="">
-          <label>在庫変更数: <input class="change-quantity" type="number" name="changeQuantity" value="0"></label>
+          <fieldset>
+            <legend>在庫変更数</legend>
+            <input class="change-quantity" type="number" name="changeQuantity" value="0">
+          </fieldset>
           <div class="">
             <button type="button" class="btn increment-btn">入庫 +</button>
             <button type="button" class="btn decrement-btn">出庫 -</button>
+          </div>
+          <div class="">
+            <fieldset>
+              <legend>入庫日</legend>
+              <input class="" type="date" name="">
+            </fieldset>
+            <fieldset>
+              <legend>期限</legend>
+              <input class="" type="date" name="">
+            </fieldset>
           </div>
         </div>
         <div class="dialog-btn-wrapper">

@@ -165,6 +165,7 @@ async function scanBarcode() {
 const stockDialog = document.querySelector('.stock-add-dialog');
 
 const dialogJan = stockDialog.querySelector('.dialog-jan');
+const dialogProductName = stockDialog.querySelector('.dialog-product-name');
 const dialogStock = stockDialog.querySelector('.dialog-stock');
 
 let changeQuantity;
@@ -175,6 +176,7 @@ document.querySelectorAll('.stock-row').forEach((row) => {
   row.addEventListener('click', () => {
     const {
       jan,
+      productName,
       stockQuantity,
     } = row.dataset;
 
@@ -183,6 +185,7 @@ document.querySelectorAll('.stock-row').forEach((row) => {
     changeQuantity = 0;
 
     dialogJan.textContent = jan;
+    dialogProductName.textContent = productName;
     dialogStock.textContent = stockQuantity;
 
     updateDisplay();
@@ -217,4 +220,9 @@ incrementBtn.addEventListener("click", () => {
 decrementBtn.addEventListener("click", () => {
   changeQuantity--;
   updateDisplay();
+});
+
+changeQuantityEl.addEventListener('input', () => {
+  changeQuantity = changeQuantityEl.value;
+  newQuantityEl.value = Number(currentStock) + Number(changeQuantity);
 });

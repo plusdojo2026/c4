@@ -33,14 +33,14 @@
 									</div>
 									<div class="button-wrapper">
 										<button id="edit-button">
-											<img class="active" src="/webapp/img/edit_square_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
+											<img class="active" src="/c4/img/edit_square_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
 												alt="編集">
 										</button>
 										<button id="camera-button">
 											<img id="camera-on" class="active"
-												src="/webapp/img/videocam_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="カメラON">
+												src="/c4/img/videocam_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="カメラON">
 											<img id="camera-off" class=""
-												src="/webapp/img/videocam_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="カメラOFF">
+												src="/c4/img/videocam_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="カメラOFF">
 										</button>
 										<!-- 新規追加ボタン -->
 										<button id="add-btn">新規追加</button>
@@ -58,7 +58,7 @@
 										<thead>
 											<tr>
 													<!-- 全選択チェックボックス -->
-												<th><input type="checkbox" class="option" id="select-all"></th>
+												<th><input type="checkbox" class="option" onchange="checkClear(this.checked)"></th>
 												<th>商品画像</th>
 												<th>JANコード</th>
 												<th>商品名</th>
@@ -68,7 +68,7 @@
 											<!-- サーブレット完成次第 -->
 											<c:forEach var="p" items="${productList}">
 												<tr data-base-product-id="${p.baseProductId}" data-case-quantity="${p.caseQuantity}">
-													<td><input type="checkbox" class="edit-check" class="select" value="${p.janCode}"></td>
+													<td><input type="checkbox" class="edit-check" name="checks" value="${p.janCode}"></td>
 													<td><img src="${p.photoPath}"></td>
 													<td class="td-jan">${p.janCode}</td>
 													<td class="td-name">${p.productName}</td>
@@ -109,7 +109,7 @@
 
 
 					<!-- 削除フォーム -->
-					<form id="delete-form" action="/product/delete" method="post">
+					<form id="delete-form" action="/c4/product/delete" method="post">
 						<input type="hidden" name="deleteIds" id="delete-ids">
 					</form>
 
@@ -147,19 +147,19 @@
 
 						<button id="cancel4" class="btn">閉じる</button>
 
-						<form action="/product/edit" method="post">
+						<form action="/c4/product/edit" method="post">
 							<input type="hidden" name="id" id="edit-id">
 							<!-- 表示項目 -->
 							<input type="hidden" id="edit-photo" name="photoPath">
-							<input type="text" id="edit-jan" name="janCode" placeholder="JANを入力" required>
+							<input type="number" id="edit-jan" name="janCode" placeholder="JANを入力" required>
 							<input type="text" id="edit-name" name="productName" placeholder="商品名を入力" required>
 							<input type="number" id="edit-term" name="durationDays" placeholder="期間を入力" required>
 							<!-- 非表示項目 -->
 							<input type="hidden" id="edit-base" name="baseProductId">
 							<input type="hidden" id="edit-case" name="caseQuantity">
 
-							<button class="btn edit">保存</button>
-							<button id="delete-check2" class="btn delete">削除</button>
+							<button type="submit" class="btn edit">保存</button>
+							<button type="button" id="delete-check2" class="btn delete">削除</button>
 						</form>
 
 					</dialog>

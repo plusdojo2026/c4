@@ -8,6 +8,7 @@ form.onsubmit = function (event) {
   let employeeNumberInput = document.getElementById('employeeNumber');
   let passwordInput = document.getElementById('password');
   let msgElement = document.getElementById('msg');
+  //let viewicon = document.getElementById('view');
 
   // 一度、前回のエラーの塗りつぶしをリセットする
   employeeNumberInput.style.backgroundColor = '';
@@ -18,6 +19,8 @@ form.onsubmit = function (event) {
   //入力された「文字（値）」を取得
   let employeeNumber = employeeNumberInput.value;
   let password = passwordInput.value;
+  
+  
 
   //メッセージ変更とエラーの塗りつぶしの適用
   if (employeeNumber === '' && password === '') {

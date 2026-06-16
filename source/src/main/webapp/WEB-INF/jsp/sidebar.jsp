@@ -17,6 +17,11 @@
           <img src="/c4/img/package_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" class="sidebar-icon" alt="在庫管理">
           <span class="sidebar-label">在庫管理</span>
         </a>
+
+         <a href="/c4/permission" class="sidebar-item" title="管理者">
+          <img src="/c4/img/package_2_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" class="sidebar-icon" alt="管理者">
+          <span class="sidebar-label">管理者</span>
+        </a>
       </div>
 
       <div class="sidebar-bottom">

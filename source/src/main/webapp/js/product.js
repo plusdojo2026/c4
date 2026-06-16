@@ -93,7 +93,7 @@ document.querySelector("#delete").addEventListener("click", () => {
 // 編集記号押す　→　dialog5開く
 	const showButton5 = document.querySelector("#edit-button");
   showButton5.addEventListener("click", () => {
-    dialog5.showModal();
+    
   });
 // dialog1 の「キャンセル」
   const closeButton5 = document.querySelector("#cancel4");
@@ -104,16 +104,36 @@ document.querySelector("#delete").addEventListener("click", () => {
 	const showButton6 = document.querySelector("#delete-check2");
   showButton6.addEventListener("click", () => {
 		dialog5.close();
+
+    const checked = document.querySelectorAll(".edit-check:checked").length;
+
+document.querySelector(".deletecheck p").innerHTML =
+    `${checked} 件選択されています。<br>選択商品を削除しますか？`;
+
+
     dialog3.showModal();
   });
-// 行クリックで編集モーダルを開く
-document.addEventListener("click", function(e) {
 
-  // 編集モードでなければ何もしない
-  if (!showButton5.classList.contains("active")) return;
+document.querySelector("#edit-button").addEventListener("click", () => {
 
-  const row = e.target.closest("tr");
-  if (!row) return;
+    // チェックされた行を取得
+    const checked = document.querySelectorAll(".edit-check:checked");
+
+    // 0 件 → エラー
+    if (checked.length === 0) {
+        alert("編集する商品を 1 件選択してください");
+        return;
+    }
+
+    // 2 件以上 → エラー
+    if (checked.length > 1) {
+        alert("編集できるのは 1 件だけです");
+        return;
+    }
+
+    // 1 件だけ選択されている
+    const checkbox = checked[0];
+    const row = checkbox.closest("tr");
 
   // 行のデータ取得
   const id = row.querySelector(".edit-check").value;
@@ -140,42 +160,18 @@ document.addEventListener("click", function(e) {
   dialog5.showModal();
 });
 
-  // 全選択チェックボックス
-  let selectAll = document.getElementById("select-all")
-  // テーブルチェックボックス
-  let selects = document.getElementsByClassName(".select")
-  
-  selectAll.addEventListener('click', () => {
-  for (val of selects) {
-    selectAll.checked == true ? val.checked = true : val.checked = false;
+  function checkClear(checked){
+    var checkbox = document.querySelectorAll('input[name = "checks"]');
+    if(checked === true){
+        for(var n = 0; n < checkbox.length; n++){
+            checkbox[n].checked = true;
+        }//end for
+    }else if(checked === false){
+        for(var n = 0; n > checkbox.length; n++){
+            checkbox[n].checked = false;
+        }//end for
+    }//end if
   }
-});
-
-  selects.forEach(element => {
-  element.addEventListener('click', () => {
-    // チェックが1つでも外れた時の処理
-    // 全てにチェックがされた時の処理
-  });
-});
-
-selects.forEach(element => {
-  element.addEventListener('click', () => {
-    if (element.checked == false) {
-      selectAll.checked = false;
-    }
-    // ... 全てにチェックがされた時の処理
-  });
-});
-
-
-selects.forEach(element => {
-  element.addEventListener('click', () => {
-    // ... チェックが1つでも外れた時の処理
-    if (document.querySelectorAll(".selects:checked").length == selects.length) {
-      selectAll.checked = true;
-    }
-  });
-});
 
 // camera制御
 const video = document.getElementById('video');
