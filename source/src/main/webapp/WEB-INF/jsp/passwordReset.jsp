@@ -23,13 +23,13 @@
 			<div class="wrapper">
 			<fieldset class="input-box">
 				<legend>社員番号</legend>
-				<input type="text" name="employeeNumber" required>
+				<input type="text" id="employeeNumber" name="employeeNumber" required>
 			</fieldset>
 			
 
-			<div class="birthday">
+			<div id="birthday" class="birthday">
 				<!-- <input type="date" name="dateOfBirth"> -->
-				<select name="year" required="required" >
+				<select id="year" name="year" required="required" >
 					<option value="1900">1900</option>
 					<option value="1901">1901</option>
 					<option value="1902">1902</option>
@@ -160,7 +160,7 @@
 
 				</select>
 
-				<select name="month" required="required" >
+				<select id="month" name="month" required="required" >
 					<option value="1" selected>1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -176,7 +176,7 @@
 
 				</select>
 
-				<select name="day" required="required">
+				<select id="day" name="day" required="required">
 					<option value="1" selected>1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -216,18 +216,18 @@
 			
 			<fieldset class="input-box">
 				<legend>新規パスワード</legend>
-				<input type="password" name="newPassword" required>
+				<input type="password" id="newPassword" name="newPassword" required>
 			</fieldset>
 			
 
 			<fieldset class="input-box">
 				<legend>確認用パスワード</legend>
-				<input type="password" name="checkPassword" required>
+				<input type="password" id="checkPassword" name="checkPassword" required>
 			</fieldset>
 			</div>
 
 			<div class="login-btn">
-				<button type="submit" name="resetBtn" value="再設定">再設定</button>
+				<button type="submit" id="resetBtn" name="resetBtn" value="再設定">再設定</button>
 			</div>
 
 		</form>
