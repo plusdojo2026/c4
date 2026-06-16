@@ -140,42 +140,18 @@ document.addEventListener("click", function(e) {
   dialog5.showModal();
 });
 
-  // 全選択チェックボックス
-  let selectAll = document.getElementById("select-all")
-  // テーブルチェックボックス
-  let selects = document.getElementsByClassName(".select")
-  
-  selectAll.addEventListener('click', () => {
-  for (val of selects) {
-    selectAll.checked == true ? val.checked = true : val.checked = false;
+  function checkClear(checked){
+    var checkbox = document.querySelectorAll('input[name = "checks"]');
+    if(checked === true){
+        for(var n = 0; n < checkbox.length; n++){
+            checkbox[n].checked = true;
+        }//end for
+    }else if(checked === false){
+        for(var n = 0; n > checkbox.length; n++){
+            checkbox[n].checked = false;
+        }//end for
+    }//end if
   }
-});
-
-  selects.forEach(element => {
-  element.addEventListener('click', () => {
-    // チェックが1つでも外れた時の処理
-    // 全てにチェックがされた時の処理
-  });
-});
-
-selects.forEach(element => {
-  element.addEventListener('click', () => {
-    if (element.checked == false) {
-      selectAll.checked = false;
-    }
-    // ... 全てにチェックがされた時の処理
-  });
-});
-
-
-selects.forEach(element => {
-  element.addEventListener('click', () => {
-    // ... チェックが1つでも外れた時の処理
-    if (document.querySelectorAll(".selects:checked").length == selects.length) {
-      selectAll.checked = true;
-    }
-  });
-});
 
 // camera制御
 const video = document.getElementById('video');
