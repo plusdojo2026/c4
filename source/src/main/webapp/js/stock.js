@@ -218,3 +218,8 @@ decrementBtn.addEventListener("click", () => {
   changeQuantity--;
   updateDisplay();
 });
+
+changeQuantityEl.addEventListener('input', () => {
+  changeQuantity = changeQuantityEl.value;
+  newQuantityEl.value = Number(currentStock) + Number(changeQuantity);
+});
