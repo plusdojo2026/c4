@@ -15,16 +15,17 @@
 	<div class="login-reset-page">
 		<div class="login-reset">
 		<h1>パスワード再設定</h1>
-		<form action="/c4/PasswordResetServlet" id="form" method="POST">
+		<form action="/c4/passwordReset" id="login-form" method="POST">
 
 			<p id="msg">${errorMsg}</p>
 			社員番号と生年月日、新規パスワードを入力してください。<br>
 
-
+			<div class="wrapper">
 			<fieldset class="input-box">
 				<legend>社員番号</legend>
 				<input type="text" name="employeeNumber" required>
 			</fieldset>
+			
 
 			<div class="birthday">
 				<!-- <input type="date" name="dateOfBirth"> -->
@@ -212,14 +213,21 @@
 
 			</div>
 
+			
 			<fieldset class="input-box">
 				<legend>新規パスワード</legend>
 				<input type="password" name="newPassword" required>
 			</fieldset>
+			
 
-			<div class="btn pw-reset-btn">
+			<fieldset class="input-box">
+				<legend>確認用パスワード</legend>
+				<input type="password" name="checkPassword" required>
+			</fieldset>
+			</div>
+
+			<div class="login-btn">
 				<button type="submit" name="resetBtn" value="再設定">再設定</button>
-				<a href=""></a>
 			</div>
 
 		</form>
