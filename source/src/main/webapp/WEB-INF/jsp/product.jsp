@@ -58,7 +58,7 @@
 										<thead>
 											<tr>
 													<!-- 全選択チェックボックス -->
-												<th><input type="checkbox" class="option" id="select-all"></th>
+												<th><input type="checkbox" class="option" onchange="checkClear(this.checked)"></th>
 												<th>商品画像</th>
 												<th>JANコード</th>
 												<th>商品名</th>
@@ -68,7 +68,7 @@
 											<!-- サーブレット完成次第 -->
 											<c:forEach var="p" items="${productList}">
 												<tr data-base-product-id="${p.baseProductId}" data-case-quantity="${p.caseQuantity}">
-													<td><input type="checkbox" class="edit-check" class="select" value="${p.janCode}"></td>
+													<td><input type="checkbox" class="edit-check" name="checks" value="${p.janCode}"></td>
 													<td><img src="${p.photoPath}"></td>
 													<td class="td-jan">${p.janCode}</td>
 													<td class="td-name">${p.productName}</td>
