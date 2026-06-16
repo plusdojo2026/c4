@@ -39,6 +39,9 @@
 					<fieldset class="input-box">
 						<legend>パスワード</legend>
 						<input type="password" id="password" name="password">
+						<span id="view">
+						<i class="far fa-eye-slash"></i>
+						</span>
 					</fieldset>
 				</div>
 
