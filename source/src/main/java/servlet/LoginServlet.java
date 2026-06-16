@@ -52,6 +52,9 @@ public class LoginServlet extends HttpServlet {
 			// ログイン成功：セッションスコープに社員番号（文字列）をそのまま格納する
 			HttpSession session = request.getSession();
 			session.setAttribute("id", idStr); //文字列として保存
+			
+			// 取得したアカウント情報から名前を取り出してセッションに格納
+			session.setAttribute("name", loginUserAccount.getName());
 
 			// 取得したアカウント情報から権限IDを取り出してセッションに格納
 			session.setAttribute("permissionsId", loginUserAccount.getPermissionsId());

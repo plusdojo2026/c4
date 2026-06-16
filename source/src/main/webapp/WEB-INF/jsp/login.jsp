@@ -19,6 +19,7 @@
 
 				<div id="msg">
 					<c:choose>
+					<%-- errorMsgに何か値が入っている（空ではない）場合 --%>
 					<c:when test="${not empty errorMsg}">
 						<span style="color: red; font-weight: bold;">						
 							${errorMsg}<!--サーバー側のエラー(DBの不一致等)があればそれを表示-->

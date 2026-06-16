@@ -22,7 +22,8 @@ public class ProductAddServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
 
-		//jspから受け取る		
+		//jspから受け取る	
+		request.setCharacterEncoding("UTF-8");
 		String jan = request.getParameter("jan");
 		String name = request.getParameter("productname");
 		String termStr = request.getParameter("term");
@@ -41,7 +42,7 @@ public class ProductAddServlet extends HttpServlet {
 
         if (fileName != null && !fileName.isEmpty()) {
 
-            // 保存先フォルダ（/images/）
+            // 保存先フォルダ（/img/）
             String uploadPath = getServletContext().getRealPath("/c4/img/");
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) uploadDir.mkdir();
@@ -65,7 +66,7 @@ public class ProductAddServlet extends HttpServlet {
         dao.insert(p);
         
         //一覧へ
-        response.sendRedirect("/c4/Product");
+        response.sendRedirect("/c4/product");
 		
 	}
 }

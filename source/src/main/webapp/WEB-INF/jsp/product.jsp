@@ -48,8 +48,7 @@
 
 
 									<div>
-										<!-- 全選択チェックボックス -->
-										<input type="checkbox" class="option" id="select-all">
+									
 										<!-- 削除ボタン -->
 										<button id="delete-check" class="option">削除</button>
 									</div>
@@ -58,7 +57,8 @@
 									<table>
 										<thead>
 											<tr>
-												<th></th>
+													<!-- 全選択チェックボックス -->
+												<th><input type="checkbox" class="option" id="select-all"></th>
 												<th>商品画像</th>
 												<th>JANコード</th>
 												<th>商品名</th>
@@ -68,7 +68,7 @@
 											<!-- サーブレット完成次第 -->
 											<c:forEach var="p" items="${productList}">
 												<tr data-base-product-id="${p.baseProductId}" data-case-quantity="${p.caseQuantity}">
-													<td><input type="checkbox" class="edit-check" value="${p.janCode}"></td>
+													<td><input type="checkbox" class="edit-check" class="select" value="${p.janCode}"></td>
 													<td><img src="${p.photoPath}"></td>
 													<td class="td-jan">${p.janCode}</td>
 													<td class="td-name">${p.productName}</td>
