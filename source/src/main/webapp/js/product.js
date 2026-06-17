@@ -1,16 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("checkAll =", document.querySelector("#check-all"));
+ 
   // 全選択チェックボックス
-  const checkAll = document.querySelector("#check-all");
+ const checkAll = document.querySelector("#check-all");
 
-  checkAll.addEventListener("change", (e) => {
-  const checked = e.target.checked;
+  if (!checkAll) {
+    console.log("check-all が見つかりません");
+    return;
+  }
 
-  const checkboxes = document.querySelectorAll(".edit-check");
+  checkAll.addEventListener("click", () => {
+    console.log("check-all clicked");
+  });
 
-  checkboxes.forEach(cb => cb.checked = checked);
-});
+  checkAll.addEventListener("change", () => {
+    console.log("check-all changed");
 
+    const checks = document.querySelectorAll(".edit-check");
+    checks.forEach(c => c.checked = checkAll.checked);
+  });
 
 
   // 新規追加ポップアップ（確認）
