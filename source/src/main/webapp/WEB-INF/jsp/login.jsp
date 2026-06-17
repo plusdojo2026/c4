@@ -39,8 +39,7 @@
 
 					<fieldset class="input-box">
 						<legend>パスワード</legend>
-						<input type="password" id="password" name="password">
-						<i id="togglePassword" class="fa fa-eye-slash" style="cursor: pointer;"></i>
+						<input type="password" id="password" name="password">						<i id="togglePassword" class="fa fa-eye-slash" style="cursor: pointer;"></i>
 					</fieldset>
 				</div>
 

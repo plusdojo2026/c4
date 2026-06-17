@@ -49,10 +49,16 @@ const password = document.getElementById('password');
 
 togglePassword.addEventListener('click', function() {
   //現在のtype属性を取得
-  const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-  password.setAttribute('type', type);
+  // const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+  let type;
+if (passwordField.getAttribute('type') === 'password') {
+    type = 'text';     // パスワードだったら、テキストに変えて「見える」ようにする
+} else {
+    type = 'password'; // テキスト(パスワードが見えている状態)だったら、「隠す」ようにする
+}
+  password.setAttribute('type', type);//実際の画面の<input>タグに上書きして適用する
 
-  //iタグのアイコンを切り替え
+  //iタグのアイコンを切り替え(クラスが含まれていれば削除、含まれていなければ追加)
   this.classList.toggle('fa-eye');
   this.classList.toggle('fa-eye-slash');
 
