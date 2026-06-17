@@ -40,7 +40,7 @@
 					<fieldset class="input-box">
 						<legend>パスワード</legend>
 						<input type="password" id="password" name="password">
-						<i class="far fa-eye-slash"></i>
+						<i id="togglePassword" class="fa fa-eye-slash" style="cursor: pointer;"></i>
 					</fieldset>
 				</div>
 
