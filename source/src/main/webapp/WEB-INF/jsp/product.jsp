@@ -44,24 +44,23 @@
 										</button>
 										<!-- 新規追加ボタン -->
 										<button id="add-btn">新規追加</button>
-									</div>
-
-
-									<div>
-									
 										<!-- 削除ボタン -->
 										<button id="delete-check" class="option">削除</button>
 									</div>
+
+
+										
 
 
 									<table>
 										<thead>
 											<tr>
 													<!-- 全選択チェックボックス -->
-												<th><input type="checkbox" class="option" onchange="checkClear(this.checked)"></th>
+												<th><input type="checkbox" class="option" id="check-all"></th>
 												<th>商品画像</th>
 												<th>JANコード</th>
 												<th>商品名</th>
+												<th>期間</th>
 											</tr>
 										</thead>
 										<tbody id="product-table-body">

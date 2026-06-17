@@ -1,4 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("checkAll =", document.querySelector("#check-all"));
+  // 全選択チェックボックス
+  const checkAll = document.querySelector("#check-all");
+
+  checkAll.addEventListener("change", (e) => {
+  const checked = e.target.checked;
+
+  const checkboxes = document.querySelectorAll(".edit-check");
+
+  checkboxes.forEach(cb => cb.checked = checked);
+});
+
+
 
   // 新規追加ポップアップ（確認）
   const dialog1 = document.querySelector(".newcheck");
@@ -28,6 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
     dialog2.showModal();
   });
   // 画像追加
+  const addPhoto = document.getElementById("add-photo");
+if (addPhoto) { 
   document.getElementById("add-photo").addEventListener("change" , function(e){
     const file = e.target.files[0];
     if(!file)return;
@@ -38,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     reader.readAsDataURL(file);
   })
-	
+}
 // 削除確認ポップアップ
 const dialog3 = document.querySelector(".deletecheck");
 // 削除結果通知ポップアップ
@@ -159,19 +174,6 @@ document.querySelector("#edit-button").addEventListener("click", () => {
   // モーダルを開く
   dialog5.showModal();
 });
-
-  function checkClear(checked){
-    var checkbox = document.querySelectorAll('input[name = "checks"]');
-    if(checked === true){
-        for(var n = 0; n < checkbox.length; n++){
-            checkbox[n].checked = true;
-        }//end for
-    }else if(checked === false){
-        for(var n = 0; n > checkbox.length; n++){
-            checkbox[n].checked = false;
-        }//end for
-    }//end if
-  }
 
 // camera制御
 const video = document.getElementById('video');
