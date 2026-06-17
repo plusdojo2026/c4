@@ -30,7 +30,7 @@ public class AllDaoTest {
 		// 0. 事前準備：権限データの挿入（アカウント登録時の外部キーエラーを防ぐため）
 		setupPermissions();
 		
-		// ★ ここに追加：過去のテストデータのお掃除
+		// 過去のテストデータのお掃除
 		cleanupTestData();
 		
 		// 1. AccountDAO のテスト
@@ -87,10 +87,14 @@ public class AllDaoTest {
 		boolean isInserted = dao.insert(newAccount);
 		System.out.println(" 1-1. アカウントの登録: " + (isInserted ? "成功" : "失敗（既に同名データがある等の可能性）"));
 		
-		// ※本来はAUTO_INCREMENTのIDを取得してテストしますが、
-		// 今回はとりあえず「ログインチェックがエラーにならないか（nullが返るだけか）」を確認します。
+		// ② ログインチェックテスト
 		Account loginResult = dao.loginCheck(9999, "pass123");
 		System.out.println(" 1-2. ログインチェック(存在しないID): " + (loginResult == null ? "正常(null)" : "異常"));
+
+		// ③ パスワード再設定テスト（新規追加分）
+		boolean isPwUpdated = dao.updatePassword(9999, "20000101", "newpass123");
+		System.out.println(" 1-3. パスワード再設定(存在しないID): " + (!isPwUpdated ? "正常に失敗(対象なし)" : "異常"));
+		
 		System.out.println("----------------------------------------");
 	}
 	
@@ -124,6 +128,11 @@ public class AllDaoTest {
 		boolean found = list.stream().anyMatch(item -> item.getJanCode().equals(testJan));
 		System.out.println(" 2-3. 商品一覧の取得: " + (list.size() > 0 ? "成功(" + list.size() + "件)" : "失敗"));
 		System.out.println(" 2-4. 登録した商品の確認: " + (found ? "見つかりました" : "見つかりません"));
+
+		// ⑤ あいまい検索テスト（新規追加分）
+		List<Product> searchResult = dao.search("幻の酒");
+		System.out.println(" 2-5. 商品のあいまい検索: " + (searchResult.size() > 0 ? "成功(" + searchResult.size() + "件ヒット)" : "失敗"));
+
 		System.out.println("----------------------------------------");
 	}
 	
@@ -160,6 +169,11 @@ public class AllDaoTest {
 				break; // 最新のもの（降順なら最初のもの）を取得
 			}
 		}
+
+		// ④ あいまい検索テスト（新規追加分）
+		List<Stock> searchResult = dao.search("幻の酒");
+		System.out.println(" 3-4. 在庫のあいまい検索: " + (searchResult.size() > 0 ? "成功(" + searchResult.size() + "件ヒット)" : "失敗"));
+
 		System.out.println("----------------------------------------");
 		return latestStockId;
 	}
@@ -209,19 +223,15 @@ public class AllDaoTest {
 		List<Notification> list = dao.selectActiveNotifications();
 		System.out.println(" 5-2. 有効な通知の取得: " + (list.size() > 0 ? "成功(" + list.size() + "件)" : "失敗"));
 		
-		// ③ 既読化テスト（UPDATE）
-		if (list.size() > 0) {
-			int targetId = list.get(0).getId(); // 最新の通知IDを取得
-			boolean isUpdated = dao.markAsRead(targetId);
-			System.out.println(" 5-3. 通知(" + targetId + ")の既読化: " + (isUpdated ? "成功" : "失敗"));
-		} else {
-			System.out.println(" 5-3. 通知の既読化: スキップ（通知データがないため）");
-		}
+		// ③ 既読化テスト（UPDATE） - 新しい markAllAsRead に変更
+		boolean isUpdated = dao.markAllAsRead();
+		System.out.println(" 5-3. 未読通知の一括既読化: " + (isUpdated ? "成功" : "失敗"));
+		
 		System.out.println("----------------------------------------");
 	}
 	
 	/* ---------------------------------------------------------
-	 * ★ 追加：過去のテストデータのお掃除
+	 * ★ 過去のテストデータのお掃除
 	 * --------------------------------------------------------- */
 	private static void cleanupTestData() {
 		System.out.println("【事前準備】過去のテストデータのお掃除");
