@@ -49,7 +49,7 @@ public class ProductDeleteServlet extends HttpServlet {
         request.setAttribute("fail", fail);
         request.setAttribute("showDeleteResult", true);
 
-        // 一覧 JSP に forward（ProductServlet を通さない）
-        response.sendRedirect("/c4/product");
+        // 一覧ページに成功と失敗の結果を持っていく（ポップアップ用）
+        response.sendRedirect("/c4/product?success=" + success + "&fail=" + fail);
     }
 }

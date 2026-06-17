@@ -133,12 +133,16 @@
 
 					<!-- 削除通知 -->
 					<c:if test="${showDeleteResult}">
-						<script>
-							document.addEventListener("DOMContentLoaded", () => {
-								document.querySelector(".deleteresult").showModal();
-							});
-						</script>
-					</c:if>
+							<script>
+									document.addEventListener("DOMContentLoaded", () => {
+											const dialog4 = document.querySelector(".deleteresult");
+											dialog4.showModal();
+											requestAnimationFrame(() => {
+													dialog4.classList.add("show");
+											});
+									});
+							</script>
+						</c:if>
 
 
 					<!-- 編集ポップアップ -->

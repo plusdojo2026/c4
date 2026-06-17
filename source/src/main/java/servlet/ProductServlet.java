@@ -20,14 +20,24 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 
-        // ① DAO から商品一覧を取得
+    	// 削除結果パラメータを受け取る
+    	String success = request.getParameter("success");
+    	String fail = request.getParameter("fail");
+
+    	if (success != null || fail != null) {
+    	    request.setAttribute("showDeleteResult", true);
+    	    request.setAttribute("success", success);
+    	    request.setAttribute("fail", fail);
+    	}
+
+        //  DAO から商品一覧を取得
         ProductDAO dao = new ProductDAO();
         List<Product> productList = dao.selectAll();
 
-        // ② JSP に渡す
+        //  JSP に渡す
         request.setAttribute("productList", productList);
 
-        // ③ product.jsp に forward
+        //  product.jsp に forward
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("/WEB-INF/jsp/product.jsp");
         dispatcher.forward(request, response);

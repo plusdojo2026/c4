@@ -43,7 +43,7 @@ public class ProductAddServlet extends HttpServlet {
         if (fileName != null && !fileName.isEmpty()) {
 
             // 保存先フォルダ（/img/）
-            String uploadPath = getServletContext().getRealPath("/c4/img/");
+            String uploadPath = getServletContext().getRealPath("/img/");
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) uploadDir.mkdir();
 
