@@ -44,6 +44,9 @@ public class SearchServlet extends HttpServlet {
         request.setAttribute("productList", productList);
         request.setAttribute("stockList", stockList);
         request.setAttribute("keyword", keyword);
+
+        // 検索フラグ
+        request.setAttribute("isSearched", true);
         
         // 検索元のURLを判定して、戻るべきJSPファイルのパスを決定する
         String forwardPath = "/WEB-INF/jsp/product.jsp"; // デフォルトは商品一覧にしておく
