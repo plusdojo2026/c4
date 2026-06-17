@@ -9,8 +9,7 @@
 				<span class="logo-text">サカグラ</span>
 			</div>
 
-			<!-- not empty sessionScope.id -->
-			<c:if test="${true}">
+			<c:if test="${not empty sessionScope.id}">
 				<form id="header-search" class="header-search" action="/c4/search" method="post">
 					<input type="hidden" name="sourcePage" value="<%= request.getRequestURI() %>">
 					<input id="search-input" type="text" name="search" class="search-input" placeholder="検索バー" value="${keyword}">
@@ -57,6 +56,6 @@
 			</c:if>
 		</header>
 
-		<c:if test="${true}">
+		<c:if test="${not empty sessionScope.id}">
 			<script src="/c4/js/header.js"></script>
 		</c:if>
