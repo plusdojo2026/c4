@@ -30,7 +30,7 @@ public class PasswordResetServlet extends HttpServlet {
 		String month = request.getParameter("month");
 		String day = request.getParameter("day");
 		String newPassword = request.getParameter("newPassword");
-		String checkPassword = request.getParameter('checkPassword');
+		String checkPassword = request.getParameter("checkPassword");
 		
 		 if (employeeNumber == null || employeeNumber.isEmpty()) {
         request.setAttribute("errorMsg", "社員番号を入力してください");
