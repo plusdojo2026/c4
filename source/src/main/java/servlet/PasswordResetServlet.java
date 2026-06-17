@@ -29,6 +29,7 @@ public class PasswordResetServlet extends HttpServlet {
 		String year = request.getParameter("year");
 		String month = request.getParameter("month");
 		String day = request.getParameter("day");
+		String birthday = year + String.format("%02d", Integer.parseInt(month)) + String.format("%02d", Integer.parseInt(day));
 		String newPassword = request.getParameter("newPassword");
 		String checkPassword = request.getParameter("checkPassword");
 		
