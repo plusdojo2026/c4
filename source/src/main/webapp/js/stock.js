@@ -191,12 +191,19 @@ document.querySelectorAll('.stock-row').forEach((row) => {
     updateDisplay();
 
     stockDialog.showModal();
+
+    requestAnimationFrame(() => {
+      stockDialog.classList.add("show");
+    });
   });
 });
 
 document.querySelectorAll('.cancel-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
-    btn.closest('dialog')?.close();
+    stockDialog.classList.remove("show");
+    setTimeout(() => {
+      btn.closest('dialog')?.close();
+    }, 250);
   });
 });
 

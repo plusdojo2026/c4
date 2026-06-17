@@ -11,8 +11,10 @@
 
 			<!-- not empty sessionScope.id -->
 			<c:if test="${true}">
-				<form id="header-search" class="header-search">
-					<input id="search-input" type="text" class="search-input" placeholder="検索バー" value="">
+				<form id="header-search" class="header-search" action="/c4/search" method="post">
+					<input type="hidden" name="sourcePage" value="<%= request.getRequestURI() %>">
+					<input id="search-input" type="text" name="search" class="search-input" placeholder="検索バー" value="${keyword}">
+
 					<button class="btn">検索</button>
 				</form>
 

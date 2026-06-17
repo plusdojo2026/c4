@@ -58,7 +58,7 @@
                 <td>${s.jancode}</td>
                 <td>${s.productName}</td>
                 <td>${s.stockQuantity}</td>
-                <td>${s.durationDays}日</td>
+                <td>${s.durationDays}日後</td>
               </tr>
             </c:forEach>
           </tbody>
@@ -72,7 +72,7 @@
         <button type="button" class="cancel-btn btn">
           キャンセル
         </button>
-        <button type="button" onclick="location.href=''" class="btn">
+        <button type="button" onclick="location.href='${pageContext.request.contextPath}/product'" class="btn">
           追加する
         </button>
       </div>
@@ -83,6 +83,7 @@
       <p>在庫数: <span class="dialog-stock"></span></p>
       <form id="stock-form" action="${pageContext.request.contextPath}/stock/edit" method="post">
         <input class="jancode" type="hidden" name="jancode" value="">
+        <input class="jancode" type="hidden" name="product-name" value="">
         <input class="new-quantity" type="hidden" name="newQuantity" value="">
         <div class="">
           <fieldset>

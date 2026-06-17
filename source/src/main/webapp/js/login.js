@@ -42,3 +42,18 @@ form.onsubmit = function (event) {
     event.preventDefault();
   }
 };
+
+//パスワードの表示・非表示
+const togglePassword = document.getElementById('togglePassword');
+const password = document.getElementById('password');
+
+togglePassword.addEventListener('click', function() {
+  //現在のtype属性を取得
+  const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+  password.setAttribute('type', type);
+
+  //iタグのアイコンを切り替え
+  this.classList.toggle('fa-eye');
+  this.classList.toggle('fa-eye-slash');
+
+});

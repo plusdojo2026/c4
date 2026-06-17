@@ -7,6 +7,7 @@
 	<meta charset="UTF-8">
 	<title>サカグラ｜パスワード再設定</title>
 	<link rel="stylesheet" href="/c4/css/login.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -23,13 +24,13 @@
 			<div class="wrapper">
 			<fieldset class="input-box">
 				<legend>社員番号</legend>
-				<input type="text" id="employeeNumber" name="employeeNumber" required>
+				<input type="text" id="employeeNumber" name="employeeNumber">
 			</fieldset>
 			
 
 			<div id="birthday" class="birthday">
 				<!-- <input type="date" name="dateOfBirth"> -->
-				<select id="year" name="year" required="required" >
+				<select id="year" name="year">
 					<option value="1900">1900</option>
 					<option value="1901">1901</option>
 					<option value="1902">1902</option>
@@ -160,7 +161,7 @@
 
 				</select>
 
-				<select id="month" name="month" required="required" >
+				<select id="month" name="month">
 					<option value="1" selected>1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -176,7 +177,7 @@
 
 				</select>
 
-				<select id="day" name="day" required="required">
+				<select id="day" name="day">
 					<option value="1" selected>1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -216,13 +217,14 @@
 			
 			<fieldset class="input-box">
 				<legend>新規パスワード</legend>
-				<input type="password" id="newPassword" name="newPassword" required>
+				<input type="password" id="newPassword" name="newPassword">
+				<i class="far fa-eye-slash"></i>
 			</fieldset>
 			
 
 			<fieldset class="input-box">
 				<legend>確認用パスワード</legend>
-				<input type="password" id="checkPassword" name="checkPassword" required>
+				<input type="password" id="checkPassword" name="checkPassword">
 			</fieldset>
 			</div>
 
@@ -232,10 +234,11 @@
 
 		</form>
 	</div>
-</div>
 	<footer>
 
 	</footer>
+	<script src="/c4/js/passwordReset.js"></script>
+	</div>
 </body>
 
 </html>
