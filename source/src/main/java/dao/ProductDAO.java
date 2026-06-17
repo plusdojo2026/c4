@@ -108,4 +108,50 @@ public class ProductDAO {
         }
         return result;
     }
+
+    // 商品名またはJANコードによるあいまい検索
+    public List<Product> search(String keyword) {
+        Connection conn = null;
+        List<Product> productList = new ArrayList<>();
+
+        try {
+            conn = DBConnection.getConnection();
+
+            // product_name または jan_code に部分一致するデータを取得
+            String sql = "SELECT jan_code, product_name, base_product_id, case_quantity, photo_path, duration_days, created_at, updated_at " +
+                        "FROM products " +
+                        "WHERE product_name LIKE ? OR jan_code LIKE ? " +
+                        "ORDER BY jan_code ASC";
+            
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+            
+            // "%" でキーワードを囲むことであいまい検索
+            String searchKeyword = "%" + keyword + "%";
+            pStmt.setString(1, searchKeyword);
+            pStmt.setString(2, searchKeyword);
+            
+            ResultSet rs = pStmt.executeQuery();
+
+            while (rs.next()) {
+                Product product = new Product(
+                    rs.getString("jan_code"),
+                    rs.getString("product_name"),
+                    rs.getString("base_product_id"),
+                    rs.getInt("case_quantity"),
+                    rs.getString("photo_path"),
+                    rs.getInt("duration_days"),
+                    rs.getObject("created_at", LocalDateTime.class),
+                    rs.getObject("updated_at", LocalDateTime.class)
+                );
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+            }
+        }
+        return productList;
+    }
 }

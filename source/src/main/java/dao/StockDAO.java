@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,5 +80,49 @@ public class StockDAO {
             if (conn != null) { try { conn.close(); } catch (SQLException e) { e.printStackTrace(); } }
         }
         return result;
+    }
+
+    // 商品名またはJANコードによる在庫データのあいまい検索
+    public List<Stock> search(String keyword) {
+        Connection conn = null;
+        List<Stock> stockList = new ArrayList<>();
+
+        try {
+            conn = DBConnection.getConnection();
+
+            // productsテーブルと結合し、商品名またはJANコードで絞り込む
+            String sql = "SELECT stocks.id, stocks.jancode, products.product_name, stocks.stock_quantity, products.duration_days, stocks.stores " +
+                        "FROM stocks " +
+                        "JOIN products ON stocks.jancode = products.jan_code " +
+                        "WHERE products.product_name LIKE ? OR stocks.jancode LIKE ? " +
+                        "ORDER BY stocks.id DESC";            
+            
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+            
+            String searchKeyword = "%" + keyword + "%";
+            pStmt.setString(1, searchKeyword);
+            pStmt.setString(2, searchKeyword);
+            
+            ResultSet rs = pStmt.executeQuery();
+
+            while (rs.next()) {
+                Stock stock = new Stock(
+                    rs.getInt("id"),
+                    rs.getString("jancode"),
+                    rs.getString("product_name"),
+                    rs.getInt("stock_quantity"),
+                    rs.getInt("duration_days"),
+                    rs.getInt("stores")
+                );
+                stockList.add(stock);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+            }
+        }
+        return stockList;
     }
 }
