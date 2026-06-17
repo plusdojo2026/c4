@@ -195,6 +195,16 @@ dialog {
   border: none;
   padding: 24px;
   border-radius: 24px;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+dialog.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 #stock-form {

@@ -9,23 +9,38 @@ document.addEventListener("DOMContentLoaded", () => {
   const showButton1 = document.querySelector("#add-btn");
   showButton1.addEventListener("click", () => {
     dialog1.showModal();
+    requestAnimationFrame(() => {
+      dialog1.classList.add("show");
+    });
   });
 
   // dialog1 の「キャンセル」
   const closeButton1 = document.querySelector("#closedialog");
   closeButton1.addEventListener("click", () => {
-    dialog1.close();
+    dialog1.classList.remove("show");
+    setTimeout(() => {
+      dialog1.close();
+    }, 250);
   });
   // dialog2のキャンセル
   const closeButton2 = document.querySelector("#cancel");
   closeButton2.addEventListener("click", () => {
-    dialog2.close();
+    dialog2.classList.remove("show");
+    setTimeout(() => {
+      dialog2.close();
+    }, 250);
   });
   // dialog1 の「追加する」→ dialog1 を閉じて dialog2 を開く
   const showButton2 = document.querySelector("#add");
   showButton2.addEventListener("click", () => {
-    dialog1.close();
+    dialog1.classList.remove("show");
+    setTimeout(() => {
+      dialog1.close();
+    }, 250);
     dialog2.showModal();
+    requestAnimationFrame(() => {
+      dialog2.classList.add("show");
+    });
   });
   // 画像追加
   document.getElementById("add-photo").addEventListener("change" , function(e){
@@ -54,18 +69,27 @@ document.querySelector(".deletecheck p").innerHTML =
     `${checked} 件選択されています。<br>選択商品を削除しますか？`;
 
   dialog3.showModal();
+  requestAnimationFrame(() => {
+    dialog3.classList.add("show");
+  });
 });
 
 // dialog3 の「キャンセル」
 const closeButton3 = document.querySelector("#cancel2");
 closeButton3.addEventListener("click", () => {
-  dialog3.close();
+  dialog3.classList.remove("show");
+  setTimeout(() => {
+    dialog3.close();
+  }, 250);
 });
 
 // dialog4（削除結果通知） の「キャンセル」
 const closeButton4 = document.querySelector("#cancel3");
 closeButton4.addEventListener("click", () => {
-  dialog4.close();
+  dialog4.classList.remove("show");
+  setTimeout(() => {
+    dialog4.close();
+  }, 250);
 });
 
 // 削除フォーム
@@ -98,12 +122,18 @@ document.querySelector("#delete").addEventListener("click", () => {
 // dialog1 の「キャンセル」
   const closeButton5 = document.querySelector("#cancel4");
   closeButton5.addEventListener("click", () => {
-    dialog5.close();
+    dialog5.classList.remove("show");
+    setTimeout(() => {
+      dialog5.close();
+    }, 250);
   });
 // 編集ポップアップから削除ポップアップ
 	const showButton6 = document.querySelector("#delete-check2");
   showButton6.addEventListener("click", () => {
-		dialog5.close();
+		dialog5.classList.remove("show");
+    setTimeout(() => {
+      dialog5.close();
+    }, 250);
 
     const checked = document.querySelectorAll(".edit-check:checked").length;
 
@@ -112,6 +142,9 @@ document.querySelector(".deletecheck p").innerHTML =
 
 
     dialog3.showModal();
+    requestAnimationFrame(() => {
+      dialog3.classList.add("show");
+    });
   });
 
 document.querySelector("#edit-button").addEventListener("click", () => {
@@ -158,6 +191,9 @@ document.querySelector("#edit-button").addEventListener("click", () => {
 
   // モーダルを開く
   dialog5.showModal();
+  requestAnimationFrame(() => {
+    dialog5.classList.add("show");
+  });
 });
 
   function checkClear(checked){
