@@ -65,19 +65,21 @@
         </table>
       </section>
     </main>
-    <dialog class="new-check-dialog">
-      <p>商品マスタに登録がありません。</p>
-      <p>新規商品を追加しますか？</p>
-      <div class="dialog-btn-wrapper">
-        <button type="button" class="cancel-btn btn">
-          キャンセル
-        </button>
-        <button type="button" onclick="location.href='${pageContext.request.contextPath}/product'" class="btn">
-          追加する
-        </button>
-      </div>
-    </dialog>
-    <dialog class="stock-add-dialog">
+    <c:if test="${isSearched and empty productList}">
+      <dialog class="new-check-dialog">
+        <p>商品マスタに登録がありません。</p>
+        <p>新規商品を追加しますか？</p>
+        <div class="dialog-btn-wrapper">
+          <button type="button" class="cancel-btn btn">
+            キャンセル
+          </button>
+          <button type="button" onclick="location.href='${pageContext.request.contextPath}/product'" class="btn">
+            追加する
+          </button>
+        </div>
+      </dialog>
+    </c:if>
+    <dialog class="stock-edit-dialog">
       <p>JAN: <span class="dialog-jan"></span></p>
       <p>商品名: <span class="dialog-product-name"></span></p>
       <p>在庫数: <span class="dialog-stock"></span></p>

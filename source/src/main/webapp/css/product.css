@@ -72,3 +72,8 @@ newmodal .product-photo {
 .option{
   margin-top: 10px;
 }
+/* 編集不可コメント */
+#edit-jan[readonly]{
+  color: aliceblue;
+  background-color: rgb(91, 131, 132);
+}

@@ -95,15 +95,15 @@
 					<dialog class="newmodal">
 						<button id="cancel" class="btn">閉じる</button>
 						<img src="#" class="product-photo" id="preview">
-						<form action="/c4/ProductAddServlet" method="post" enctype="multipart/form-data">
-							<div class="newform">
-								<input type="file" id="add-photo" name="add-photo" accept="image/*">
-								<input type="number" id="JAN" name="jan" placeholder="JANを入力" required>
-								<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
-								<input type="number" id="term" name="term" placeholder="期間を入力" required>
-							</div>
-							<button type="submit" class="btn regist">登録</button>
-						</form>
+							<form action="/c4/ProductAddServlet" method="post" enctype="multipart/form-data">
+									<div class="newform">
+										<input type="file" id="add-photo" name="add-photo" accept="image/*">
+										<input type="number" id="JAN" name="jan" placeholder="JANを入力" required>
+										<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
+										<input type="number" id="term" name="term" placeholder="期間を入力" required>
+									</div>
+									<button type="submit" class="btn regist">登録</button>
+							</form>
 					</dialog>
 
 
@@ -124,10 +124,10 @@
 					<!-- 削除結果通知ポップアップ -->
 					<dialog class="deleteresult">
 						<p>成功: ${success} 件<br>失敗: ${fail} 件</p>
-						<c:if test="${fail > 0}">
-							<p>「JANコード」は在庫があるため削除できませんでした。</p>
-						</c:if>
-						<button id="cancel3" class="btn">キャンセル</button>
+							<c:if test="${fail > 0}">
+								<p>「JANコード」は在庫があるため削除できませんでした。</p>
+							</c:if>
+							<button id="cancel3" class="btn">キャンセル</button>
 					</dialog>
 
 
@@ -154,7 +154,10 @@
 							<input type="hidden" name="id" id="edit-id">
 							<!-- 表示項目 -->
 							<input type="hidden" id="edit-photo" name="photoPath">
-							<input type="number" id="edit-jan" name="janCode" placeholder="JANを入力" required>
+							<div>
+								<input type="number" id="edit-jan" name="janCode" placeholder="JANを入力" readonly>
+							</div>
+								<div class="edit-comment-jan">※JANコードの編集は出来ません</div>
 							<input type="text" id="edit-name" name="productName" placeholder="商品名を入力" required>
 							<input type="number" id="edit-term" name="durationDays" placeholder="期間を入力" required>
 							<!-- 非表示項目 -->

@@ -218,6 +218,8 @@ document.querySelector("#edit-button").addEventListener("click", () => {
   });
 });
 
+ 
+
 // camera制御
 const video = document.getElementById('video');
 const cameraButton = document.getElementById('camera-button');

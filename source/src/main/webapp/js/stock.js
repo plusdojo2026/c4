@@ -162,7 +162,7 @@ async function scanBarcode() {
 }
 
 // ダイアログ処理
-const stockDialog = document.querySelector('.stock-add-dialog');
+const stockDialog = document.querySelector('.stock-edit-dialog');
 
 const dialogJan = stockDialog.querySelector('.dialog-jan');
 const dialogProductName = stockDialog.querySelector('.dialog-product-name');
@@ -232,4 +232,11 @@ decrementBtn.addEventListener("click", () => {
 changeQuantityEl.addEventListener('input', () => {
   changeQuantity = changeQuantityEl.value;
   newQuantityEl.value = Number(currentStock) + Number(changeQuantity);
+});
+
+const newCheckdialog = document.querySelector(".new-check-dialog");
+
+newCheckdialog.showModal();
+ requestAnimationFrame(() => {
+  newCheckdialog.classList.add("show");
 });
