@@ -58,6 +58,22 @@ input {
   margin: 10px 10px;
 }
 
+.input-box {
+  position: relative;
+  margin: 10px 10px;
+}
+/* パスワードと目を同じ列に表示させる */
+.fa.fa-eye-slash,
+.fa.fa-eye {
+  position: absolute;
+  top: 50%;
+}
+
+.input-box input[type="password"] {
+  padding-right: 40px;
+}
+
+
 /* ログインボタンのデザイン */
 .login-btn button,
 .pw-reset-btn button{
@@ -80,10 +96,6 @@ input {
   height: 30px;
 }
 
-.wrapper {
-  width: 50%;
-
-}
 
 .birthday {
   width: 100%;
