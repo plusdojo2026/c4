@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -218,13 +218,14 @@
 			<fieldset class="input-box">
 				<legend>新規パスワード</legend>
 				<input type="password" id="newPassword" name="newPassword">
-				<i class="far fa-eye-slash"></i>
+				<i id="toggleNewPassword" class="fa fa-eye-slash" style="cursor: pointer;"></i>
 			</fieldset>
 			
 
 			<fieldset class="input-box">
 				<legend>確認用パスワード</legend>
 				<input type="password" id="checkPassword" name="checkPassword">
+				<i id="toggleCheckPassword" class="fa fa-eye-slash" style="cursor: pointer;"></i>
 			</fieldset>
 			</div>
 

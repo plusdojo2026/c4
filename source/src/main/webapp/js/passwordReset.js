@@ -17,11 +17,11 @@ document.getElementById('login-form').onsubmit = function(event) {
 
     let employeeNumber = employeeNumberInput.value;
 		let birthday = birthdayInput.value;
-    let newPassword = newPasswordINnput.value;
+    let newPassword = newPasswordInput.value;
     let checkPassword = checkPasswordInput.value;
 
 
-    if(employeeNumber === '' && checkPassword ==='') {
+    if(employeeNumber === '' && birthday === '' && newPassword === '' && checkPassword ==='') {
         msgElement.textContent = '項目を入力してください'
         employeeNumberInput.style.backgroundColor = '#ffeeee';
 				birthdayInput.style.backgroundColor = '#ffeeee';
@@ -36,9 +36,9 @@ document.getElementById('login-form').onsubmit = function(event) {
 			msgElement.textContent = '生年月日を入力してください。';
 			birthdayInput.style.backgroundColor = '#ffeeee';
 			event.preventDefault();
-		} else if (newpassword === '') {
+		} else if (newPassword === '') {
 			msgElement.textContent = '新規パスワードを入力してください。';
-			newpasswordInput.style.backgroundColor = '#ffeeee';
+			newPasswordInput.style.backgroundColor = '#ffeeee';
 			event.preventDefault();
 		}else if (checkPassword === '') {
 			msgElement.textContent = '確認用パスワードを入力してください。';
@@ -46,3 +46,33 @@ document.getElementById('login-form').onsubmit = function(event) {
 			event.preventDefault();
 		}
 };
+
+//パスワードの表示・非表示
+//新規パスワード
+const toggleNewPassword = document.getElementById('toggleNewPassword');
+const newPassword = document.getElementById('newPassword');
+
+toggleNewPassword.addEventListener('click', function() {
+  //現在のtype属性を取得
+  const type = newPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+  newPassword.setAttribute('type', type);
+
+  //iタグのアイコンを切り替え
+  this.classList.toggle('fa-eye');
+  this.classList.toggle('fa-eye-slash');
+
+});
+
+//確認用パスワード
+const toggleCheckPassword = document.getElementById('toggleCheckPassword');
+const checkPassword = document.getElementById('checkPassword');
+
+toggleCheckPassword.addEventListener('click', function() {
+
+	const type = checkPassword.getAttribute('type') ==='password' ? 'text' : 'password';
+	checkPassword.setAttribute('type', type);
+
+	this.classList.toggle('fa-eye');
+	this.classList.toggle('fa-eye-slash');
+
+});
