@@ -162,11 +162,14 @@ async function scanBarcode() {
 }
 
 // ダイアログ処理
-const stockDialog = document.querySelector('.stock-edit-dialog');
+const stockAddDialog = document.querySelector('.stock-add-dialog');
+const stockEditDialog = document.querySelector('.stock-edit-dialog');
 
-const dialogJan = stockDialog.querySelector('.dialog-jan');
-const dialogProductName = stockDialog.querySelector('.dialog-product-name');
-const dialogStock = stockDialog.querySelector('.dialog-stock');
+const addButton = document.getElementById('add-button');
+
+const dialogJan = stockEditDialog.querySelector('.dialog-jan');
+const dialogProductName = stockEditDialog.querySelector('.dialog-product-name');
+const dialogStock = stockEditDialog.querySelector('.dialog-stock');
 
 let changeQuantity;
 let currentStock;
@@ -190,43 +193,72 @@ document.querySelectorAll('.stock-row').forEach((row) => {
 
     updateDisplay();
 
-    stockDialog.showModal();
+    stockEditDialog.showModal();
 
     requestAnimationFrame(() => {
-      stockDialog.classList.add("show");
+      stockEditDialog.classList.add("show");
     });
+  });
+});
+
+addButton.addEventListener('click', () => {
+  changeQuantity = 0;
+  stockAddDialog.showModal();
+  updateDisplay();
+  requestAnimationFrame(() => {
+    stockAddDialog.classList.add("show");
   });
 });
 
 document.querySelectorAll('.cancel-btn').forEach((btn) => {
   btn.addEventListener('click', () => {
-    stockDialog.classList.remove("show");
+    stockAddDialog.classList.remove("show");
+    stockEditDialog.classList.remove("show");
     setTimeout(() => {
       btn.closest('dialog')?.close();
     }, 250);
   });
 });
 
-const incrementBtn = document.querySelector(".increment-btn");
-const decrementBtn = document.querySelector(".decrement-btn");
+const incrementBtns = document.querySelectorAll(".increment-btn");
+const decrementBtns = document.querySelectorAll(".decrement-btn");
 const janCode = document.querySelector(".jancode");
 const changeQuantityEl = document.querySelector(".change-quantity");
+const addQuantityEl = document.querySelector(".add-quantity");
 const newQuantityEl = document.querySelector(".new-quantity");
 
 function updateDisplay() {
   janCode.value = currentJancode;
   changeQuantityEl.value = changeQuantity;
-  newQuantityEl.value = currentStock + changeQuantity;
+
+  if(stockAddDialog.open) {
+    console.log("stockAddDialog changeValues is :" + Number(changeQuantity));
+    if(Number(changeQuantity) < 1) {
+      changeQuantity = 1;
+      addQuantityEl.value = 1;
+    } else {
+      addQuantityEl.value = changeQuantity;
+    }
+  }
+
+  if(stockEditDialog.open) {
+    console.log("stockEditDialog changeValues is :" + Number(changeQuantity));
+    newQuantityEl.value = currentStock + changeQuantity;
+  }
 }
 
-incrementBtn.addEventListener("click", () => {
-  changeQuantity++;
-  updateDisplay();
+incrementBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    changeQuantity++;
+    updateDisplay();
+  });
 });
 
-decrementBtn.addEventListener("click", () => {
-  changeQuantity--;
-  updateDisplay();
+decrementBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    changeQuantity--;
+    updateDisplay();
+  });
 });
 
 changeQuantityEl.addEventListener('input', () => {
@@ -236,7 +268,10 @@ changeQuantityEl.addEventListener('input', () => {
 
 const newCheckdialog = document.querySelector(".new-check-dialog");
 
-newCheckdialog.showModal();
- requestAnimationFrame(() => {
-  newCheckdialog.classList.add("show");
-});
+if(newCheckdialog != null) {
+  newCheckdialog.showModal();
+
+  requestAnimationFrame(() => {
+    newCheckdialog.classList.add("show");
+  });
+}

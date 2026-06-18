@@ -31,7 +31,10 @@
           </div>
         </div>
         <div class="button-wrapper">
-          <button id="camera-button">
+          <button id="add-button" type="button">
+            <img class="active" src="/c4/img/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="在庫新規追加">
+          </button>
+          <button id="camera-button" type="button">
             <img id="camera-on" class="active" src="/c4/img/videocam_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
               alt="カメラON">
             <img id="camera-off" class="" src="/c4/img/videocam_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
@@ -65,7 +68,7 @@
         </table>
       </section>
     </main>
-    <c:if test="${isSearched and empty productList}">
+    <c:if test="${isSearched and empty productList or isInserted}">
       <dialog class="new-check-dialog">
         <p>商品マスタに登録がありません。</p>
         <p>新規商品を追加しますか？</p>
@@ -79,18 +82,62 @@
         </div>
       </dialog>
     </c:if>
+    <dialog class="stock-add-dialog">
+      
+      <!-- <p>JAN: <span class="dialog-jan"></span></p>
+      <p>商品名: <span class="dialog-product-name"></span></p>
+      <p>在庫数: <span class="dialog-stock"></span></p> -->
+      <form id="stock-add-form" class="stock-form" action="${pageContext.request.contextPath}/stock/add" method="post">  
+        <div class="">
+          <fieldset>
+            <legend>JAN</legend>
+            <input type="text" name="jancode" placeholder="JANコードを入力してください。" pattern="\d{13}" maxlength="13" inputmode="numeric" required>
+          </fieldset>
+          <fieldset>
+            <legend>商品名</legend>
+            <input type="text" name="productName" placeholder="商品名を入力してください。" required>
+          </fieldset>
+          <fieldset>
+            <legend>在庫追加数</legend>
+            <input class="add-quantity" type="number" name="quantity" value="1" min="1" required>
+          </fieldset>
+          <div class="">
+            <button type="button" class="btn increment-btn">増 +</button>
+            <button type="button" class="btn decrement-btn">減 -</button>
+          </div>
+          <div class="">
+            <fieldset>
+              <legend>入庫日</legend>
+              <input class="" type="date" name="">
+            </fieldset>
+            <fieldset>
+              <legend>期限</legend>
+              <input class="" type="date" name="">
+            </fieldset>
+          </div>
+        </div>
+        <div class="dialog-btn-wrapper">
+          <button type="button" class="cancel-btn btn">
+            キャンセル
+          </button>
+          <button type="submit" class="btn">
+            更新
+          </button>
+        </div>
+      </form>
+    </dialog>
     <dialog class="stock-edit-dialog">
       <p>JAN: <span class="dialog-jan"></span></p>
       <p>商品名: <span class="dialog-product-name"></span></p>
       <p>在庫数: <span class="dialog-stock"></span></p>
-      <form id="stock-form" action="${pageContext.request.contextPath}/stock/edit" method="post">
+      <form id="stock-edit-form" class="stock-form" action="${pageContext.request.contextPath}/stock/edit" method="post">
         <input class="jancode" type="hidden" name="jancode" value="">
-        <input class="jancode" type="hidden" name="product-name" value="">
+        <input class="product-name" type="hidden" name="productName" value="">
         <input class="new-quantity" type="hidden" name="newQuantity" value="">
         <div class="">
           <fieldset>
             <legend>在庫変更数</legend>
-            <input class="change-quantity" type="number" name="changeQuantity" value="0">
+            <input class="change-quantity" type="number" name="changeQuantity" value="0" required>
           </fieldset>
           <div class="">
             <button type="button" class="btn increment-btn">入庫 +</button>
