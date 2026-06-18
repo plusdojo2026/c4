@@ -9,7 +9,7 @@
 
   <script src="https://unpkg.com/@zxing/library@latest"></script>
   <link rel="stylesheet" href="/c4/css/common.css">
-  <link rel="stylesheet" href="/c4/css/permission.css">
+  <link rel="stylesheet" href="/c4/css/admin.css">
 
   <title>サカグラ | 管理者</title>
 </head>
@@ -18,21 +18,48 @@
   <!-- ここでheader.jspをinclude -->
   <!-- <%@ include file="/WEB-INF/jsp/header.jsp" %> -->
 
-  <!-- sidebarと機能画面のラッパー用div -->
+  <!-- sidebarと管理者画面のラッパー用div -->
   <div class="wrapper">
     <!-- ここでsidebar.jspをinclude -->
     <!-- <%@ include file="/WEB-INF/jsp/sidebar.jsp" %> -->
     <main class="employee-content">
       <section class="employee-card">
+      <div class="button-wrapper">
+					<button id="edit-button">
+						<img class="active" src="/webapp/img/edit_square_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="編集">
+					</button>
+					<!-- 新規追加ボタン -->
+					<button id="add-btn">新規追加</button>
+				</div>
+				<div>
+					<!-- 全選択チェックボックス -->
+					<input type="checkbox" class="option" id="select-all">
+					<!-- 削除ボタン -->
+					<button id="delete-check" class="option">削除</button>
+				</div>
           <table>
+          <caption>従業員一覧</caption>
           <thead>
-            <tr>従業員一覧
+            <tr>
               <th>名前</th>
               <th>生年月日</th>
               <th>パスワード</th>
               <th>権限の有無</th>
             </tr>
           </thead>
+
+          <!-- 従業員のデータ -->
+           <tbody id="employee-table-body">
+            <c:forEach var="p" items="${accountList}">
+							<tr>
+								<td><input type="checkbox"></td>
+								<td>${p.name}</td>
+								<td>${p.birthday}</td>
+								<td>${p.password}</td>
+                <td>${p.permissionsId}</td>
+							</tr>
+						</c:forEach>
+           </tbody>
         </table>
       </section>
     </main>
@@ -48,7 +75,7 @@
       </div>
     </dialog>
   </div>
-  <!-- <script src="/c4/js/stock.js"></script> -->
+  <!-- <script src="/c4/js/.js"></script> -->
 </body>
 
 </html>
