@@ -63,19 +63,96 @@
         </table>
       </section>
     </main>
-    <dialog class="new-check-dialog">
-      <p>従業員情報を入力してください。</p>
-      <div class="dialog-btn-wrapper">
-        <button type="button" class="cancel-btn btn">
-          キャンセル
-        </button>
-        <button type="button" onclick="location.href=''" class="btn">
-          登録する
-        </button>
-      </div>
-    </dialog>
   </div>
-  <!-- <script src="/c4/js/.js"></script> -->
-</body>
 
-</html>
+    <!-- 新規追加ポップアップ（確認） -->
+					<dialog class="newcheck">
+						<p>新しい従業員を追加しますか？</p>
+						<button id="closedialog" class="btn">キャンセル</button>
+						<button id="add" class="btn">追加する</button>
+					</dialog>
+
+
+					<!-- 新規追加モーダル -->
+					<dialog class="newmodal">
+						<button id="cancel" class="btn">閉じる</button>
+            <!-- Servletができ次第反映させる -->
+							<!-- <form action="/c4/ProductAddServlet" method="post" enctype="multipart/form-data"> -->
+									<div class="newform">
+										<input type="file" id="add-photo" name="add-photo" accept="image/*">
+										<input type="number" id="JAN" name="jan" placeholder="JANを入力" required>
+										<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
+										<input type="number" id="term" name="term" placeholder="期間を入力" required>
+									</div>
+									
+
+
+					<!-- 削除フォーム -->
+					<form id="delete-form" action="/c4/product/delete" method="post">
+						<input type="hidden" name="deleteIds" id="delete-ids">
+					</form>
+
+
+					<!-- 削除確認ポップアップ -->
+					<dialog class="deletecheck">
+						<p>〇件選択されています。<br>選択商品を削除しますか？</p>
+						<button id="cancel2" class="btn">キャンセル</button>
+						<button id="delete" class="btn">削除する</button>
+					</dialog>
+
+
+					<!-- 削除結果通知ポップアップ -->
+					<dialog class="deleteresult">
+						<p>成功: ${success} 件<br>失敗: ${fail} 件</p>
+							<c:if test="${fail > 0}">
+								<p>削除できませんでした。</p>
+							</c:if>
+							<button id="cancel3" class="btn">キャンセル</button>
+					</dialog>
+
+
+					<!-- 削除通知 -->
+					<c:if test="${showDeleteResult}">
+							<script>
+									document.addEventListener("DOMContentLoaded", () => {
+											const dialog4 = document.querySelector(".deleteresult");
+											dialog4.showModal();
+											requestAnimationFrame(() => {
+													dialog4.classList.add("show");
+											});
+									});
+							</script>
+						</c:if>
+
+
+					<!-- 編集ポップアップ -->
+					<dialog class="edit">
+
+						<button id="cancel4" class="btn">閉じる</button>
+
+						<form action="/c4/product/edit" method="post">
+							<input type="hidden" name="id" id="edit-id">
+							<!-- 表示項目 -->
+							<input type="hidden" id="edit-photo" name="photoPath">
+							<div>
+								<input type="number" id="edit-jan" name="janCode" placeholder="JANを入力" readonly>
+							</div>
+								<div class="edit-comment-jan">※JANコードの編集は出来ません</div>
+							<input type="text" id="edit-name" name="productName" placeholder="商品名を入力" required>
+							<input type="number" id="edit-term" name="durationDays" placeholder="期間を入力" required>
+							<!-- 非表示項目 -->
+							<input type="hidden" id="edit-base" name="baseProductId">
+							<input type="hidden" id="edit-case" name="caseQuantity">
+
+							<button type="submit" class="btn edit">保存</button>
+							<button type="button" id="delete-check2" class="btn delete">削除</button>
+						</form>
+
+					</dialog>
+
+
+					<script src="/c4/js/admin.js"></script>
+			</div>
+		</body>
+
+		</html>
