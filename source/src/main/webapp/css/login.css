@@ -99,7 +99,7 @@ input {
 
 
 .birthday {
-  width: 100%;
+  width: 256px;
   display: flex;
   margin: 9px;
 }
