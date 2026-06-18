@@ -239,7 +239,6 @@
 
 	</footer>
 	<script src="/c4/js/passwordReset.js"></script>
-	</div>
 </body>
 
 </html>

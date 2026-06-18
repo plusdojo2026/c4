@@ -59,6 +59,13 @@ document.getElementById('login-form').onsubmit = function(event) {
 			msgElement.textContent = '確認用パスワードを入力してください。';
 			checkPasswordInput.style.backgroundColor = '#ffeeee';
 			event.preventDefault();
+
+		// 新規パスワードと確認用パスワードが不一致の場合
+		}else if (newPassword !== checkPassword) {
+			msgElement.textContent = 'パスワードが一致しません。';
+			newPasswordInput.style.backgroundColor = '#ffeeee';
+			checkPasswordInput.style.backgroundColor = '#ffeeee';
+			event.preventDefault();
 		}
 };
 
