@@ -47,4 +47,13 @@ public class Account implements Serializable {
         this.password = "";
         this.permissionsId = 0;
     }
+
+
+// 従業員一覧(selectAll)用のコンストラクタ
+	public Account(int id, String name, String birthday, int permissionsId) {
+		this.id = id;
+		this.name = name;
+		this.birthday = birthday;
+		this.permissionsId = permissionsId;
+		}
 }

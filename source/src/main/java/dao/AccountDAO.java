@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Account;
 
@@ -135,9 +137,9 @@ public class AccountDAO {
 		}
 		return result;
 	}
-}
 
-public class AccountDAO {
+
+
     // 登録されている全従業員の一覧を取得します。
     public List<Account> selectAll() {
         Connection conn = null;
@@ -204,4 +206,5 @@ public class AccountDAO {
             if (conn != null) { try { conn.close(); } catch (SQLException e) { e.printStackTrace(); } }
         }
         return result;
-    }
+   	 }
+	}
