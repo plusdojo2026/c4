@@ -49,8 +49,6 @@ input:focus {
 
 input {
   border: none;
-  position: relative;
-  margin: 10px 10px;
 }
 
 /* それぞれの隙間 */
@@ -62,11 +60,17 @@ input {
 
 
 /* パスワードと目を同じ列に表示させる */
+.input-box {
+  position: relative;
+  margin: 10px 10px;
+}
+
 .fa.fa-eye-slash,
 .fa.fa-eye {
   position: absolute;
-  top: 59%;
-  right: 26%;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-60%);
 }
 
 
