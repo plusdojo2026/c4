@@ -102,6 +102,52 @@
 										<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
 										<input type="number" id="term" name="term" placeholder="期間を入力" required>
 									</div>
+									
+										<div class="case-check">
+												<label>
+														<input type="checkbox" id="is-case" name="isCase">
+														ケース商品ですか？
+												</label>
+										</div>
+
+									<!-- ケース用オプション -->
+    							<div id="case-options" style="display:none; margin-top:15px;">
+
+										<!-- 入数 -->
+										<label>入数（case_quantity）：</label>
+										<input type="number" id="case-qty" name="caseQuantity" min="1" placeholder="例：6, 12, 24">
+
+										<!-- 単品選択プルダウン -->
+										<label style="margin-top:10px;">紐づける単品：</label>
+										<select id="single-select" name="singleProductId">
+												<option value="">（選択しない）</option>
+												<c:forEach var="sp" items="${singleProductList}">
+														<option value="${sp.productId}">
+																${sp.productName}（JAN: ${sp.janCode}）
+														</option>
+												</c:forEach>
+										</select>
+
+										<!-- メッセージ表示欄 -->
+										<div id="single-message" style="display:none; margin-top:10px; color:#0077cc;">
+												既存の単品を選択しています。  
+												バラ商品の入力内容を変更すると、既存単品の情報が更新されます。
+										</div>
+
+									</div>
+
+										<!-- バラ商品フォーム（入数2以上で常時表示） -->
+										<div id="bara-form" style="display:none; margin-top:20px; border-top:1px solid #ccc; padding-top:15px;">
+
+												<h4>バラ商品の情報</h4>
+
+												<input type="number" id="bara-jan" name="baraJan" placeholder="バラJANを入力">
+												<input type="text" id="bara-name" name="baraName" placeholder="バラの商品名を入力">
+												<input type="number" id="bara-term" name="baraTerm" placeholder="バラの期間を入力">
+												<input type="file" id="bara-photo" name="baraPhoto" accept="image/*">
+
+										</div>
+
 									<button type="submit" class="btn regist">登録</button>
 							</form>
 					</dialog>

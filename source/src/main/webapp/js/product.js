@@ -218,7 +218,7 @@ document.querySelector("#edit-button").addEventListener("click", () => {
   });
 });
 
- 
+
 
 // camera制御
 const video = document.getElementById('video');
@@ -272,5 +272,64 @@ cameraButton.addEventListener('click', () => {
     startCamera();
   }
   });
+
+// 要素が多すぎるため下に入れてます　↓
+
+// 新規追加機能（ケース・バラ）
+ // 要素取得
+const isCase = document.getElementById("is-case");
+const caseOptions = document.getElementById("case-options");
+const caseQty = document.getElementById("case-qty");
+const singleSelect = document.getElementById("single-select");
+const baraForm = document.getElementById("bara-form");
+const singleMessage = document.getElementById("single-message");
+
+// 表示制御関数
+function updateCaseUI() {
+
+  // ケースチェックOFF→全部隠す
+  if (!isCase.checked) {
+    caseOptions.style.display = "none";
+    baraForm.style.display = "none";
+    singleMessage.style.display = "none";
+    return;
+  }
+
+  // ケースチェックON→case-options 表示
+  caseOptions.style.display = "block";
+
+  const qty = Number(caseQty.value);
+
+  // 入数が2未満→バラフォーム非表示
+  if (qty < 2) {
+    baraForm.style.display = "none";
+    singleMessage.style.display = "none";
+    return;
+  }
+
+  // 入数が2以上→バラフォーム表示（常に）
+  baraForm.style.display = "block";
+
+  // 単品プルダウン選択時のメッセージ
+  if (singleSelect.value !== "") {
+    singleMessage.style.display = "block";
+  } else {
+    singleMessage.style.display = "none";
+  }
+}
+
+if (isCase) {
+  isCase.addEventListener("change", updateCaseUI);
+}
+if (caseQty) {
+  caseQty.addEventListener("input", updateCaseUI);
+}
+if (singleSelect) {
+  singleSelect.addEventListener("change", updateCaseUI);
+}
+
+// 初期状態反映
+updateCaseUI();
+
 
 });
