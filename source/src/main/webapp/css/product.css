@@ -64,6 +64,15 @@
   width: 100%;
 }
 
+#bara-form {
+  display: none;
+}
+
+#single-message {
+  display: none;
+}
+
+
 
 .regist {
   margin-top: 10px;

@@ -1,11 +1,59 @@
 document.addEventListener("DOMContentLoaded", () => {
  
+   console.log("JS 読み込み OK");
+
+    // ① まず要素を取得（ここが一番上）
+    const isCase = document.getElementById("is-case");
+    const caseQty = document.getElementById("case-qty");
+    const singleSelect = document.getElementById("single-select");
+    const baraForm = document.getElementById("bara-form");
+    const singleMessage = document.getElementById("single-message");
+
+    console.log("isCase:", isCase);
+    console.log("caseQty:", caseQty);
+    console.log("singleSelect:", singleSelect);
+    console.log("baraForm:", baraForm);
+    console.log("singleMessage:", singleMessage);
+
+    // ② 次に関数を書く
+    function updateCaseUI() {
+
+        if (Number(caseQty.value) <= 1) {
+            isCase.checked = false;
+        }
+
+        if (!isCase.checked) {
+            caseQty.value = 1;
+            caseQty.disabled = true;
+
+            baraForm.style.display = "none";
+            singleMessage.style.display = "none";
+            return;
+        }
+
+        caseQty.disabled = false;
+        baraForm.style.display = "block";
+
+        if (singleSelect.value !== "") {
+            singleMessage.style.display = "block";
+        } else {
+            singleMessage.style.display = "none";
+        }
+    }
+
+    // ③ イベント登録
+    isCase.addEventListener("change", updateCaseUI);
+    caseQty.addEventListener("input", updateCaseUI);
+    singleSelect.addEventListener("change", updateCaseUI);
+
+    // ④ 最後に初期化
+    updateCaseUI();
+
   // 全選択チェックボックス
  const checkAll = document.querySelector("#check-all");
 
   if (!checkAll) {
     console.log("check-all が見つかりません");
-    return;
   }
 
   checkAll.addEventListener("click", () => {
@@ -64,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   // 画像追加
   const addPhoto = document.getElementById("add-photo");
-if (addPhoto) { 
+  if (addPhoto) { 
   document.getElementById("add-photo").addEventListener("change" , function(e){
     const file = e.target.files[0];
     if(!file)return;
@@ -75,51 +123,51 @@ if (addPhoto) {
     };
     reader.readAsDataURL(file);
   })
-}
-// 削除確認ポップアップ
-const dialog3 = document.querySelector(".deletecheck");
-// 削除結果通知ポップアップ
-const dialog4 = document.querySelector(".deleteresult");
+  }
+  // 削除確認ポップアップ
+  const dialog3 = document.querySelector(".deletecheck");
+  // 削除結果通知ポップアップ
+  const dialog4 = document.querySelector(".deleteresult");
 
-// 削除記号押す　→　dialog3（削除確認）開く
-const showButton3 = document.querySelector("#delete-check");
-showButton3.addEventListener("click", () => {
-// 削除件数表示
-const checked = document.querySelectorAll(".edit-check:checked").length;
+  // 削除記号押す　→　dialog3（削除確認）開く
+  const showButton3 = document.querySelector("#delete-check");
+  showButton3.addEventListener("click", () => {
+  // 削除件数表示
+  const checked = document.querySelectorAll(".edit-check:checked").length;
 
-document.querySelector(".deletecheck p").innerHTML =
+  document.querySelector(".deletecheck p").innerHTML =
     `${checked} 件選択されています。<br>選択商品を削除しますか？`;
 
   dialog3.showModal();
   requestAnimationFrame(() => {
     dialog3.classList.add("show");
   });
-});
+  });
 
-// dialog3 の「キャンセル」
-const closeButton3 = document.querySelector("#cancel2");
-closeButton3.addEventListener("click", () => {
+  // dialog3 の「キャンセル」
+  const closeButton3 = document.querySelector("#cancel2");
+  closeButton3.addEventListener("click", () => {
   dialog3.classList.remove("show");
   setTimeout(() => {
     dialog3.close();
   }, 250);
-});
+  });
 
-// dialog4（削除結果通知） の「キャンセル」
-const closeButton4 = document.querySelector("#cancel3");
-closeButton4.addEventListener("click", () => {
+  // dialog4（削除結果通知） の「キャンセル」
+  const closeButton4 = document.querySelector("#cancel3");
+  closeButton4.addEventListener("click", () => {
   dialog4.classList.remove("show");
   setTimeout(() => {
     dialog4.close();
   }, 250);
-});
+  });
 
-// 削除フォーム
-const deleteForm = document.querySelector("#delete-form");
-const deleteIdsInput = document.querySelector("#delete-ids");
+  // 削除フォーム
+  const deleteForm = document.querySelector("#delete-form");
+  const deleteIdsInput = document.querySelector("#delete-ids");
 
-// dialog3 の「削除する」ボタンに削除処理を追加
-document.querySelector("#delete").addEventListener("click", () => {
+  // dialog3 の「削除する」ボタンに削除処理を追加
+  document.querySelector("#delete").addEventListener("click", () => {
 
   // チェックされた項目を取得
   const checked = document.querySelectorAll(".edit-check:checked");
@@ -130,18 +178,18 @@ document.querySelector("#delete").addEventListener("click", () => {
 
   // フォーム送信
   deleteForm.submit();
-});
+  });
 
 
 
-// 編集ポップアップ
+  // 編集ポップアップ
 	const dialog5 = document.querySelector(".edit");
-// 編集記号押す　→　dialog5開く
+  // 編集記号押す　→　dialog5開く
 	const showButton5 = document.querySelector("#edit-button");
   showButton5.addEventListener("click", () => {
     
   });
-// dialog1 の「キャンセル」
+  // dialog1 の「キャンセル」
   const closeButton5 = document.querySelector("#cancel4");
   closeButton5.addEventListener("click", () => {
     dialog5.classList.remove("show");
@@ -149,7 +197,7 @@ document.querySelector("#delete").addEventListener("click", () => {
       dialog5.close();
     }, 250);
   });
-// 編集ポップアップから削除ポップアップ
+  // 編集ポップアップから削除ポップアップ
 	const showButton6 = document.querySelector("#delete-check2");
   showButton6.addEventListener("click", () => {
 		dialog5.classList.remove("show");
@@ -159,7 +207,7 @@ document.querySelector("#delete").addEventListener("click", () => {
 
     const checked = document.querySelectorAll(".edit-check:checked").length;
 
-document.querySelector(".deletecheck p").innerHTML =
+  document.querySelector(".deletecheck p").innerHTML =
     `${checked} 件選択されています。<br>選択商品を削除しますか？`;
 
 
@@ -169,7 +217,7 @@ document.querySelector(".deletecheck p").innerHTML =
     });
   });
 
-document.querySelector("#edit-button").addEventListener("click", () => {
+  document.querySelector("#edit-button").addEventListener("click", () => {
 
     // チェックされた行を取得
     const checked = document.querySelectorAll(".edit-check:checked");
@@ -216,20 +264,20 @@ document.querySelector("#edit-button").addEventListener("click", () => {
   requestAnimationFrame(() => {
     dialog5.classList.add("show");
   });
-});
+  });
 
 
 
-// camera制御
-const video = document.getElementById('video');
-const cameraButton = document.getElementById('camera-button');
-const cameraOn = document.getElementById('camera-on');
-const cameraOff = document.getElementById('camera-off');
+  // camera制御
+  const video = document.getElementById('video');
+  const cameraButton = document.getElementById('camera-button');
+  const cameraOn = document.getElementById('camera-on');
+  const cameraOff = document.getElementById('camera-off');
 
-let stream = null;
-let isCameraOn = false;
+  let stream = null;
+  let isCameraOn = false;
 
-async function startCamera() {
+  async function startCamera() {
   navigator.mediaDevices.getUserMedia({
     video: {
       facingMode: "user",
@@ -247,9 +295,9 @@ async function startCamera() {
     .catch((e) => {
       console.log(e);
     });
-}
+  }
 
-function stopCamera() {
+  function stopCamera() {
   if (!stream) return;
 
   stream.getTracks().forEach((track) => {
@@ -263,9 +311,9 @@ function stopCamera() {
   video.classList.remove('active');
   cameraOff.classList.remove('active');
   cameraOn.classList.add('active');
-}
+  }
 
-cameraButton.addEventListener('click', () => {
+  cameraButton.addEventListener('click', () => {
   if (isCameraOn) {
     stopCamera();
   } else {
@@ -273,63 +321,8 @@ cameraButton.addEventListener('click', () => {
   }
   });
 
-// 要素が多すぎるため下に入れてます　↓
-
-// 新規追加機能（ケース・バラ）
- // 要素取得
-const isCase = document.getElementById("is-case");
-const caseOptions = document.getElementById("case-options");
-const caseQty = document.getElementById("case-qty");
-const singleSelect = document.getElementById("single-select");
-const baraForm = document.getElementById("bara-form");
-const singleMessage = document.getElementById("single-message");
-
-// 表示制御関数
-function updateCaseUI() {
-
-  // ケースチェックOFF→全部隠す
-  if (!isCase.checked) {
-    caseOptions.style.display = "none";
-    baraForm.style.display = "none";
-    singleMessage.style.display = "none";
-    return;
-  }
-
-  // ケースチェックON→case-options 表示
-  caseOptions.style.display = "block";
-
-  const qty = Number(caseQty.value);
-
-  // 入数が2未満→バラフォーム非表示
-  if (qty < 2) {
-    baraForm.style.display = "none";
-    singleMessage.style.display = "none";
-    return;
-  }
-
-  // 入数が2以上→バラフォーム表示（常に）
-  baraForm.style.display = "block";
-
-  // 単品プルダウン選択時のメッセージ
-  if (singleSelect.value !== "") {
-    singleMessage.style.display = "block";
-  } else {
-    singleMessage.style.display = "none";
-  }
-}
-
-if (isCase) {
-  isCase.addEventListener("change", updateCaseUI);
-}
-if (caseQty) {
-  caseQty.addEventListener("input", updateCaseUI);
-}
-if (singleSelect) {
-  singleSelect.addEventListener("change", updateCaseUI);
-}
-
-// 初期状態反映
-updateCaseUI();
-
+  // 要素が多すぎるため下に入れてます　↓
+  // バラケース
+   
 
 });
