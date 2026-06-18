@@ -136,3 +136,72 @@ public class AccountDAO {
 		return result;
 	}
 }
+
+public class AccountDAO {
+    // 登録されている全従業員の一覧を取得します。
+    public List<Account> selectAll() {
+        Connection conn = null;
+        List<Account> accountList = new ArrayList<>();
+
+        try {
+            conn = DBConnection.getConnection();
+
+            String sql = "SELECT * FROM accounts ORDER BY id DESC";
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+            ResultSet rs = pStmt.executeQuery();
+
+            while (rs.next()) {
+                Account account = new Account(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("birthday"),
+                    rs.getInt("permissions_id")
+                );
+                accountList.add(account);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+            }
+        }
+        return accountList;
+    }
+
+    // 既存の従業員情報を更新します。
+    public boolean update(Account account) {
+        Connection conn = null;
+        boolean result = false;
+        try {
+            conn = DBConnection.getConnection();
+            String sql = "UPDATE accounts SET name = ?, permissions_id = ? WHERE id = ?";
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+            pStmt.setString(1, account.getName());
+            pStmt.setInt(2, account.getPermissionsId());
+			pStmt.setInt(3, account.getId());
+
+            if (pStmt.executeUpdate() == 1) { result = true; }
+        } catch (SQLException e) { e.printStackTrace();
+        } finally {
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        }
+        return result;
+    }
+
+    // 指定されたidの従業員をマスターから削除します。
+    public boolean delete(int id) {
+        Connection conn = null;
+        boolean result = false;
+        try {
+            conn = DBConnection.getConnection();
+            String sql = "DELETE FROM accounts WHERE id = ?";
+            PreparedStatement pStmt = conn.prepareStatement(sql);
+            pStmt.setInt(1, id);
+            if (pStmt.executeUpdate() == 1) { result = true; }
+        } catch (SQLException e) { e.printStackTrace();
+        } finally {
+            if (conn != null) { try { conn.close(); } catch (SQLException e) { e.printStackTrace(); } }
+        }
+        return result;
+    }
