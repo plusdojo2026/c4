@@ -1,5 +1,3 @@
-@import url(./common.css);
-
 .global-sidebar {
   width: 80px;
   height: 100vh;
@@ -32,7 +30,7 @@
   padding: 12px 0;
   gap: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 /* ホバー時 */
@@ -61,14 +59,6 @@
   line-height: 1.2;
 }
 
-/* 仮）設定用の白い丸 */
-.dummy-circle {
-  width: 28px;
-  height: 28px;
-  background-color: #ffffff;
-  border-radius: 50%;
-}
-
 /* アカウントモーダル */
 .account-modal {
   position: absolute;
@@ -76,7 +66,7 @@
   left: 90px;
   width: 220px;
   background-color: #ffffff;
-  border: 2px solid #000000;
+  border: 2px solid var(--tertiary);
   border-radius: 6px;
   padding: 16px;
   display: flex;
@@ -86,7 +76,9 @@
 }
 
 /* JavaScriptで非表示状態にするためのクラス */
-.account-modal.hidden {
+.account-modal.hidden,
+.pwd-modal-overlay.hidden,
+.password-modal.hidden {
   display: none;
 }
 
@@ -114,17 +106,139 @@
   font-weight: bold;
 }
 
-/* ログアウトボタン */
 .modal-logout-btn {
   background-color: #c62828;
   color: #ffffff;
 }
-
-/* ログアウトボタンホバー時 */
 .modal-logout-btn:hover {
   background-color: #e53935;
 }
 
+.modal-pwd-btn {
+  background-color: #1976d2;
+  color: #ffffff;
+}
+.modal-pwd-btn:hover {
+  background-color: #1565c0;
+}
+
+.cancel-pwd-btn {
+  background-color: #9e9e9e;
+  color: #ffffff;
+  width: 48%;
+}
+.cancel-pwd-btn:hover {
+  background-color: #757575;
+}
+
+.submit-pwd-btn {
+  background-color: #4caf50;
+  color: #ffffff;
+  width: 48%;
+}
+.submit-pwd-btn:hover {
+  background-color: #43a047;
+}
+
+/* パスワード変更用モーダル */
+.pwd-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.password-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pwd-modal-title {
+  margin: 0;
+  font-size: 16px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 12px;
+}
+
+.pwd-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.form-group input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.pwd-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* パスワードリアルタイム確認用スタイル */
+.pwd-match-msg {
+  font-size: 11px;
+  font-weight: bold;
+  margin-top: -6px;
+  min-height: 14px;
+}
+
+/* 一致しない時の赤文字 */
+.pwd-match-msg.error {
+  color: #c62828;
+}
+
+/* 確定ボタンが無効化されている時のスタイル */
+.submit-pwd-btn:disabled {
+  background-color: #bdbdbd;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* サーバー側からのエラー・成功メッセージ用スタイル */
+.server-error-msg {
+  color: #c62828;
+  font-size: 12px;
+  text-align: center;
+  padding: 8px;
+}
+
+.server-success-msg {
+  color: #2e7d32;
+  font-size: 12px;
+  text-align: center;
+  background-color: #e8f5e9;
+  padding: 5px;
+  border-radius: 4px;
+}
 
 @media screen and (max-width: 480px) {
   .global-sidebar {
@@ -135,7 +249,6 @@
     height: 60px;
     flex-direction: row;
     padding: 0 20px;
-    box-sizing: border-box;
   }
 
   .sidebar-top,
