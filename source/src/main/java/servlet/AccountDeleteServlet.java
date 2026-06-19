@@ -7,12 +7,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.AccountDAO;
 import model.Account;
 
 @WebServlet("/account/delete")
 public class AccountDeleteServlet extends HttpServlet {
+     private static final long serialVersionUID = 1L;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -25,7 +27,7 @@ public class AccountDeleteServlet extends HttpServlet {
 
         if (idsStr == null || idsStr.isEmpty()) {
             // 何も選択されていない場合は従業員一覧へ戻す
-            response.sendRedirect("/account/list");
+            response.sendRedirect(request.getContextPath() + "/account");
             return;
         }
 
@@ -52,12 +54,15 @@ public class AccountDeleteServlet extends HttpServlet {
                 }
         }
 
-        // JSP に結果を渡す
-        request.setAttribute("success", success);
-        request.setAttribute("fail", fail);
-        request.setAttribute("showDeleteResult", true);
+        // JSPに結果を渡すためにセッションを使用
+        HttpSession session = request.getSession();
+        session.setAttribute("success", success);
+        session.setAttribute("fail", fail);
+        session.setAttribute("showDeleteResult", true);
+
+
 
         // 一覧ページに成功と失敗の結果を持っていく（ポップアップ用）
-        response.sendRedirect("/c4/product?success=" + success + "&fail=" + fail);
+        response.sendRedirect(request.getContextPath() + "/account");
     }
 }
