@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("c4")
+@WebServlet("")
 public class RootServlet extends HttpServlet {
 
 
