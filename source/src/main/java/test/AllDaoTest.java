@@ -4,14 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.List;
 
 import dao.AccountDAO;
 import dao.NotificationDAO;
 import dao.ProductDAO;
 import dao.StockDAO;
-import dao.StockMovementDAO;
 import model.Account;
 import model.Notification;
 import model.Product;
@@ -40,16 +38,9 @@ public class AllDaoTest {
 		testProductDao();
 		
 		// 3. StockDAO のテスト（※ProductDAOのテストで作成した商品に対する在庫）
-		int newStockId = testStockDao();
+		testStockDao();
 		
-		// 4. StockMovementDAO のテスト（※StockDAOのテストで作成した在庫IDを使用）
-		if (newStockId != -1) {
-			testStockMovementDao(newStockId);
-		} else {
-			System.out.println("[スキップ] StockMovementDAOのテスト（有効な在庫IDが取得できなかったため）");
-		}
-		
-		// 5. NotificationDAO のテスト
+		// 4. NotificationDAO のテスト
 		testNotificationDao();
 		
 		System.out.println("\n=== すべてのDAOテストが完了しました ===");
@@ -91,9 +82,30 @@ public class AllDaoTest {
 		Account loginResult = dao.loginCheck(9999, "pass123");
 		System.out.println(" 1-2. ログインチェック(存在しないID): " + (loginResult == null ? "正常(null)" : "異常"));
 
-		// ③ パスワード再設定テスト（新規追加分）
+		// ③ パスワード再設定テスト
 		boolean isPwUpdated = dao.updatePassword(9999, "20000101", "newpass123");
 		System.out.println(" 1-3. パスワード再設定(存在しないID): " + (!isPwUpdated ? "正常に失敗(対象なし)" : "異常"));
+		
+		// ④ 全件取得テスト
+		List<Account> accounts = dao.selectAll();
+		System.out.println(" 1-4. アカウント全件取得: " + (accounts.size() > 0 ? "成功(" + accounts.size() + "件)" : "失敗"));
+
+		if (!accounts.isEmpty()) {
+			Account latestAccount = accounts.get(0); // 降順なので先頭が最新
+			
+			// ⑤ IDによるパスワード変更テスト
+			boolean isPwByIdUpdated = dao.updatePasswordById(latestAccount.getId(), "newpass999");
+			System.out.println(" 1-5. ID指定でのパスワード変更: " + (isPwByIdUpdated ? "成功" : "失敗"));
+			
+			// ⑥ 情報更新テスト
+			latestAccount.setName("テスト 太郎(更新済)");
+			boolean isAccountUpdated = dao.update(latestAccount);
+			System.out.println(" 1-6. アカウント情報の更新: " + (isAccountUpdated ? "成功" : "失敗"));
+			
+			// ⑦ 削除テスト
+			boolean isDeleted = dao.delete(latestAccount.getId());
+			System.out.println(" 1-7. アカウントの削除: " + (isDeleted ? "成功" : "失敗"));
+		}
 		
 		System.out.println("----------------------------------------");
 	}
@@ -106,7 +118,7 @@ public class AllDaoTest {
 		ProductDAO dao = new ProductDAO();
 		String testJan = "9999999999999";
 		
-		// ② 登録テスト（INSERT）
+		// ① 登録テスト（INSERT）
 		Product p = new Product();
 		p.setJanCode(testJan);
 		p.setProductName("【テスト用】幻の酒");
@@ -118,20 +130,28 @@ public class AllDaoTest {
 		boolean isInserted = dao.insert(p);
 		System.out.println(" 2-1. 商品の登録: " + (isInserted ? "成功" : "失敗"));
 		
-		// ③ 更新テスト（UPDATE）
+		// ② 更新テスト（UPDATE）
 		p.setProductName("【テスト用】幻の酒(更新済)");
 		boolean isUpdated = dao.update(p);
 		System.out.println(" 2-2. 商品の更新: " + (isUpdated ? "成功" : "失敗"));
 		
-		// ④ 取得テスト（SELECT）
+		// ③ 取得テスト（SELECT）
 		List<Product> list = dao.selectAll();
 		boolean found = list.stream().anyMatch(item -> item.getJanCode().equals(testJan));
 		System.out.println(" 2-3. 商品一覧の取得: " + (list.size() > 0 ? "成功(" + list.size() + "件)" : "失敗"));
 		System.out.println(" 2-4. 登録した商品の確認: " + (found ? "見つかりました" : "見つかりません"));
 
-		// ⑤ あいまい検索テスト（新規追加分）
+		// ④ あいまい検索テスト
 		List<Product> searchResult = dao.search("幻の酒");
 		System.out.println(" 2-5. 商品のあいまい検索: " + (searchResult.size() > 0 ? "成功(" + searchResult.size() + "件ヒット)" : "失敗"));
+
+		// ⑤ 削除テスト (メインのテストデータはStockDAOで使うため、ダミーを作成して削除)
+		Product dummy = new Product();
+		dummy.setJanCode("8888888888888");
+		dummy.setProductName("削除テスト用ダミー");
+		dao.insert(dummy);
+		boolean isDeleted = dao.delete("8888888888888");
+		System.out.println(" 2-6. 商品の削除: " + (isDeleted ? "成功" : "失敗"));
 
 		System.out.println("----------------------------------------");
 	}
@@ -144,22 +164,25 @@ public class AllDaoTest {
 		StockDAO dao = new StockDAO();
 		String testJan = "9999999999999"; // ProductDAOで登録したJAN
 		
-		// ① 登録テスト（INSERT）
+		// ① 登録テスト（INSERT）: 在庫と履歴を同時登録
 		Stock s = new Stock();
 		s.setJancode(testJan);
 		s.setStockQuantity(50);
 		s.setStores(1);
 		
-		boolean isInserted = dao.insert(s);
-		System.out.println(" 3-1. 在庫枠の登録: " + (isInserted ? "成功" : "失敗"));
+		StockMovement sm = new StockMovement();
+		sm.setJancode(testJan);
+		sm.setReason("テスト入荷");
+		// 履歴の数量は初期登録時に入庫した数を指定
+		sm.setQuantity(50); 
 		
-		// ② 更新テスト（UPDATE）
-		boolean isUpdated = dao.updateQuantity(testJan, 80);
-		System.out.println(" 3-2. 在庫数の更新: " + (isUpdated ? "成功" : "失敗"));
+		// DAOの新しいシグネチャを使用
+		boolean isInserted = dao.insert(s, sm);
+		System.out.println(" 3-1. 在庫枠と履歴の同時登録: " + (isInserted ? "成功" : "失敗"));
 		
-		// ③ 取得テスト（SELECT）と最新のStockIDの取得
+		// ② 取得テスト（SELECT）と最新のStockIDの取得
 		List<Stock> list = dao.selectAll();
-		System.out.println(" 3-3. 在庫一覧の取得: " + (list.size() > 0 ? "成功(" + list.size() + "件)" : "失敗"));
+		System.out.println(" 3-2. 在庫一覧の取得: " + (list.size() > 0 ? "成功(" + list.size() + "件)" : "失敗"));
 		
 		int latestStockId = -1;
 		for (Stock stock : list) {
@@ -170,7 +193,25 @@ public class AllDaoTest {
 			}
 		}
 
-		// ④ あいまい検索テスト（新規追加分）
+		// ③ 更新テスト（UPDATE）: IDが必要なため取得後に実行
+		if (latestStockId != -1) {
+			Stock updateStock = new Stock();
+			updateStock.setId(latestStockId);
+			updateStock.setJancode(testJan);
+			updateStock.setStockQuantity(80); // 在庫数を変更
+			
+			StockMovement updateMovement = new StockMovement();
+			updateMovement.setJancode(testJan);
+			updateMovement.setReason("追加テスト入荷");
+			updateMovement.setQuantity(30); // 追加分
+			
+			boolean isUpdated = dao.update(updateStock, updateMovement);
+			System.out.println(" 3-3. 在庫数と履歴の同時更新: " + (isUpdated ? "成功" : "失敗"));
+		} else {
+			System.out.println(" 3-3. 在庫数と履歴の同時更新: スキップ（在庫ID取得失敗）");
+		}
+
+		// ④ あいまい検索テスト
 		List<Stock> searchResult = dao.search("幻の酒");
 		System.out.println(" 3-4. 在庫のあいまい検索: " + (searchResult.size() > 0 ? "成功(" + searchResult.size() + "件ヒット)" : "失敗"));
 
@@ -178,36 +219,9 @@ public class AllDaoTest {
 		return latestStockId;
 	}
 	
+
 	/* ---------------------------------------------------------
-	 * 4. StockMovementDAO のテスト
-	 * --------------------------------------------------------- */
-	private static void testStockMovementDao(int stockId) {
-		System.out.println("【テスト4: StockMovementDAO】");
-		StockMovementDAO dao = new StockMovementDAO();
-		String testJan = "9999999999999";
-		
-		// ① 登録テスト（INSERT）
-		StockMovement sm = new StockMovement();
-		sm.setJancode(testJan);
-		sm.setStockId(stockId);
-		sm.setReason("テスト入荷");
-		sm.setQuantity(30);
-		
-		LocalDate today = LocalDate.now();
-		sm.setReceivedAt(today);
-		sm.setNotifyAt(today.plusDays(30)); // 通知日は30日後
-		
-		boolean isInserted = dao.insert(sm);
-		System.out.println(" 4-1. 入出庫履歴の登録: " + (isInserted ? "成功" : "失敗"));
-		
-		// ② 通知日検索テスト（SELECT）
-		List<StockMovement> targets = dao.selectByNotifyDate(today.plusDays(30));
-		System.out.println(" 4-2. 指定通知日の検索: " + (targets.size() > 0 ? "成功(" + targets.size() + "件ヒット)" : "失敗(0件)"));
-		System.out.println("----------------------------------------");
-	}
-	
-	/* ---------------------------------------------------------
-	 * 5. NotificationDAO のテスト
+	 * 4. NotificationDAO のテスト
 	 * --------------------------------------------------------- */
 	private static void testNotificationDao() {
 		System.out.println("【テスト5: NotificationDAO】");
@@ -223,7 +237,7 @@ public class AllDaoTest {
 		List<Notification> list = dao.selectActiveNotifications();
 		System.out.println(" 5-2. 有効な通知の取得: " + (list.size() > 0 ? "成功(" + list.size() + "件)" : "失敗"));
 		
-		// ③ 既読化テスト（UPDATE） - 新しい markAllAsRead に変更
+		// ③ 既読化テスト（UPDATE）
 		boolean isUpdated = dao.markAllAsRead();
 		System.out.println(" 5-3. 未読通知の一括既読化: " + (isUpdated ? "成功" : "失敗"));
 		
