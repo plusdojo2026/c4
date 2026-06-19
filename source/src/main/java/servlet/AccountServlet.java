@@ -38,7 +38,7 @@ private static final long serialVersionUID = 1L;
         //  JSP に渡す
         request.setAttribute("accountList", accountList);
 
-        //  product.jsp に forward
+        //  admin.jsp に forward
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("/WEB-INF/jsp/admin.jsp");
         dispatcher.forward(request, response);
