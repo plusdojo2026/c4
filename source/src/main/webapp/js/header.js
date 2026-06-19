@@ -2,18 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const notificationBtn = document.getElementById('notificationBtn');
   const notificationModal = document.getElementById('notificationModal');
   const closeModalBtn = document.getElementById('closeModalBtn');
+  const badge = document.getElementById('badge');
 
   // ページ初期読み込み時に未読アイテムがあればバッジを表示
   const initialUnreadItems = document.querySelectorAll('.notification-item.unread');
   if (initialUnreadItems.length > 0) {
-    const badge = document.getElementById('badge');
-    if (badge) {
-      badge.classList.add('notification-badge');
-    }
+    badge?.classList.add('notification-badge');
   }
 
   // ベルマークをクリックしたときの処理
-  notificationBtn.addEventListener('click', (e) => {
+  notificationBtn.addEventListener('click', async (e) => {
     e.stopPropagation();
 
     // モーダルの開閉を切り替え
@@ -21,42 +19,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 画面上の未読アイテムを取得
     const unreadItems = document.querySelectorAll('.notification-item.unread');
+    // 未読アイテムが存在する場合、ベルマークの赤いバッジを追加
     if (unreadItems.length > 0) {
-      // 未読アイテムが存在する場合、ベルマークの赤いバッジを追加
-      const badge = document.getElementById('badge');
-      if (badge) {
-        badge.classList.add('notification-badge');
-      }
+      badge?.classList.add('notification-badge');
     }
 
-    // モーダルが「開いた」状態の場合のみ既読処理を実行
-    if (notificationModal.classList.contains('is-active')) {
-
-      // 画面上の未読アイテムを取得
-      const unreadItems = document.querySelectorAll('.notification-item.unread');
-
-      // 未読アイテムが存在する場合のみサーバーへ通信
-      if (unreadItems.length > 0) {
-        fetch('/c4/notification/readAll', {
-          method: 'POST'
-        })
-          .then((response) => {
-            if (response.ok) {
-              // すべての未読アイテムから青背景を削除
-              unreadItems.forEach((item) => {
-                item.classList.remove('unread');
-              });
-
-              // ベルマークの赤いバッジを消去
-              const badge = document.querySelector('.notification-badge');
-              if (badge) {
-                badge.remove();
-              }
-            }
-          })
-          .catch((error) => {
-            console.error('一括既読処理で通信エラーが発生しました:', error);
-          });
+    // モーダルが開いており、かつ未読がある場合のみ通信
+    if (notificationModal?.classList.contains('is-active') && unreadItems.length > 0) {
+      try {
+        const response = await fetch('/c4/notification/readAll', { method: 'POST' });
+        if (response.ok) {
+          // すべての未読アイテムから青背景を削除
+          unreadItems.forEach(item => item.classList.remove('unread'));
+          badge?.classList.remove('notification-badge');
+        } else {
+          console.error('サーバー側でエラーが発生しました:', response.statusText);
+        }
+      } catch (error) {
+        console.error('一括既読処理で通信エラーが発生しました:', error);
       }
     }
   });
@@ -68,14 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // モーダルの外側をクリックしたときに閉じる処理
   document.addEventListener('click', (e) => {
-    // モーダルが開いていて、かつクリックされた場所がモーダル内部・ベルマーク内部「以外」の場合
+    const isClickInsideModal = notificationModal?.contains(e.target); // モーダル内がクリックされたかどうかを判定
+    const isClickOnBtn = notificationBtn?.contains(e.target); // ベルマークがクリックされたかどうかを判定
+    // モーダルが開いている場合、モーダル外のクリックで閉じる
     if (notificationModal.classList.contains('is-active')) {
-      if (!notificationModal.contains(e.target) && !notificationBtn.contains(e.target)) {
+      if (!isClickInsideModal && !isClickOnBtn) {
         notificationModal.classList.remove('is-active');
       }
     }
   });
 
+  // モーダル内のクリックイベントが伝播しないようにする
   notificationModal.addEventListener('click', (e) => {
     e.stopPropagation();
   });

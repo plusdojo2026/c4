@@ -21,6 +21,7 @@ public class PasswordChangeServlet extends HttpServlet {
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
+		// セッションからユーザーIDを取得
 		HttpSession session = request.getSession();
 		Integer id = null;
 		Object sessionObj = session.getAttribute("id");
@@ -28,6 +29,7 @@ public class PasswordChangeServlet extends HttpServlet {
 			id = Integer.parseInt((String) sessionObj);
 		}
 		
+		// セッションが切れている場合の処理
 		if (id == null) {
 			// JSON形式でエラー結果を返す
 			out.print("{\"success\": false, \"message\": \"セッションが切れました。再度ログインしてください。\"}");
@@ -38,6 +40,7 @@ public class PasswordChangeServlet extends HttpServlet {
 		String newPassword = request.getParameter("newPassword");
 		String confirmPassword = request.getParameter("confirmPassword");
 		
+		// 新しいパスワードと確認用パスワードが一致するかをチェック
 		if (newPassword == null || !newPassword.equals(confirmPassword)) {
 			out.print("{\"success\": false, \"message\": \"確認用パスワードが一致しません。\"}");
 			return;
@@ -46,6 +49,7 @@ public class PasswordChangeServlet extends HttpServlet {
 		AccountDAO dao = new AccountDAO();
 		Account account = dao.loginCheck(id, currentPassword);
 		
+		// 現在のパスワードが正しい場合、パスワードを更新
 		if (account != null) {
 			boolean isUpdated = dao.updatePasswordById(id, newPassword);
 			if (isUpdated) {
