@@ -12,62 +12,49 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import dao.ProductDAO;
-import model.Product;
+import dao.AccountDAO;
+import model.Account;
 
-@MultipartConfig 
-@WebServlet("/ProductAddServlet")
-public class ProductAddServlet extends HttpServlet {
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	throws ServletException, IOException {
+@WebServlet("/account/add")
+public class AccountAddServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
 
-		//jspから受け取る	
-		request.setCharacterEncoding("UTF-8");
-		String jan = request.getParameter("jan");
-		String name = request.getParameter("productname");
-		String termStr = request.getParameter("term");
+ @Override
+ protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
+
+		// 1.新規追加モーダルの入力フォームから値を取得	
 		
-		int term = Integer.parseInt(termStr);
-		
-		//プロダクトオブジェクトにセット		
-		Product p = new Product();
-        p.setJanCode(jan);
-        p.setProductName(name);
-        p.setDurationDays(term);
+		String name = request.getParameter("name");
+		String year = request.getParameter("year");
+        String month = request.getParameter("month");
+        String day = request.getParameter("day");
+        String password = request.getParameter("password");// 管理者が決める最初のパスワード
+		int permissionsId = Integer.parseInt(request.getParameter("permissionsId"));
 
-        //  画像ファイルを受け取る
-        Part filePart = request.getPart("add-photo");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        // 2.年月日を「yyyy-mm-dd」の表記に変更
+        String birthday = String.format("%s-%02d-%02d", year, Integer.parseInt(month), Integer.parseInt(day));
 
-        if (fileName != null && !fileName.isEmpty()) {
+        // 3.引数5つのコンストラクタを使ってオブジェクトを作成
+        Account account = new Account(0, name, birthday, password, permissionsId);
 
-            // 保存先フォルダ（/img/）
-            String uploadPath = getServletContext().getRealPath("/img/");
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) uploadDir.mkdir();
+        // 4. DAOを呼び出してデータベースに挿入(INSERT)
+        AccountDAO dao = new AccountDAO();
+        boolean isSuccess = dao.insert(account);
 
-            // 画像を保存
-            filePart.write(uploadPath + File.separator + fileName);
+        if (isSuccess) {
+            // セッションを用意する
+            HttpSession session = request.getSession();
 
-            // DB に保存するパス
-            p.setPhotoPath("/c4/img/" + fileName);
+            // 登録したデータをそのままセッションに入れる
+            session.setAttribute("showAddResult", true);
+            session.setAttribute("addedName", name);
+            session.setAttribute("addedPerm", permissionsId == 1 ? "管理者" : "従業員");
+            session.setAttribute("addedPass", password);
 
-        } else {
-            p.setPhotoPath("");
+             // 5. 処理終了後、AccountServlet(従業員一覧)へリダイレクト
+            response.sendRedirect(request.getContextPath() + "/account/list");
         }
-        
-        p.setBaseProductId(jan);
-        p.setCaseQuantity(0);
-       
-        
-        //DAOに登録        
-        ProductDAO dao = new ProductDAO();
-        dao.insert(p);
-        
-        //一覧へ
-        response.sendRedirect("/c4/product");
-		
-	}
-}
-	
