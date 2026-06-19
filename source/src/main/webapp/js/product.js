@@ -1,69 +1,63 @@
 document.addEventListener("DOMContentLoaded", () => {
- 
-   console.log("JS 読み込み OK");
+  console.log("JS 読み込み OK");
 
-    
-    
-
-  // 全選択チェックボックス
- const checkAll = document.querySelector("#check-all");
-
+  // 全選択チェックボックスの制御
+  const checkAll = document.querySelector("#check-all");
   if (!checkAll) {
     console.log("check-all が見つかりません");
   }
-
   checkAll.addEventListener("click", () => {
     console.log("check-all clicked");
   });
-
   checkAll.addEventListener("change", () => {
     console.log("check-all changed");
-
     const checks = document.querySelectorAll(".edit-check");
     checks.forEach(c => c.checked = checkAll.checked);
   });
 
 
-  // 新規追加ポップアップ（確認）
-  const dialog1 = document.querySelector(".newcheck");
-  // 新規追加モーダル
-  const dialog2 = document.querySelector(".newmodal");
+  // 商品追加確認ダイアログの制御
+  const addButton = document.querySelector("#add-button"); // 商品追加確認ダイアログ起動ボタン
+  const newCheckdialog = document.querySelector("#dialog-new-confirm");   // 商品追加確認ダイアログ
+  const newCheckdialogCloseButton = document.querySelector("#new-dialog-closeButton");  // キャンセルボタン
+  const newCheckdialogAddButton = document.querySelector("#new-dialog-addButton");  // 追加するボタン
 
-  // 「新規追加」ボタン → dialog1 を開く
-  const showButton1 = document.querySelector("#add-btn");
-  showButton1.addEventListener("click", () => {
-    dialog1.showModal();
+  //  商品追加確認ダイアログ を開く
+  addButton.addEventListener("click", () => {
+    newCheckdialog.showModal();
     requestAnimationFrame(() => {
-      dialog1.classList.add("show");
+      newCheckdialog.classList.add("show");
     });
   });
 
-  // dialog1 の「キャンセル」
-  const closeButton1 = document.querySelector("#closedialog");
-  closeButton1.addEventListener("click", () => {
-    dialog1.classList.remove("show");
+  // 商品追加確認ダイアログ の「キャンセル」
+  newCheckdialogCloseButton.addEventListener("click", () => {
+    newCheckdialog.classList.remove("show");
     setTimeout(() => {
-      dialog1.close();
+      newCheckdialog.close();
     }, 250);
   });
-  // dialog2のキャンセル
-  const closeButton2 = document.querySelector("#cancel");
-  closeButton2.addEventListener("click", () => {
-    dialog2.classList.remove("show");
+
+
+  //商品追加モーダルの制御
+  const newModaldialog = document.querySelector("#dialog-new-modal");   // 新規追加モーダル
+  const newModalCloseButton = document.querySelector("#dialog-new-modal-closeButton"); // 新規追加モーダルの閉じるボタン
+
+  newModalCloseButton.addEventListener("click", () => {
+    newModaldialog.classList.remove("show");
     setTimeout(() => {
-      dialog2.close();
+      newModaldialog.close();
     }, 250);
   });
-  // dialog1 の「追加する」→ dialog1 を閉じて dialog2 を開く
-  const showButton2 = document.querySelector("#add");
-  showButton2.addEventListener("click", () => {
-    dialog1.classList.remove("show");
+  // 新規追加ダイアログ の「追加する」→ 新規追加ダイアログ を閉じて newModaldialog を開く
+  newCheckdialogAddButton.addEventListener("click", () => {
+    newCheckdialog.classList.remove("show");
     setTimeout(() => {
-      dialog1.close();
+      newCheckdialog.close();
     }, 250);
-    dialog2.showModal();
+    newModaldialog.showModal();
     requestAnimationFrame(() => {
-      dialog2.classList.add("show");
+      newModaldialog.classList.add("show");
     });
     // ケース・バラの入力
     const caseNo = document.getElementById("case-no");
@@ -86,12 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("term").placeholder = "ケース期間";
 
         if (singleSelect.value !== "") {
-            singleMessage.style.display = "block";
+          singleMessage.style.display = "block";
         } else {
-            singleMessage.style.display = "none";
+          singleMessage.style.display = "none";
         }
 
-    } else {
+      } else {
         // 単品
         caseQty.value = 1;
         caseQty.disabled = true;
@@ -102,24 +96,24 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("JAN").placeholder = "バラJAN";
         document.getElementById("pname").placeholder = "バラ商品名";
         document.getElementById("term").placeholder = "バラ期間";
-    }
+      }
       if (caseYes.checked) {
-          // ケース商品
-          caseQty.disabled = false;
-          baraForm.style.display = "block";
+        // ケース商品
+        caseQty.disabled = false;
+        baraForm.style.display = "block";
 
-          if (singleSelect.value !== "") {
-              singleMessage.style.display = "block";
-          } else {
-              singleMessage.style.display = "none";
-          }
+        if (singleSelect.value !== "") {
+          singleMessage.style.display = "block";
+        } else {
+          singleMessage.style.display = "none";
+        }
 
       } else {
-          // 単品
-          caseQty.value = 1;
-          caseQty.disabled = true;
-          baraForm.style.display = "none";
-          singleMessage.style.display = "none";
+        // 単品
+        caseQty.value = 1;
+        caseQty.disabled = true;
+        baraForm.style.display = "none";
+        singleMessage.style.display = "none";
       }
     }
 
@@ -135,17 +129,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   // 画像追加
   const addPhoto = document.getElementById("add-photo");
-  if (addPhoto) { 
-  document.getElementById("add-photo").addEventListener("change" , function(e){
-    const file = e.target.files[0];
-    if(!file)return;
+  if (addPhoto) {
+    document.getElementById("add-photo").addEventListener("change", function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = function(event) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
         document.getElementById("preview").src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-  })
+      };
+      reader.readAsDataURL(file);
+    })
   }
   // 削除確認ポップアップ
   const dialog3 = document.querySelector(".deletecheck");
@@ -155,34 +149,34 @@ document.addEventListener("DOMContentLoaded", () => {
   // 削除記号押す　→　dialog3（削除確認）開く
   const showButton3 = document.querySelector("#delete-check");
   showButton3.addEventListener("click", () => {
-  // 削除件数表示
-  const checked = document.querySelectorAll(".edit-check:checked").length;
+    // 削除件数表示
+    const checked = document.querySelectorAll(".edit-check:checked").length;
 
-  document.querySelector(".deletecheck p").innerHTML =
-    `${checked} 件選択されています。<br>選択商品を削除しますか？`;
+    document.querySelector(".deletecheck p").innerHTML =
+      `${checked} 件選択されています。<br>選択商品を削除しますか？`;
 
-  dialog3.showModal();
-  requestAnimationFrame(() => {
-    dialog3.classList.add("show");
-  });
+    dialog3.showModal();
+    requestAnimationFrame(() => {
+      dialog3.classList.add("show");
+    });
   });
 
   // dialog3 の「キャンセル」
   const closeButton3 = document.querySelector("#cancel2");
   closeButton3.addEventListener("click", () => {
-  dialog3.classList.remove("show");
-  setTimeout(() => {
-    dialog3.close();
-  }, 250);
+    dialog3.classList.remove("show");
+    setTimeout(() => {
+      dialog3.close();
+    }, 250);
   });
 
   // dialog4（削除結果通知） の「キャンセル」
   const closeButton4 = document.querySelector("#cancel3");
   closeButton4.addEventListener("click", () => {
-  dialog4.classList.remove("show");
-  setTimeout(() => {
-    dialog4.close();
-  }, 250);
+    dialog4.classList.remove("show");
+    setTimeout(() => {
+      dialog4.close();
+    }, 250);
   });
 
   // 削除フォーム
@@ -192,27 +186,27 @@ document.addEventListener("DOMContentLoaded", () => {
   // dialog3 の「削除する」ボタンに削除処理を追加
   document.querySelector("#delete").addEventListener("click", () => {
 
-  // チェックされた項目を取得
-  const checked = document.querySelectorAll(".edit-check:checked");
-  const ids = Array.from(checked).map(c => c.value);
+    // チェックされた項目を取得
+    const checked = document.querySelectorAll(".edit-check:checked");
+    const ids = Array.from(checked).map(c => c.value);
 
-  // hidden にセット
-  deleteIdsInput.value = ids.join(",");
+    // hidden にセット
+    deleteIdsInput.value = ids.join(",");
 
-  // フォーム送信
-  deleteForm.submit();
+    // フォーム送信
+    deleteForm.submit();
   });
 
 
 
   // 編集ポップアップ
-	const dialog5 = document.querySelector(".edit");
+  const dialog5 = document.querySelector(".edit");
   // 編集記号押す　→　dialog5開く
-	const showButton5 = document.querySelector("#edit-button");
+  const showButton5 = document.querySelector("#edit-button");
   showButton5.addEventListener("click", () => {
-    
+
   });
-  // dialog1 の「キャンセル」
+  // 新規追加ダイアログ の「キャンセル」
   const closeButton5 = document.querySelector("#cancel4");
   closeButton5.addEventListener("click", () => {
     dialog5.classList.remove("show");
@@ -221,17 +215,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 250);
   });
   // 編集ポップアップから削除ポップアップ
-	const showButton6 = document.querySelector("#delete-check2");
+  const showButton6 = document.querySelector("#delete-check2");
   showButton6.addEventListener("click", () => {
-		dialog5.classList.remove("show");
+    dialog5.classList.remove("show");
     setTimeout(() => {
       dialog5.close();
     }, 250);
 
     const checked = document.querySelectorAll(".edit-check:checked").length;
 
-  document.querySelector(".deletecheck p").innerHTML =
-    `${checked} 件選択されています。<br>選択商品を削除しますか？`;
+    document.querySelector(".deletecheck p").innerHTML =
+      `${checked} 件選択されています。<br>選択商品を削除しますか？`;
 
 
     dialog3.showModal();
@@ -247,46 +241,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 0 件 → エラー
     if (checked.length === 0) {
-        alert("編集する商品を 1 件選択してください");
-        return;
+      alert("編集する商品を 1 件選択してください");
+      return;
     }
 
     // 2 件以上 → エラー
     if (checked.length > 1) {
-        alert("編集できるのは 1 件だけです");
-        return;
+      alert("編集できるのは 1 件だけです");
+      return;
     }
 
     // 1 件だけ選択されている
     const checkbox = checked[0];
     const row = checkbox.closest("tr");
 
-  // 行のデータ取得
-  const id = row.querySelector(".edit-check").value;
-  const janCode = row.querySelector(".td-jan").textContent;
-  const productName = row.querySelector(".td-name").textContent;
-  const durationDays = row.querySelector(".td-term").textContent;
-  const photoPath = row.querySelector("img").getAttribute("src");
+    // 行のデータ取得
+    const id = row.querySelector(".edit-check").value;
+    const janCode = row.querySelector(".td-jan").textContent;
+    const productName = row.querySelector(".td-name").textContent;
+    const durationDays = row.querySelector(".td-term").textContent;
+    const photoPath = row.querySelector("img").getAttribute("src");
 
-  // data- 属性から取得（JSP に追加済み）
-  const baseProductId = row.dataset.baseProductId;
-  const caseQuantity = row.dataset.caseQuantity;
+    // data- 属性から取得（JSP に追加済み）
+    const baseProductId = row.dataset.baseProductId;
+    const caseQuantity = row.dataset.caseQuantity;
 
-  // モーダルに値をセット
-  document.getElementById("edit-id").value = id;
-  document.getElementById("edit-jan").value = janCode;
-  document.getElementById("edit-name").value = productName;
-  document.getElementById("edit-term").value = durationDays;
+    // モーダルに値をセット
+    document.getElementById("edit-id").value = id;
+    document.getElementById("edit-jan").value = janCode;
+    document.getElementById("edit-name").value = productName;
+    document.getElementById("edit-term").value = durationDays;
 
-  document.getElementById("edit-photo").value = photoPath;
-  document.getElementById("edit-base").value = baseProductId;
-  document.getElementById("edit-case").value = caseQuantity;
+    document.getElementById("edit-photo").value = photoPath;
+    document.getElementById("edit-base").value = baseProductId;
+    document.getElementById("edit-case").value = caseQuantity;
 
-  // モーダルを開く
-  dialog5.showModal();
-  requestAnimationFrame(() => {
-    dialog5.classList.add("show");
-  });
+    // モーダルを開く
+    dialog5.showModal();
+    requestAnimationFrame(() => {
+      dialog5.classList.add("show");
+    });
   });
 
 
@@ -301,51 +295,51 @@ document.addEventListener("DOMContentLoaded", () => {
   let isCameraOn = false;
 
   async function startCamera() {
-  navigator.mediaDevices.getUserMedia({
-    video: {
-      facingMode: "user",
-    },
-    audio: false,
-  })
-    .then((mediaStream) => {
-      stream = mediaStream;
-      video.srcObject = stream;
-      isCameraOn = true;
-      video.classList.add('active');
-      cameraOn.classList.remove('active');
-      cameraOff.classList.add('active');
+    navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: "user",
+      },
+      audio: false,
     })
-    .catch((e) => {
-      console.log(e);
-    });
+      .then((mediaStream) => {
+        stream = mediaStream;
+        video.srcObject = stream;
+        isCameraOn = true;
+        video.classList.add('active');
+        cameraOn.classList.remove('active');
+        cameraOff.classList.add('active');
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   function stopCamera() {
-  if (!stream) return;
+    if (!stream) return;
 
-  stream.getTracks().forEach((track) => {
-    track.stop();
-  });
+    stream.getTracks().forEach((track) => {
+      track.stop();
+    });
 
-  video.srcObject = null;
-  stream = null;
+    video.srcObject = null;
+    stream = null;
 
-  isCameraOn = false;
-  video.classList.remove('active');
-  cameraOff.classList.remove('active');
-  cameraOn.classList.add('active');
+    isCameraOn = false;
+    video.classList.remove('active');
+    cameraOff.classList.remove('active');
+    cameraOn.classList.add('active');
   }
 
   cameraButton.addEventListener('click', () => {
-  if (isCameraOn) {
-    stopCamera();
-  } else {
-    startCamera();
-  }
+    if (isCameraOn) {
+      stopCamera();
+    } else {
+      startCamera();
+    }
   });
 
   // 要素が多すぎるため下に入れてます　↓
   // バラケース
-   
+
 
 });

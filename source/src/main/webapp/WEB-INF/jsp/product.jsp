@@ -33,8 +33,7 @@
 									</div>
 									<div class="button-wrapper">
 										<button id="edit-button">
-											<img class="active" src="/c4/img/edit_square_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg"
-												alt="編集">
+											<img class="active" src="/c4/img/edit_square_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="編集">
 										</button>
 										<button id="camera-button">
 											<img id="camera-on" class="active"
@@ -42,20 +41,21 @@
 											<img id="camera-off" class=""
 												src="/c4/img/videocam_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="カメラOFF">
 										</button>
-										<!-- 新規追加ボタン -->
-										<button id="add-btn">新規追加</button>
+										<button id="add-button" type="button">
+											<img class="active" src="/c4/img/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="在庫新規追加">
+										</button>
 										<!-- 削除ボタン -->
 										<button id="delete-check" class="option">削除</button>
 									</div>
 
 
-										
+
 
 
 									<table>
 										<thead>
 											<tr>
-													<!-- 全選択チェックボックス -->
+												<!-- 全選択チェックボックス -->
 												<th><input type="checkbox" class="option" id="check-all"></th>
 												<th>商品画像</th>
 												<th>JANコード</th>
@@ -81,77 +81,77 @@
 					</div>
 
 
-					
+
 
 					<!-- 新規追加ポップアップ（確認） -->
-					<dialog class="newcheck">
+					<dialog id="dialog-new-confirm" class="newcheck">
 						<p>新規商品を追加しますか？</p>
-						<button id="closedialog" class="btn">キャンセル</button>
-						<button id="add" class="btn">追加する</button>
+						<button id="new-dialog-closeButton" class="btn">キャンセル</button>
+						<button id="new-dialog-addButton" class="btn">追加する</button>
 					</dialog>
 
 
 					<!-- 新規追加モーダル -->
-					<dialog class="newmodal">
-						<button id="cancel" class="btn">閉じる</button>
+					<dialog id="dialog-new-modal" class="newmodal">
+						<button id="dialog-new-modal-closeButton" class="btn">閉じる</button>
 						<img src="#" class="product-photo" id="preview">
 
-							<form action="/c4/ProductAddServlet" method="post" enctype="multipart/form-data">
-									<div class="newform">
+						<form action="/c4/ProductAddServlet" method="post" enctype="multipart/form-data">
+							<div class="newform">
 
-										<input type="file" id="add-photo" name="add-photo" accept="image/*">
-										<!-- ケース選択 -->
-										 <div class="case-block">
-											<label>
-												<input type="radio" name="isCase" value="0" id="case-no" checked>
-												単品
-											</label>
+								<input type="file" id="add-photo" name="add-photo" accept="image/*">
+								<!-- ケース選択 -->
+								<div class="case-block">
+									<label>
+										<input type="radio" name="isCase" value="0" id="case-no" checked>
+										単品
+									</label>
 
-											<label>
-												<input type="radio" name="isCase" value="1" id="case-yes">
-												ケース商品
-											</label>
-										</div>
+									<label>
+										<input type="radio" name="isCase" value="1" id="case-yes">
+										ケース商品
+									</label>
+								</div>
 
-										<input type="number" id="JAN" name="jan" placeholder="JANを入力" required>
-										<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
-										<input type="number" id="term" name="term" placeholder="期間を入力" required>
+								<input type="number" id="JAN" name="jan" placeholder="JANを入力" required>
+								<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
+								<input type="number" id="term" name="term" placeholder="期間を入力" required>
 
-										<!-- 入数入力 -->
-										<div id="case-options">
-											<label>入数</label>
-											<input type="number" id="case-qty" name="caseQty" value="1" min="1">
-										</div>
+								<!-- 入数入力 -->
+								<div id="case-options">
+									<label>入数</label>
+									<input type="number" id="case-qty" name="caseQty" value="1" min="1">
+								</div>
 
-										
 
-											<!-- 単品プルダウン -->
-										<select id="single-select" name="singleSelect">
-											<option value="">選択してください</option>
-										</select>
 
-										<!-- バラフォーム -->
-										<div id="bara-form">
-											<label>バラJAN</label>
-											<input type="text" id="bara-jan" name="baraJan" required>
+								<!-- 単品プルダウン -->
+								<select id="single-select" name="singleSelect">
+									<option value="">選択してください</option>
+								</select>
 
-											<label>バラ商品名</label>
-											<input type="text" id="bara-name" name="baraName" required>
+								<!-- バラフォーム -->
+								<div id="bara-form">
+									<label>バラJAN</label>
+									<input type="text" id="bara-jan" name="baraJan" required>
 
-											<label>バラ期間</label>
-											<input type="number" id="bara-term" name="baraTerm" required>
-										</div>
+									<label>バラ商品名</label>
+									<input type="text" id="bara-name" name="baraName" required>
 
-										<!-- メッセージ -->
-										<p id="single-message">
-											既存の単品を選択しています。  
-											バラ商品の入力内容を変更すると、既存単品の情報が更新されます。
-										</p>
+									<label>バラ期間</label>
+									<input type="number" id="bara-term" name="baraTerm" required>
+								</div>
 
-									</div>
-										
-									<button type="submit" class="btn regist">登録</button>
-							</form>
+								<!-- メッセージ -->
+								<p id="single-message">
+									既存の単品を選択しています。
+									バラ商品の入力内容を変更すると、既存単品の情報が更新されます。
+								</p>
+
+							</div>
+
+							<button type="submit" class="btn regist">登録</button>
+						</form>
 					</dialog>
 
 
@@ -172,25 +172,25 @@
 					<!-- 削除結果通知ポップアップ -->
 					<dialog class="deleteresult">
 						<p>成功: ${success} 件<br>失敗: ${fail} 件</p>
-							<c:if test="${fail > 0}">
-								<p>「JANコード」は在庫があるため削除できませんでした。</p>
-							</c:if>
-							<button id="cancel3" class="btn">キャンセル</button>
+						<c:if test="${fail > 0}">
+							<p>「JANコード」は在庫があるため削除できませんでした。</p>
+						</c:if>
+						<button id="cancel3" class="btn">キャンセル</button>
 					</dialog>
 
 
 					<!-- 削除通知 -->
 					<c:if test="${showDeleteResult}">
-							<script>
-									document.addEventListener("DOMContentLoaded", () => {
-											const dialog4 = document.querySelector(".deleteresult");
-											dialog4.showModal();
-											requestAnimationFrame(() => {
-													dialog4.classList.add("show");
-											});
-									});
-							</script>
-						</c:if>
+						<script>
+							document.addEventListener("DOMContentLoaded", () => {
+								const dialog4 = document.querySelector(".deleteresult");
+								dialog4.showModal();
+								requestAnimationFrame(() => {
+									dialog4.classList.add("show");
+								});
+							});
+						</script>
+					</c:if>
 
 
 					<!-- 編集ポップアップ -->
@@ -205,7 +205,7 @@
 							<div>
 								<input type="number" id="edit-jan" name="janCode" placeholder="JANを入力" readonly>
 							</div>
-								<div class="edit-comment-jan">※JANコードの編集は出来ません</div>
+							<div class="edit-comment-jan">※JANコードの編集は出来ません</div>
 							<input type="text" id="edit-name" name="productName" placeholder="商品名を入力" required>
 							<input type="number" id="edit-term" name="durationDays" placeholder="期間を入力" required>
 							<!-- 非表示項目 -->
