@@ -81,7 +81,7 @@
 					</div>
 
 
-
+					
 
 					<!-- 新規追加ポップアップ（確認） -->
 					<dialog class="newcheck">
@@ -98,23 +98,32 @@
 
 							<form action="/c4/ProductAddServlet" method="post" enctype="multipart/form-data">
 									<div class="newform">
+
 										<input type="file" id="add-photo" name="add-photo" accept="image/*">
+										<!-- ケース選択 -->
+										 <div class="case-block">
+											<label>
+												<input type="radio" name="isCase" value="0" id="case-no" checked>
+												単品
+											</label>
+
+											<label>
+												<input type="radio" name="isCase" value="1" id="case-yes">
+												ケース商品
+											</label>
+										</div>
+
 										<input type="number" id="JAN" name="jan" placeholder="JANを入力" required>
 										<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
 										<input type="number" id="term" name="term" placeholder="期間を入力" required>
-										<!-- ケース入力 -->
-										<div class="case-block">
-											<label>
-												<input type="checkbox" id="is-case" name="isCase">
-												ケース商品ですか？
-											</label>
-										</div>
 
 										<!-- 入数入力 -->
 										<div id="case-options">
 											<label>入数</label>
 											<input type="number" id="case-qty" name="caseQty" value="1" min="1">
 										</div>
+
+										
 
 											<!-- 単品プルダウン -->
 										<select id="single-select" name="singleSelect">
@@ -124,13 +133,13 @@
 										<!-- バラフォーム -->
 										<div id="bara-form">
 											<label>バラJAN</label>
-											<input type="text" id="bara-jan" name="baraJan">
+											<input type="text" id="bara-jan" name="baraJan" required>
 
 											<label>バラ商品名</label>
-											<input type="text" id="bara-name" name="baraName">
+											<input type="text" id="bara-name" name="baraName" required>
 
 											<label>バラ期間</label>
-											<input type="number" id="bara-term" name="baraTerm">
+											<input type="number" id="bara-term" name="baraTerm" required>
 										</div>
 
 										<!-- メッセージ -->

@@ -2,52 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
  
    console.log("JS 読み込み OK");
 
-    // ① まず要素を取得（ここが一番上）
-    const isCase = document.getElementById("is-case");
-    const caseQty = document.getElementById("case-qty");
-    const singleSelect = document.getElementById("single-select");
-    const baraForm = document.getElementById("bara-form");
-    const singleMessage = document.getElementById("single-message");
-
-    console.log("isCase:", isCase);
-    console.log("caseQty:", caseQty);
-    console.log("singleSelect:", singleSelect);
-    console.log("baraForm:", baraForm);
-    console.log("singleMessage:", singleMessage);
-
-    // ② 次に関数を書く
-    function updateCaseUI() {
-
-        if (Number(caseQty.value) <= 1) {
-            isCase.checked = false;
-        }
-
-        if (!isCase.checked) {
-            caseQty.value = 1;
-            caseQty.disabled = true;
-
-            baraForm.style.display = "none";
-            singleMessage.style.display = "none";
-            return;
-        }
-
-        caseQty.disabled = false;
-        baraForm.style.display = "block";
-
-        if (singleSelect.value !== "") {
-            singleMessage.style.display = "block";
-        } else {
-            singleMessage.style.display = "none";
-        }
-    }
-
-    // ③ イベント登録
-    isCase.addEventListener("change", updateCaseUI);
-    caseQty.addEventListener("input", updateCaseUI);
-    singleSelect.addEventListener("change", updateCaseUI);
-
-    // ④ 最後に初期化
-    updateCaseUI();
+    
+    
 
   // 全選択チェックボックス
  const checkAll = document.querySelector("#check-all");
@@ -109,6 +65,73 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(() => {
       dialog2.classList.add("show");
     });
+    // ケース・バラの入力
+    const caseNo = document.getElementById("case-no");
+    const caseYes = document.getElementById("case-yes");
+    const caseQty = document.getElementById("case-qty");
+    const singleSelect = document.getElementById("single-select");
+    const baraForm = document.getElementById("bara-form");
+    const singleMessage = document.getElementById("single-message");
+
+    //  UI 更新関数
+    function updateCaseUI() {
+      if (caseYes.checked) {
+        // ケース商品
+        caseQty.disabled = false;
+        baraForm.style.display = "block";
+
+        // ★ placeholder をケース用に変更
+        document.getElementById("JAN").placeholder = "ケースJAN";
+        document.getElementById("pname").placeholder = "ケース商品名";
+        document.getElementById("term").placeholder = "ケース期間";
+
+        if (singleSelect.value !== "") {
+            singleMessage.style.display = "block";
+        } else {
+            singleMessage.style.display = "none";
+        }
+
+    } else {
+        // 単品
+        caseQty.value = 1;
+        caseQty.disabled = true;
+        baraForm.style.display = "none";
+        singleMessage.style.display = "none";
+
+        // ★ placeholder を単品用に戻す
+        document.getElementById("JAN").placeholder = "バラJAN";
+        document.getElementById("pname").placeholder = "バラ商品名";
+        document.getElementById("term").placeholder = "バラ期間";
+    }
+      if (caseYes.checked) {
+          // ケース商品
+          caseQty.disabled = false;
+          baraForm.style.display = "block";
+
+          if (singleSelect.value !== "") {
+              singleMessage.style.display = "block";
+          } else {
+              singleMessage.style.display = "none";
+          }
+
+      } else {
+          // 単品
+          caseQty.value = 1;
+          caseQty.disabled = true;
+          baraForm.style.display = "none";
+          singleMessage.style.display = "none";
+      }
+    }
+
+    // ★ イベント登録
+    caseNo.addEventListener("change", updateCaseUI);
+    caseYes.addEventListener("change", updateCaseUI);
+    caseQty.addEventListener("input", updateCaseUI);
+    singleSelect.addEventListener("change", updateCaseUI);
+
+    // ★ 初期化
+    updateCaseUI();
+
   });
   // 画像追加
   const addPhoto = document.getElementById("add-photo");
