@@ -18,8 +18,18 @@
 		<h1>パスワード再設定</h1>
 		<form action="/c4/passwordReset" id="login-form" method="POST">
 
-			<p id="msg">${errorMsg}</p>
-			社員番号と生年月日、新規パスワードを入力してください。<br>
+			<div id="msg">
+				<c:choose>
+					<c:when test="${not empty erroMsg}">
+						<span style="color:red; font-weight:bold;">
+							${errorMsg}
+						</span>
+					</c:when>
+					<c:otherwise>
+						社員番号と生年月日、新規パスワードを入力してください。
+					</c:otherwise>
+				</c:choose>
+			</div>
 
 			<div class="wrapper">
 			<fieldset class="input-box">

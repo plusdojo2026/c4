@@ -40,7 +40,7 @@ public class PasswordResetServlet extends HttpServlet {
 		
 		// 社員番号の未入力チェック
 		 if (employeeNumber == null || employeeNumber.isEmpty()) {
-        request.setAttribute("errorMsg", "社員番号を入力してください");
+        request.setAttribute("errorMsg", "社員番号を入力してください。");
 
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");
@@ -90,7 +90,7 @@ public class PasswordResetServlet extends HttpServlet {
 					// 本人確認失敗
             request.setAttribute(
                     "errorMsg",
-                    "社員番号または生年月日が間違っています");
+                    "社員番号または生年月日が間違っています。");
 
             RequestDispatcher dispatcher =
                     request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");
