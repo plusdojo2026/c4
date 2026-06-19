@@ -54,6 +54,7 @@
             <c:forEach var="s" items="${stockList}">
               <tr
                 class="stock-row"
+                data-id="${s.id}"
                 data-jan="${s.jancode}"
                 data-product-name="${s.productName}"
                 data-stock-quantity="${s.stockQuantity}"
@@ -98,7 +99,7 @@
       <form id="stock-add-form" class="stock-form" action="${pageContext.request.contextPath}/stock/add" method="post">  
         <div class="">
           <fieldset>
-            <legend>JAN</legend>
+            <legend>JANコード</legend>
             <input type="text" name="jancode" placeholder="JANコードを入力してください。" pattern="\d{13}" maxlength="13" inputmode="numeric" required>
           </fieldset>
           <fieldset>
@@ -116,11 +117,11 @@
           <div class="">
             <fieldset>
               <legend>入庫日</legend>
-              <input class="" type="date" name="">
+              <input class="" type="date" name="receivedAt">
             </fieldset>
             <fieldset>
-              <legend>期限</legend>
-              <input class="" type="date" name="">
+              <legend>通知日</legend>
+              <input class="" type="date" name="notifyAt" readonly>
             </fieldset>
           </div>
         </div>
@@ -129,16 +130,17 @@
             キャンセル
           </button>
           <button type="submit" class="btn">
-            更新
+            追加
           </button>
         </div>
       </form>
     </dialog>
     <dialog class="stock-edit-dialog">
-      <p>JAN: <span class="dialog-jan"></span></p>
+      <p>JANコード: <span class="dialog-jan"></span></p>
       <p>商品名: <span class="dialog-product-name"></span></p>
       <p>在庫数: <span class="dialog-stock"></span></p>
       <form id="stock-edit-form" class="stock-form" action="${pageContext.request.contextPath}/stock/edit" method="post">
+        <input class="id" type="hidden" name="id" value="">
         <input class="jancode" type="hidden" name="jancode" value="">
         <input class="product-name" type="hidden" name="productName" value="">
         <input class="new-quantity" type="hidden" name="newQuantity" value="">
@@ -151,14 +153,18 @@
             <button type="button" class="btn increment-btn">入庫 +</button>
             <button type="button" class="btn decrement-btn">出庫 -</button>
           </div>
+          <fieldset>
+            <legend>理由</legend>
+            <textarea name="reason"></textarea>
+          </fieldset>
           <div class="">
             <fieldset>
               <legend>入庫日</legend>
-              <input class="" type="date" name="">
+              <input class="" type="date" name="receivedAt" value="">
             </fieldset>
             <fieldset>
-              <legend>期限</legend>
-              <input class="" type="date" name="">
+              <legend>通知日</legend>
+              <input class="" type="date" name="notifyAt">
             </fieldset>
           </div>
         </div>

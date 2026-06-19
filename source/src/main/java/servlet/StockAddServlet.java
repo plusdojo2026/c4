@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,9 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- 
+
 import dao.StockDAO;
 import model.Stock;
+import model.StockMovement;
 
 @WebServlet("/stock/add")
 public class StockAddServlet extends HttpServlet {
@@ -22,15 +24,23 @@ public class StockAddServlet extends HttpServlet {
         String jancode = request.getParameter("jancode");
         String productName = request.getParameter("productName");
         int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String reason = request.getParameter("reason");
+        LocalDate receivedAt = LocalDate.parse(request.getParameter("receivedAt"));
+        LocalDate notifyAt = LocalDate.parse(request.getParameter("notifyAt"));
 
-        Stock s = new Stock();
-        s.setJancode(jancode);
-        s.setProductName(productName);
-        s.setStockQuantity(quantity);
+        Stock stock = new Stock();
+        stock.setJancode(jancode);
+        stock.setStockQuantity(quantity);
+        stock.setStores(1);
+
+        StockMovement movement = new StockMovement();
+        movement.setReason(reason);
+        movement.setReceivedAt(receivedAt);
+        movement.setNotifyAt(notifyAt);
 
         StockDAO dao = new StockDAO();
 
-        if(dao.insert(s)) {
+        if(dao.insert(stock, movement)) {
             response.sendRedirect(request.getContextPath() + "/stock");
         } else {
             request.setAttribute("isInserted", true);

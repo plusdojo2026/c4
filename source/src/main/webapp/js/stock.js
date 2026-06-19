@@ -172,18 +172,21 @@ const dialogJan = stockEditDialog.querySelector('.dialog-jan');
 const dialogProductName = stockEditDialog.querySelector('.dialog-product-name');
 const dialogStock = stockEditDialog.querySelector('.dialog-stock');
 
-let changeQuantity;
-let currentStock;
+let currentId;
 let currentJancode;
+let currentStock;
+let changeQuantity;
 
 document.querySelectorAll('.stock-row').forEach((row) => {
   row.addEventListener('click', () => {
     const {
+      id,
       jan,
       productName,
       stockQuantity,
     } = row.dataset;
 
+    currentId = id;
     currentJancode = jan;
     currentStock = Number(stockQuantity);
     changeQuantity = 0;
@@ -224,17 +227,18 @@ document.querySelectorAll('.cancel-btn').forEach((btn) => {
 
 const incrementBtns = document.querySelectorAll(".increment-btn");
 const decrementBtns = document.querySelectorAll(".decrement-btn");
+const id = document.querySelector(".id");
 const janCode = document.querySelector(".jancode");
 const changeQuantityEl = document.querySelector(".change-quantity");
 const addQuantityEl = document.querySelector(".add-quantity");
 const newQuantityEl = document.querySelector(".new-quantity");
 
 function updateDisplay() {
+  id.value = currentId;
   janCode.value = currentJancode;
   changeQuantityEl.value = changeQuantity;
 
   if(stockAddDialog.open) {
-    console.log("stockAddDialog changeValues is :" + Number(changeQuantity));
     if(Number(changeQuantity) < 1) {
       changeQuantity = 1;
       addQuantityEl.value = 1;
@@ -244,7 +248,6 @@ function updateDisplay() {
   }
 
   if(stockEditDialog.open) {
-    console.log("stockEditDialog changeValues is :" + Number(changeQuantity));
     newQuantityEl.value = currentStock + changeQuantity;
   }
 }
