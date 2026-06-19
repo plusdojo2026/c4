@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.ProductDAO;
+import dao.AccountDAO;
+import model.Account;
 
-@WebServlet("/product/delete")
-public class ProductDeleteServlet extends HttpServlet {
+@WebServlet("/account/delete")
+public class AccountDeleteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -19,29 +20,36 @@ public class ProductDeleteServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        // hidden に入っている 文字列を取得
-        String ids = request.getParameter("deleteIds");
+        // JSでhidden(id="delete-ids") に入っている文字列を取得
+        String idsStr = request.getParameter("deleteIds");
 
-        if (ids == null || ids.isEmpty()) {
-            // 何も選択されていない場合は一覧へ戻す
-            response.sendRedirect("/c4/product");
+        if (idsStr == null || idsStr.isEmpty()) {
+            // 何も選択されていない場合は従業員一覧へ戻す
+            response.sendRedirect("/account/list");
             return;
         }
 
-        String[] janCodes = ids.split(",");
+        String[] accountIds = idsStr.split(",");
 
-        ProductDAO dao = new ProductDAO();
+        AccountDAO dao = new AccountDAO();// 従業員用のDAOをインスタンス化
 
         int success = 0;
         int fail = 0;
 
-        // JANコードごとに削除
-        for (String jan : janCodes) {
-            if (dao.delete(jan)) {
+        // 1件ずつ削除
+        for (String idStr : accountIds) {
+            try {
+                // 文字列のIDを数値に変換
+                int id = Integer.parseInt(idStr);
+
+            if (dao.delete(id)) {
                 success++;
             } else {
                 fail++;
             }
+                } catch (NumberFormatException e) {
+                 fail++;// IDが文字列に変換できないエラーが出た場合は失敗にカウント
+                }
         }
 
         // JSP に結果を渡す

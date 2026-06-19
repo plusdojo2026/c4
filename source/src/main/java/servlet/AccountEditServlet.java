@@ -8,18 +8,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.ProductDAO;
-import model.Product;
+import dao.AccountDAO;
+import model.Account;
 
 
-@WebServlet("/product/edit")
-public class ProductEditServlet extends HttpServlet {
+@WebServlet("/account/edit")
+public class AccountEditServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 
-        Product p = new Product();
+        Account p = new Account();
         p.setJanCode(request.getParameter("janCode"));
         p.setProductName(request.getParameter("productName"));
         p.setBaseProductId(request.getParameter("baseProductId"));
@@ -27,10 +27,10 @@ public class ProductEditServlet extends HttpServlet {
         p.setPhotoPath(request.getParameter("photoPath"));
         p.setDurationDays(Integer.parseInt(request.getParameter("durationDays")));
 
-        ProductDAO dao = new ProductDAO();
+        AccountDAO dao = new AccountDAO();
         dao.update(p);
 
-        response.sendRedirect("/c4/product");
+        response.sendRedirect("/c4/admin");
     }
 }
 
