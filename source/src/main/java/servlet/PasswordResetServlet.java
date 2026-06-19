@@ -90,7 +90,7 @@ public class PasswordResetServlet extends HttpServlet {
 					// 本人確認失敗
             request.setAttribute(
                     "errorMsg",
-                    "社員番号または生年月日が間違っています。");
+                    "社員番号または生年月日に間違いがあります。");
 
             RequestDispatcher dispatcher =
                     request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");
