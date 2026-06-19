@@ -20,7 +20,7 @@
 
 			<div id="msg">
 				<c:choose>
-					<c:when test="${not empty erroMsg}">
+					<c:when test="${not empty errorMsg}">
 						<span style="color:red; font-weight:bold;">
 							${errorMsg}
 						</span>
