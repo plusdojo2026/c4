@@ -29,6 +29,9 @@ public class SearchServlet extends HttpServlet {
 			search = "";
 		}
 		String keyword = search.trim();
+
+		// keywordがjanか商品名か判定
+		boolean isJan = keyword.matches("\\d{13}");
 		
 		// 検索元のページURLを取得
 		String sourcePage = request.getParameter("sourcePage");
@@ -44,6 +47,13 @@ public class SearchServlet extends HttpServlet {
 		request.setAttribute("productList", productList);
 		request.setAttribute("stockList", stockList);
 		request.setAttribute("keyword", keyword);
+		if(isJan) {
+			request.setAttribute("jancode", keyword);
+			request.setAttribute("productName", "");
+		} else {
+			request.setAttribute("jancode", "");
+			request.setAttribute("productName", keyword);
+		}
 		
 		// 検索フラグ
 		request.setAttribute("isSearched", true);

@@ -34,6 +34,8 @@ public class StockAddServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/stock");
         } else {
             request.setAttribute("isInserted", true);
+            request.setAttribute("jancode", jancode);
+            request.setAttribute("productName", productName);
             request.setAttribute("stockList", dao.selectAll());
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/stock.jsp");

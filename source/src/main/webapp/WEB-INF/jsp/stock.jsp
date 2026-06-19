@@ -70,23 +70,31 @@
     </main>
     <c:if test="${isSearched and empty productList or isInserted}">
       <dialog class="new-check-dialog">
-        <p>商品マスタに登録がありません。</p>
+        <p>
+          <c:if test="${not empty jancode}">
+            <span>JANコード: ${jancode}</span>
+          </c:if>
+          <c:if test="${not empty productName}">
+            <span>商品名: ${productName}</span>
+          </c:if>
+          は商品マスタに登録がありません。
+        </p>
         <p>新規商品を追加しますか？</p>
-        <div class="dialog-btn-wrapper">
-          <button type="button" class="cancel-btn btn">
-            キャンセル
-          </button>
-          <button type="button" onclick="location.href='${pageContext.request.contextPath}/product'" class="btn">
-            追加する
-          </button>
-        </div>
+        <form action="${pageContext.request.contextPath}/product" method="get">
+          <input type="hidden" name="jancode" value="${jancode}">
+          <input type="hidden" name="productName" value="${productName}">
+          <div class="dialog-btn-wrapper">
+            <button type="button" class="cancel-btn btn">
+              キャンセル
+            </button>
+            <button type="submit" class="btn">
+              追加する
+            </button>
+          </div>
+        </form>
       </dialog>
     </c:if>
     <dialog class="stock-add-dialog">
-      
-      <!-- <p>JAN: <span class="dialog-jan"></span></p>
-      <p>商品名: <span class="dialog-product-name"></span></p>
-      <p>在庫数: <span class="dialog-stock"></span></p> -->
       <form id="stock-add-form" class="stock-form" action="${pageContext.request.contextPath}/stock/add" method="post">  
         <div class="">
           <fieldset>
