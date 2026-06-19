@@ -1,17 +1,16 @@
 'use strict';
 
+
 document.getElementById('login-form').onsubmit = function(event) {
 	
 		// 入力欄の要素を取得
     let employeeNumberInput = document.getElementById('employeeNumber');
-		let birthdayInput = document.getElementById('birthday');
 		let newPasswordInput = document.getElementById('newPassword');
     let checkPasswordInput = document.getElementById('checkPassword');
     let msgElement = document.getElementById('msg');
 
 		// エラー表示を初期化
     employeeNumberInput.style.backgroundColor = '';
-		birthdayInput.style.backgroundColor = '';
 		newPasswordInput.style.backgroundColor = '';
     checkPasswordInput.style.backgroundColor = '';
     msgElement.style.fontWeight = 'bold';
@@ -19,17 +18,28 @@ document.getElementById('login-form').onsubmit = function(event) {
 
 		// 入力値を取得
     let employeeNumber = employeeNumberInput.value;
-		let birthday = birthdayInput.value;
     let newPassword = newPasswordInput.value;
     let checkPassword = checkPasswordInput.value;
 
+		console.log({
+  		employeeNumber,
+  		newPassword,
+  		checkPassword
+		});
+
+		console.log(
+  		employeeNumber === '',
+  		newPassword === '',
+  		checkPassword === ''
+		);
+
+
 		// 全項目が未入力の場合
-    if(employeeNumber === '' && birthday === '' && newPassword === '' && checkPassword ==='') {
-        msgElement.textContent = '項目を入力してください'
+    if(employeeNumber === '' && newPassword === '' && checkPassword ==='') {
+        msgElement.textContent = '項目を入力してください。'
 
 				// 未入力欄を薄い赤で塗りつぶす
         employeeNumberInput.style.backgroundColor = '#ffeeee';
-				birthdayInput.style.backgroundColor = '#ffeeee';
 				newPasswordInput.style.backgroundColor = '#ffeeee';
 				checkPasswordInput.style.backgroundColor = '#ffeeee';
 
@@ -40,12 +50,6 @@ document.getElementById('login-form').onsubmit = function(event) {
     } else if (employeeNumber === '') {
 			msgElement.textContent = '社員番号を入力してください。';
 			employeeNumberInput.style.backgroundColor = '#ffeeee';
-			event.preventDefault();
-
-		// 生年月日が未入力の場合
-		} else if (birthday === '') {
-			msgElement.textContent = '生年月日を入力してください。';
-			birthdayInput.style.backgroundColor = '#ffeeee';
 			event.preventDefault();
 
 		// 新規パスワードが未入力の場合
