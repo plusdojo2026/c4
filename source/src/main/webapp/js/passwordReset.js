@@ -36,7 +36,7 @@ document.getElementById('login-form').onsubmit = function(event) {
 
 		// 全項目が未入力の場合
     if(employeeNumber === '' && newPassword === '' && checkPassword ==='') {
-        msgElement.textContent = '項目を入力してください。'
+        msgElement.textContent = '各項目を入力してください。'
 
 				// 未入力欄を薄い赤で塗りつぶす
         employeeNumberInput.style.backgroundColor = '#ffeeee';
