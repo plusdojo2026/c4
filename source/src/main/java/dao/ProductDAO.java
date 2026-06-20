@@ -46,6 +46,74 @@ public class ProductDAO {
         return productList;
     }
 
+    private int insertAndReturnId(Product product) throws SQLException {
+        String sql = "INSERT INTO products (jan_code, product_name, base_product_id, case_quantity, photo_path, duration_days) "
+                   + "VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setString(1, product.getJanCode());
+            stmt.setString(2, product.getProductName());
+            stmt.setString(3, product.getBaseProductId());
+            stmt.setInt(4, product.getCaseQuantity());
+            stmt.setString(5, product.getPhotoPath());
+            stmt.setInt(6, product.getDurationDays());
+
+            stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) return rs.getInt(1);
+        }
+        return -1;
+    }
+
+    // base_product_id を更新（内部用）
+    private void updateBaseProductId(int id, int baseId) throws SQLException {
+        String sql = "UPDATE products SET base_product_id = ? WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, baseId);
+            stmt.setInt(2, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    // ★ 単品登録（サーブレットから呼ぶ）
+    public void insertSingle(String jan, String name, int term, String photo) {
+        try {
+            Product p = new Product(jan, name, "0", 1, photo, term, null, null);
+
+            int id = insertAndReturnId(p);
+            updateBaseProductId(id, id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // ★ ケース＋バラの2商品を登録（サーブレットから呼ぶ）
+    public void insertCasePair(
+            String caseJan, String caseName, int caseTerm, int caseQty, String photo,
+            String baraJan, String baraName, int baraTerm
+    ) {
+        try {
+            // ① バラ商品（単品）を登録（case_quantity = 1）
+            Product bara = new Product(baraJan, baraName, null, 1, photo, baraTerm, null, null);
+            int baraId = insertAndReturnId(bara);
+
+            // ② バラ商品の base_product_id を自分自身に更新
+            updateBaseProductId(baraId, baraId);
+
+            // ③ ケース商品を登録（case_quantity = caseQty）
+            Product kase = new Product(caseJan, caseName, String.valueOf(baraId), caseQty, photo, caseTerm, null, null);
+            insert(kase);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
     // 新しい商品を商品マスターに登録します。
     public boolean insert(Product product) {
         Connection conn = null;

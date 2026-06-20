@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(() => {
       newModaldialog.classList.add("show");
     });
+    });
     // ケース・バラの入力
     const caseNo = document.getElementById("case-no");
     const caseYes = document.getElementById("case-yes");
@@ -67,53 +68,141 @@ document.addEventListener("DOMContentLoaded", () => {
     const baraForm = document.getElementById("bara-form");
     const singleMessage = document.getElementById("single-message");
 
+        // ★ モーダルを閉じたときに初期表示へ戻す
+    newModaldialog.addEventListener("close", () => {
+      caseNo.checked = true;
+      caseYes.checked = false;
+
+      singleSelect.style.display = "none";
+      singleMessage.style.display = "none";
+      baraForm.style.display = "none";
+
+      caseQty.value = 1;
+      caseQty.disabled = true;
+
+      singleSelect.selectedIndex = 0;
+      singleSelect.innerHTML = '<option value="">選択してください</option>';
+
+      document.getElementById("bara-jan").value = "";
+      document.getElementById("bara-name").value = "";
+      document.getElementById("bara-term").value = "";
+      document.getElementById("selectedName").value = "";
+      document.getElementById("selectedTerm").value = "";
+    });
+    // ★ プルダウン選択 → バラ欄に自動入力（1回だけ登録）
+singleSelect.addEventListener("change", () => {
+
+  const opt = singleSelect.options[singleSelect.selectedIndex];
+
+  if (!opt || opt.value === "") {
+    document.getElementById("bara-jan").value = "";
+    document.getElementById("bara-name").value = "";
+    document.getElementById("bara-term").value = "";
+    return;
+  }
+
+  document.getElementById("bara-jan").value = opt.value;
+  document.getElementById("bara-name").value = opt.dataset.name;
+  document.getElementById("bara-term").value = opt.dataset.term;
+});
+
+
+        // ▼ 初期状態（単品）ではプルダウン非表示
+    singleSelect.style.display = "none";
+    singleMessage.style.display = "none";
+
+    // ▼ 単品を選んだとき
+    caseNo.addEventListener("change", () => {
+       singleSelect.style.display = "none";
+      singleMessage.style.display = "none";
+    });
+
+    // ▼ ケース商品を選んだとき
+    caseYes.addEventListener("change", () => {
+
+      // プルダウン初期化
+      singleSelect.innerHTML = '<option value="">選択してください</option>';
+
+      // 商品一覧テーブルから単品だけ抽出して追加
+      document.querySelectorAll("#product-table-body tr").forEach(row => {
+        if (row.dataset.caseQuantity === "1") {  // 単品だけ
+          const jan = row.querySelector(".td-jan").textContent;
+          const name = row.querySelector(".td-name").textContent;
+          const term = row.querySelector(".td-term").textContent;
+
+          const opt = document.createElement("option");
+          opt.value = jan;
+          opt.textContent = `${name}（${jan}）`;
+          opt.dataset.name = name;
+          opt.dataset.term = term;
+
+          singleSelect.appendChild(opt);
+        }
+      });
+      
+      singleSelect.style.display = "block";
+      singleMessage.style.display = "block";
+    });
+
+
     //  UI 更新関数
     function updateCaseUI() {
-      if (caseYes.checked) {
-        // ケース商品
-        caseQty.disabled = false;
-        baraForm.style.display = "block";
+      const isCase = caseYes.checked;
 
-        // ★ placeholder をケース用に変更
-        document.getElementById("JAN").placeholder = "ケースJAN";
-        document.getElementById("pname").placeholder = "ケース商品名";
-        document.getElementById("term").placeholder = "ケース期間";
+  if (isCase) {
+    // ケース商品
+    caseQty.disabled = false;
+    baraForm.style.display = "block";
 
-        if (singleSelect.value !== "") {
-          singleMessage.style.display = "block";
-        } else {
-          singleMessage.style.display = "none";
-        }
+    // バラ入力欄を有効化
+    document.getElementById("bara-jan").disabled = false;
+    document.getElementById("bara-name").disabled = false;
+    document.getElementById("bara-term").disabled = false;
 
-      } else {
-        // 単品
-        caseQty.value = 1;
-        caseQty.disabled = true;
-        baraForm.style.display = "none";
-        singleMessage.style.display = "none";
+    // placeholder をケース用に変更
+    document.getElementById("JAN").placeholder = "ケースJAN";
+    document.getElementById("pname").placeholder = "ケース商品名";
+    document.getElementById("term").placeholder = "ケース期間";
 
-        // ★ placeholder を単品用に戻す
-        document.getElementById("JAN").placeholder = "バラJAN";
-        document.getElementById("pname").placeholder = "バラ商品名";
-        document.getElementById("term").placeholder = "バラ期間";
-      }
-      if (caseYes.checked) {
-        // ケース商品
-        caseQty.disabled = false;
-        baraForm.style.display = "block";
+    // ▼ プルダウンを単品だけで再生成
+singleSelect.innerHTML = '<option value="">選択してください</option>';
 
-        if (singleSelect.value !== "") {
-          singleMessage.style.display = "block";
-        } else {
-          singleMessage.style.display = "none";
-        }
+document.querySelectorAll("#product-table-body tr").forEach(row => {
+  if (row.dataset.caseQuantity === "1") {  // 単品だけ
+    const jan = row.querySelector(".td-jan").textContent;
+    const name = row.querySelector(".td-name").textContent;
+    const term = row.querySelector(".td-term").textContent;
 
-      } else {
-        // 単品
-        caseQty.value = 1;
-        caseQty.disabled = true;
-        baraForm.style.display = "none";
-        singleMessage.style.display = "none";
+    const opt = document.createElement("option");
+    opt.value = jan;
+    opt.textContent = `${name}（${jan}）`;
+    opt.dataset.name = name;
+    opt.dataset.term = term;
+
+    singleSelect.appendChild(opt);
+  }
+});
+
+
+    // メッセージ
+    singleMessage.style.display = (singleSelect.value !== "") ? "block" : "none";
+
+  } else {
+    // 単品
+    caseQty.value = 1;
+    caseQty.disabled = true;
+    baraForm.style.display = "none";
+    singleMessage.style.display = "none";
+
+    // バラ入力欄を無効化（required を無効化）
+    document.getElementById("bara-jan").disabled = true;
+    document.getElementById("bara-name").disabled = true;
+    document.getElementById("bara-term").disabled = true;
+
+    // placeholder を単品用に戻す
+    document.getElementById("JAN").placeholder = "バラJAN";
+    document.getElementById("pname").placeholder = "バラ商品名";
+    document.getElementById("term").placeholder = "バラ期間";;
       }
     }
 
@@ -123,10 +212,13 @@ document.addEventListener("DOMContentLoaded", () => {
     caseQty.addEventListener("input", updateCaseUI);
     singleSelect.addEventListener("change", updateCaseUI);
 
+
     // ★ 初期化
     updateCaseUI();
 
-  });
+    
+  
+    
   // 画像追加
   const addPhoto = document.getElementById("add-photo");
   if (addPhoto) {

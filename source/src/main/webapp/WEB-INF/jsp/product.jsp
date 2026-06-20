@@ -128,7 +128,13 @@
 								<!-- 単品プルダウン -->
 								<select id="single-select" name="singleSelect">
 									<option value="">選択してください</option>
+
 								</select>
+								<!-- 既存単品の情報をサーブレットへ渡す -->
+								<input type="hidden" id="selectedName" name="selectedName">
+								<input type="hidden" id="selectedTerm" name="selectedTerm">
+
+
 
 								<!-- バラフォーム -->
 								<div id="bara-form">
@@ -218,7 +224,7 @@
 
 					</dialog>
 
-
+					
 					<script src="/c4/js/product.js"></script>
 			</div>
 		</body>

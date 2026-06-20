@@ -15,59 +15,86 @@ import javax.servlet.http.Part;
 import dao.ProductDAO;
 import model.Product;
 
-@MultipartConfig 
 @WebServlet("/ProductAddServlet")
+@MultipartConfig
 public class ProductAddServlet extends HttpServlet {
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		//jspから受け取る	
-		request.setCharacterEncoding("UTF-8");
-		String jan = request.getParameter("jan");
-		String name = request.getParameter("productname");
-		String termStr = request.getParameter("term");
-		
-		int term = Integer.parseInt(termStr);
-		
-		//プロダクトオブジェクトにセット		
-		Product p = new Product();
-        p.setJanCode(jan);
-        p.setProductName(name);
-        p.setDurationDays(term);
-
-        //  画像ファイルを受け取る
-        Part filePart = request.getPart("add-photo");
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-
-        if (fileName != null && !fileName.isEmpty()) {
-
-            // 保存先フォルダ（/img/）
-            String uploadPath = getServletContext().getRealPath("/img/");
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) uploadDir.mkdir();
-
-            // 画像を保存
-            filePart.write(uploadPath + File.separator + fileName);
-
-            // DB に保存するパス
-            p.setPhotoPath("/c4/img/" + fileName);
-
-        } else {
-            p.setPhotoPath("");
-        }
-        
-        p.setBaseProductId(jan);
-        p.setCaseQuantity(0);
-       
-        
-        //DAOに登録        
+        request.setCharacterEncoding("UTF-8");
         ProductDAO dao = new ProductDAO();
-        dao.insert(p);
-        
-        //一覧へ
+
+        int isCase = Integer.parseInt(request.getParameter("isCase"));
+        String photoPath = saveImage(request.getPart("add-photo"));
+
+        // ▼ 単品
+        if (isCase == 0) {
+            Product p = new Product(
+                request.getParameter("jan"),
+                request.getParameter("productname"),
+                null,
+                1,
+                photoPath,
+                Integer.parseInt(request.getParameter("term")),
+                null, null
+            );
+            dao.insert(p);
+            p.setBaseProductId(p.getJanCode());
+            dao.update(p);
+        }
+
+        // ▼ ケース
+        else {
+            String selected = request.getParameter("singleSelect");
+            String baraJan, baraName;
+            int baraTerm;
+
+            // 既存単品を使う
+            if (selected != null && !selected.isEmpty()) {
+                baraJan = selected;
+                baraName = request.getParameter("selectedName");
+                baraTerm = Integer.parseInt(request.getParameter("selectedTerm"));
+            }
+            // 新規バラ
+            else {
+                baraJan = request.getParameter("baraJan");
+                baraName = request.getParameter("baraName");
+                baraTerm = Integer.parseInt(request.getParameter("baraTerm"));
+
+                Product bara = new Product(
+                    baraJan, baraName, null, 1, photoPath, baraTerm, null, null
+                );
+                dao.insert(bara);
+                bara.setBaseProductId(baraJan);
+                dao.update(bara);
+            }
+
+            // ケース商品
+            Product kase = new Product(
+                request.getParameter("jan"),
+                request.getParameter("productname"),
+                baraJan,
+                Integer.parseInt(request.getParameter("caseQty")),
+                photoPath,
+                Integer.parseInt(request.getParameter("term")),
+                null, null
+            );
+            dao.insert(kase);
+        }
+
         response.sendRedirect("/c4/product");
-		
-	}
+    }
+
+    private String saveImage(Part filePart) throws IOException {
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        if (fileName.isEmpty()) return "";
+
+        String uploadPath = getServletContext().getRealPath("/img/");
+        new File(uploadPath).mkdirs();
+        filePart.write(uploadPath + File.separator + fileName);
+
+        return "/c4/img/" + fileName;
+    }
 }
-	
+

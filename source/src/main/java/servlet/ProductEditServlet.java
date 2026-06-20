@@ -19,6 +19,7 @@ public class ProductEditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 
+    	request.setCharacterEncoding("UTF-8");
         Product p = new Product();
         p.setJanCode(request.getParameter("janCode"));
         p.setProductName(request.getParameter("productName"));
