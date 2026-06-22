@@ -48,21 +48,14 @@
 }
 
 .newmodal .newform {
-  display: flex;
-  flex-direction: column;
-  /* 縦並び */
-  gap: 12px;
-  /* 入力欄の間隔 */
-  width: 80%;
-  margin: 0 auto;
-  /* 中央寄せ */
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .newmodal .newform input {
   padding: 10px;
   font-size: 16px;
   box-sizing: border-box;
-  width: 100%;
 }
 
 
@@ -81,4 +74,15 @@
 .option{
   margin-top: 10px;
 }
-/* 編集不可コメント */
+#new-modal-dialog {
+  width: 700px;       /* ケース選択時に広がる最大幅に合わせる */
+  max-width: 90vw;    /* 画面からはみ出さないように */
+  overflow: hidden;   /* 中身が押し広げるのを防ぐ */
+}
+
+#single-select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
