@@ -24,8 +24,7 @@ public class ProductServlet extends HttpServlet {
     	String jancode = request.getParameter("jancode");
     	String productName = request.getParameter("productName");
     	
-    	if (jancode != null && !jancode.isEmpty() &&
-    		    productName != null && !productName.isEmpty()) {
+    	if (jancode != null || productName != null) {
     	    request.setAttribute("jancode", jancode);
     	    request.setAttribute("productName", productName);
     	}
