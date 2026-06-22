@@ -115,11 +115,11 @@
           <div class="">
             <fieldset>
               <legend>入庫日</legend>
-              <input class="receivedAt" type="date" name="receivedAt" value="">
+              <input class="receivedAt" type="date" name="receivedAt" value="" required>
             </fieldset>
             <fieldset>
               <legend>通知日</legend>
-              <input class="notifyAt" type="date" name="notifyAt" value="" readonly>
+              <input class="notifyAt" type="date" name="notifyAt" value="" required>
             </fieldset>
           </div>
         </div>
