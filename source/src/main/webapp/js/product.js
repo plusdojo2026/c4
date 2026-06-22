@@ -54,21 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const stockJan = document.querySelector("input[name='send-jancode']")?.value;
 const stockName = document.querySelector("input[name='send-productName']")?.value;
 
-// ▼ 在庫ページから来たときだけ自動で開く
-if (stockJan && stockName) {
 
-  // 自動入力
-  if (stockJan) document.getElementById("JAN").value = stockJan;
-  if (stockName) document.getElementById("pname").value = stockName;
-
-  // 単品モードにして UI 更新
-  caseNo.checked = true;
-  updateCaseUI();
-
-  // ダイアログを自動で開く
-  newModaldialog.showModal();
-  requestAnimationFrame(() => newModaldialog.classList.add("show"));
-}
 
 
 
@@ -453,8 +439,21 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
     }
   });
 
-  // 要素が多すぎるため下に入れてます　↓
-  // バラケース
+  // ▼ 在庫ページから来たときだけ自動で開く
+if (stockJan && stockName) {
+
+  // 自動入力
+  if (stockJan) document.getElementById("JAN").value = stockJan;
+  if (stockName) document.getElementById("pname").value = stockName;
+
+  // 単品モードにして UI 更新
+  caseNo.checked = true;
+  updateCaseUI();
+
+  // ダイアログを自動で開く
+  newModaldialog.showModal();
+  requestAnimationFrame(() => newModaldialog.classList.add("show"));
+}
 
 
 });
