@@ -443,7 +443,7 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
 if (stockJan && stockName) {
 
   // 自動入力
-  if (stockJan) document.getElementById("JAN").value = stockJan;
+  if (stockJan) document.getElementById("JAN").textContent = stockJan;
   if (stockName) document.getElementById("pname").value = stockName;
 
   // 単品モードにして UI 更新
