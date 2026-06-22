@@ -12,7 +12,7 @@ import dao.AccountDAO;
 import model.Account;
 
 
-@WebServlet("/account/edit")
+@WebServlet("/admin/edit")
 public class AccountEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -40,6 +40,6 @@ public class AccountEditServlet extends HttpServlet {
         dao.update(account);
 
         // 5.処理完了後、Accountサーブレットにリダイレクト
-        response.sendRedirect(request.getContextPath() + "/account");
+        response.sendRedirect(request.getContextPath() + "/admin");
     }
 }

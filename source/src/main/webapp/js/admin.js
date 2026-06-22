@@ -1,79 +1,80 @@
-// ダイアログ処理
-const stockDialog = document.querySelector('.stock-edit-dialog');
+// 1.追加ダイアログの処理
+const addButton = document.getElementById('add-button');//モーダル開くボタン
+const accountAddDialog = document.querySelector('.account-add-dialog');// 追加用ダイアログ
+const addDialogCancelBtn = document.getElementById('account-add-dialog-cancel-btn');//キャンセルボタン
+const addDialogAddBtn = document.getElementById('account-add-dialog-add-btn');//追加ボタン
+const accountAddCheckDialog = document.getElementById('account-add-check-dialog');//確認用ダイアログ
 
-const dialogJan = stockDialog.querySelector('.dialog-jan');
-const dialogProductName = stockDialog.querySelector('.dialog-product-name');
-const dialogStock = stockDialog.querySelector('.dialog-stock');
-
-let changeQuantity;
-let currentStock;
-let currentJancode;
-
-document.querySelectorAll('.stock-row').forEach((row) => {
-  row.addEventListener('click', () => {
-    const {
-      jan,
-      productName,
-      stockQuantity,
-    } = row.dataset;
-
-    currentJancode = jan;
-    currentStock = Number(stockQuantity);
-    changeQuantity = 0;
-
-    dialogJan.textContent = jan;
-    dialogProductName.textContent = productName;
-    dialogStock.textContent = stockQuantity;
-
-    updateDisplay();
-
-    stockDialog.showModal();
-
-    requestAnimationFrame(() => {
-      stockDialog.classList.add("show");
-    });
+//モーダルを開く
+addButton.addEventListener('click', function(){
+  accountAddDialog.showModal();
+  console.log("openmodel");
+  requestAnimationFrame(() => {
+    accountAddDialog.classList.add("show");
   });
 });
 
-document.querySelectorAll('.cancel-btn').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    stockDialog.classList.remove("show");
-    setTimeout(() => {
-      btn.closest('dialog')?.close();
-    }, 250);
+//モーダルを閉じる
+addDialogCancelBtn.addEventListener('click', function(){
+  accountAddDialog.classList.remove('show');
+  setTimeout(function(){
+    accountAddDialog.close();
+  }, 250);
+});
+
+//追加ボタンが押されたときの処理
+addDialogAddBtn.addEventListener('click', function(){
+  //確認ダイアログを開く
+  accountAddCheckDialog.showModal();
+  requestAnimationFrame(() => {
+    accountAddCheckDialog.classList.add("show");
   });
+  //追加モーダルを閉じる
+  accountAddDialog.classList.remove('show');
+  setTimeout(function(){
+    accountAddDialog.close();
+  }, 250);
 });
 
-const incrementBtn = document.querySelector(".increment-btn");
-const decrementBtn = document.querySelector(".decrement-btn");
-const janCode = document.querySelector(".jancode");
-const changeQuantityEl = document.querySelector(".change-quantity");
-const newQuantityEl = document.querySelector(".new-quantity");
-
-function updateDisplay() {
-  janCode.value = currentJancode;
-  changeQuantityEl.value = changeQuantity;
-  newQuantityEl.value = currentStock + changeQuantity;
-}
-
-incrementBtn.addEventListener("click", () => {
-  changeQuantity++;
-  updateDisplay();
+// 追加確認モーダルを閉じる
+accountAddCheckDialog.querySelector('.cancel-btn').addEventListener('click', function(){
+  accountAddCheckDialog.classList.remove('show');
+  setTimeout(function(){
+    accountAddCheckDialog.close();
+  }, 250);
 });
 
-decrementBtn.addEventListener("click", () => {
-  changeQuantity--;
-  updateDisplay();
+// 追加処理
+accountAddCheckDialog.querySelector('.add-btn').addEventListener('click', function(){
+  if () {
+    
+  }
+  accountAddCheckDialog.classList.remove('show');
+  setTimeout(function(){
+    accountAddCheckDialog.close();
+  }, 250);
 });
 
-changeQuantityEl.addEventListener('input', () => {
-  changeQuantity = changeQuantityEl.value;
-  newQuantityEl.value = Number(currentStock) + Number(changeQuantity);
+
+
+
+// 編集ボタンが押されたときの処理
+const editButton = document.getElementById('edit-button');
+const accountEditDialog = document.querySelector('.account-edit-dialog');
+
+editButton.addEventListener('click', function(){
+  accountEditDialog.showModal();
+  console.log("editmodel");
 });
 
-const newCheckdialog = document.querySelector(".new-check-dialog");
+// 入力内容の確認モーダル
+let name;
+let birthday;
+let defaultPassword;
+let permissionsId;
 
-newCheckdialog.showModal();
- requestAnimationFrame(() => {
-  newCheckdialog.classList.add("show");
-});
+const accountAddForm = document.getElementById('account-add-form');
+const formData = new FormData(accountAddForm);
+
+console.log(formData.get('name'));
+

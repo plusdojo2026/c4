@@ -13,7 +13,7 @@ import dao.AccountDAO;
 import model.Account;
 
 
-@WebServlet("/account/add")
+@WebServlet("/admin/add")
 public class AccountAddServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -53,7 +53,7 @@ public class AccountAddServlet extends HttpServlet {
             session.setAttribute("addedPass", password);
 
              // 5. 処理終了後、AccountServlet(従業員一覧)へリダイレクト
-            response.sendRedirect(request.getContextPath() + "/account");
+            response.sendRedirect(request.getContextPath() + "/admin");
         }
  }
 }

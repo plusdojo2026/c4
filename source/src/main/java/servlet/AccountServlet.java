@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.AccountDAO;
 import model.Account;
 
-@WebServlet("/account/*")
+@WebServlet("/admin")
 public class AccountServlet extends HttpServlet {
 private static final long serialVersionUID = 1L;
 

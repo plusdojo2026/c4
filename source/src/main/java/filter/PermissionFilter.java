@@ -98,7 +98,7 @@ public class PermissionFilter implements Filter {
 	
 	// 管理者ページかどうかを判定
 	private boolean isAdminPage(String path) {
-		return path.contains("/permission");
+		return path.contains("/admin/*");
 	}
 	
 	public void destroy() {

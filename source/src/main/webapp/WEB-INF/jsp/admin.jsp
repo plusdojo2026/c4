@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/c4/css/common.css">
   <link rel="stylesheet" href="/c4/css/admin.css">
 
-  <title>サカグラ | 在庫一覧</title>
+  <title>サカグラ | 管理者</title>
 </head>
 
 <body>
@@ -51,15 +51,17 @@
                 data-birthday="${a.birthday}"
                 data-permissiond-id="${a.permissionsId == 1 ? '管理者' : '従業員'}">
                 <td>${a.id}</td>
-                <td>${a.naame}</td>
+                <td>${a.name}</td>
                 <td>${a.birthday}</td>
-                <td>"${a.permissionsId == 1 ? '管理者' : '従業員'}</td>
+                <td>${a.permissionsId == 1 ? '管理者' : '従業員'}</td>
               </tr>
             </c:forEach>
           </tbody>
         </table>
       </section>
     </main>
+    
+<!-- 削除ダイアログ -->
     <dialog class="account-delete-dialog">
       <form id="account-delete-form" class="account-form" action="${pageContext.request.contextPath}/account/add" method="post">
       <div class="">
@@ -76,6 +78,7 @@
       </form>
     </dialog>
 
+<!-- 従業員新規追加 -->
     <dialog class="account-add-dialog">
       <form id="account-add-form" class="account-form" action="${pageContext.request.contextPath}/account/add" method="post">  
         <div class="">
@@ -204,7 +207,7 @@
 			<option value="10">10</option>
 			<option value="11">11</option>
 			<option value="12">12</option>
-			/select>
+			</select>
 			
 			<select id="day" name="day">
 			<option value="1" selected>1</option>
@@ -243,7 +246,11 @@
           </fieldset>
           <fieldset>
             <legend>初期パスワード</legend>
-            <input class="text" type="number" name="quantity" value="1" min="1" required>
+            <input class="default-password" type="text" name="default-password" required>
+          </fieldset>
+          <fieldset>
+            <legend>初期パスワード(確認用)</legend>
+            <input class="default-password" type="text" name="default-password" required>
           </fieldset>
           <div class="">
             <fieldset>
@@ -253,21 +260,32 @@
           </div>
         </div>
         <div class="dialog-btn-wrapper">
-          <button type="button" class="cancel-btn btn">
+          <button type="button" id="account-add-dialog-cancel-btn" class="cancel-btn btn">
             キャンセル
           </button>
-          <button type="submit" class="btn">
+          <button type="submit" id="account-add-dialog-add-btn" class="btn">
             追加
           </button>
         </div>
       </form>
     </dialog>
+    
+    <dialog id="account-add-check-dialog" class="account-form">
+        <p>本当に「${a.name}」さんの情報を追加しますか？</p>
+        <div>
+        	<!-- キャンセルボタン -->
+            <button type="button" class="btn cancel-btn">キャンセル</button>
+            <!-- 実際の追加実行ボタン -->
+            <button type="submit" class="btn add-btn">追加</button>
+        </div>
+    </dialog>
+    
+    
     <dialog class="account-edit-dialog">
       <p>名前: <span class="dialog-name"></span></p>
       <p>権限: <span class="dialog-permissions"></span></p>
       <form id="account-edit-form" class="account-form" action="${pageContext.request.contextPath}/admin/edit" method="post">
         <input class="id" type="hidden" name="id" value="">
-        </div>
         <div class="dialog-btn-wrapper">
           <button type="button" class="cancel-btn btn">
             キャンセル

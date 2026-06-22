@@ -148,7 +148,7 @@ public class AccountDAO {
         try {
             conn = DBConnection.getConnection();
 
-            String sql = "SELECT * FROM accounts ORDER BY id DESC";
+            String sql = "SELECT * FROM accounts ORDER BY id ASC";
             PreparedStatement pStmt = conn.prepareStatement(sql);
             ResultSet rs = pStmt.executeQuery();
 

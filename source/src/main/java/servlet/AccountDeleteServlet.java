@@ -10,9 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.AccountDAO;
-import model.Account;
 
-@WebServlet("/account/delete")
+@WebServlet("/admin/delete")
 public class AccountDeleteServlet extends HttpServlet {
      private static final long serialVersionUID = 1L;
 
@@ -27,7 +26,7 @@ public class AccountDeleteServlet extends HttpServlet {
 
         if (idsStr == null || idsStr.isEmpty()) {
             // 何も選択されていない場合は従業員一覧へ戻す
-            response.sendRedirect(request.getContextPath() + "/account");
+            response.sendRedirect(request.getContextPath() + "/admin");
             return;
         }
 
@@ -63,6 +62,6 @@ public class AccountDeleteServlet extends HttpServlet {
 
 
         // 一覧ページに成功と失敗の結果を持っていく（ポップアップ用）
-        response.sendRedirect(request.getContextPath() + "/account");
+        response.sendRedirect(request.getContextPath() + "/admin");
     }
 }
