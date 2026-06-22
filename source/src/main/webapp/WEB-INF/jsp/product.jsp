@@ -116,7 +116,7 @@
 								<input type="number" id="JAN" name="jan" placeholder="JANを入力" required>
 								<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
 								<input type="number" id="term" name="term" placeholder="期間を入力" required>
-								<input type="hidden" name="jancode" value="${jancode"}>
+								<input type="hidden" name="jancode" value="${jancode}">
 								<input type="hidden" name="productName" value="${productName}">
 								
 								<!-- 入数入力 -->
