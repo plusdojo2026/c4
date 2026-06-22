@@ -49,6 +49,31 @@ document.addEventListener("DOMContentLoaded", () => {
       newModaldialog.close();
     }, 250);
   });
+  // マスタに登録されていないものが在庫ページから追加されるとき
+  // 在庫ページから送られてきた hidden の値を取得
+const stockJan = document.querySelector("input[name='jancode']")?.value;
+const stockName = document.querySelector("input[name='productName']")?.value;
+
+// ▼ 在庫ページから来たときだけ自動で開く
+if (stockJan || stockName) {
+
+  // 自動入力
+  if (stockJan) document.getElementById("JAN").value = stockJan;
+  if (stockName) document.getElementById("pname").value = stockName;
+
+  // 単品モードにして UI 更新
+  caseNo.checked = true;
+  updateCaseUI();
+
+  // ダイアログを自動で開く
+  dialogNewModal.showModal();
+  requestAnimationFrame(() => dialogNewModal.classList.add("show"));
+}
+
+
+
+
+
   // 新規追加ダイアログ の「追加する」→ 新規追加ダイアログ を閉じて newModaldialog を開く
   newCheckdialogAddButton.addEventListener("click", () => {
     newCheckdialog.classList.remove("show");

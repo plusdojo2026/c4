@@ -19,7 +19,16 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-
+    	
+    	// 在庫ページから受け取る   	
+    	String jancode = request.getParameter("jancode");
+    	String productName = request.getParameter("productName");
+    	
+    	if (jancode != null || productName != null) {
+    	    request.setAttribute("jancode", jancode);
+    	    request.setAttribute("productName", productName);
+    	}
+    	
     	// 削除結果パラメータを受け取る
     	String success = request.getParameter("success");
     	String fail = request.getParameter("fail");
