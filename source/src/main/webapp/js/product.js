@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const baraForm = document.getElementById("bara-form");
     const singleMessage = document.getElementById("single-message");
 
-        // ★ モーダルを閉じたときに初期表示へ戻す
+        //  新規追加モーダルを閉じたときに初期表示へ戻す
     newModaldialog.addEventListener("close", () => {
       caseNo.checked = true;
       caseYes.checked = false;
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("selectedName").value = "";
       document.getElementById("selectedTerm").value = "";
     });
-    // ★ プルダウン選択 → バラ欄に自動入力（1回だけ登録）
+    //  プルダウン選択 → バラ欄に自動入力（1回だけ登録）
 singleSelect.addEventListener("change", () => {
 
   const opt = singleSelect.options[singleSelect.selectedIndex];
@@ -213,7 +213,7 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
     singleSelect.addEventListener("change", updateCaseUI);
 
 
-    // ★ 初期化
+    //  初期化
     updateCaseUI();
 
     

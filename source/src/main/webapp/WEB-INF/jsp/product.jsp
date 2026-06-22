@@ -127,7 +127,7 @@
 
 								<!-- 単品プルダウン -->
 								<select id="single-select" name="singleSelect">
-									<option value="">選択してください</option>
+									<option value="">既存の単品商品がある場合はここから選択してください</option>
 
 								</select>
 								<!-- 既存単品の情報をサーブレットへ渡す -->
