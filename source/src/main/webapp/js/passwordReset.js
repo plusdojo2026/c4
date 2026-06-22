@@ -36,7 +36,7 @@ document.getElementById('login-form').onsubmit = function(event) {
 
 		// 全項目が未入力の場合
     if(employeeNumber === '' && newPassword === '' && checkPassword ==='') {
-        msgElement.textContent = '各項目を入力してください。'
+        msgElement.textContent = '各項目を入力してください。';
 
 				// 未入力欄を薄い赤で塗りつぶす
         employeeNumberInput.style.backgroundColor = '#ffeeee';
@@ -45,15 +45,36 @@ document.getElementById('login-form').onsubmit = function(event) {
 
 				// フォーム送信を中止する
 				event.preventDefault();
+
+		// 社員番号と新規パスワードが未入力の場合
+		}else if (employeeNumber === '' && newPassword === '') {
+			msgElement.textContent = '社員番号と新規パスワードを入力してください。';
+			employeeNumberInput.style.backgroundColor = '#ffeeee';
+			newPasswordInput.style.backgroundColor = '#ffeeee';
+			event.preventDefault();
+
+		// 新規パスワードと確認用パスワードが未入力の場合
+		}else if (newPassword === '' && checkPassword === '') {
+			msgElement.textContent = '新規・確認用パスワードを入力してください。';
+			newPasswordInput.style.backgroundColor = '#ffeeee';
+			checkPasswordInput.style.backgroundColor = '#ffeeee';
+			event.preventDefault();
+
+		// 社員番号と確認用パスワードが未入力の場合
+		}else if (employeeNumber === '' && checkPassword === '') {
+			msgElement.textContent = '社員番号と確認用パスワードを入力してください。';
+			employeeNumberInput.style.backgroundColor = '#ffeeee';
+			checkPasswordInput.style.backgroundColor = '#ffeeee';
+			event.preventDefault();
 		
 		// 社員番号が未入力の場合
-    } else if (employeeNumber === '') {
+    }else if (employeeNumber === '') {
 			msgElement.textContent = '社員番号を入力してください。';
 			employeeNumberInput.style.backgroundColor = '#ffeeee';
 			event.preventDefault();
 
 		// 新規パスワードが未入力の場合
-		} else if (newPassword === '') {
+		}else if (newPassword === '') {
 			msgElement.textContent = '新規パスワードを入力してください。';
 			newPasswordInput.style.backgroundColor = '#ffeeee';
 			event.preventDefault();
