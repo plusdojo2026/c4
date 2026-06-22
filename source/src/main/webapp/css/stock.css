@@ -241,6 +241,14 @@ dialog.show {
   gap: 16px;
 }
 
+.reason {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  resize: vertical;
+}
+
 .dialog-btn-wrapper {
   display: flex;
   align-items: center;

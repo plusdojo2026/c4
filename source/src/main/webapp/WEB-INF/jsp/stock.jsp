@@ -47,7 +47,6 @@
               <th>JANコード</th>
               <th>商品名</th>
               <th>在庫数</th>
-              <th>期限</th>
             </tr>
           </thead>
           <tbody id="stock-table-body">
@@ -62,7 +61,6 @@
                 <td>${s.jancode}</td>
                 <td>${s.productName}</td>
                 <td>${s.stockQuantity}</td>
-                <td>${s.durationDays}日後</td>
               </tr>
             </c:forEach>
           </tbody>
@@ -117,11 +115,11 @@
           <div class="">
             <fieldset>
               <legend>入庫日</legend>
-              <input class="" type="date" name="receivedAt">
+              <input class="receivedAt" type="date" name="receivedAt" value="">
             </fieldset>
             <fieldset>
               <legend>通知日</legend>
-              <input class="" type="date" name="notifyAt" readonly>
+              <input class="notifyAt" type="date" name="notifyAt" value="" readonly>
             </fieldset>
           </div>
         </div>
@@ -155,18 +153,18 @@
           </div>
           <fieldset>
             <legend>理由</legend>
-            <textarea name="reason"></textarea>
+            <textarea class="reason" name="reason"></textarea>
           </fieldset>
-          <div class="">
+          <!-- <div class="">
             <fieldset>
               <legend>入庫日</legend>
-              <input class="" type="date" name="receivedAt" value="">
+              <input class="receivedAt" type="date" name="receivedAt" value="">
             </fieldset>
             <fieldset>
               <legend>通知日</legend>
               <input class="" type="date" name="notifyAt">
             </fieldset>
-          </div>
+          </div> -->
         </div>
         <div class="dialog-btn-wrapper">
           <button type="button" class="cancel-btn btn">

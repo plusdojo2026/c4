@@ -171,6 +171,7 @@ const addButton = document.getElementById('add-button');
 const dialogJan = stockEditDialog.querySelector('.dialog-jan');
 const dialogProductName = stockEditDialog.querySelector('.dialog-product-name');
 const dialogStock = stockEditDialog.querySelector('.dialog-stock');
+const addReceivedAt = stockAddDialog.querySelector('.receivedAt');
 
 let currentId;
 let currentJancode;
@@ -205,10 +206,18 @@ document.querySelectorAll('.stock-row').forEach((row) => {
   });
 });
 
+const date = new Date();
+
 addButton.addEventListener('click', () => {
   changeQuantity = 0;
-  stockAddDialog.showModal();
+  const year = String(date.getFullYear());
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  addReceivedAt.value = `${year}-${month}-${day}`;
+
   updateDisplay();
+  stockAddDialog.showModal();
   requestAnimationFrame(() => {
     stockAddDialog.classList.add("show");
   });
