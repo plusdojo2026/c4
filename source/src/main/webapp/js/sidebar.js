@@ -1,63 +1,56 @@
 // サイドバーのナビゲーション制御
-const setupSidebarNavigation = () => {
-  const currentPath = window.location.pathname;
-  const sidebarLinks = document.querySelectorAll('a.sidebar-item');
+const currentPath = window.location.pathname;
+const sidebarLinks = document.querySelectorAll('a.sidebar-item');
 
-  sidebarLinks.forEach(link => {
-    if (currentPath.includes(link.getAttribute('href'))) {
-      link.classList.add('active');
-    }
-  });
-};
+sidebarLinks.forEach(link => {
+  if (currentPath.includes(link.getAttribute('href'))) {
+    link.classList.add('active');
+  }
+});
 
 // アカウントモーダルとログアウトの制御
-const setupAccountModal = () => {
-  const accountBtn = document.getElementById('account-button');
-  const accountModal = document.getElementById('account-modal');
-  const logoutBtn = document.querySelector('.modal-logout-btn');
+const accountBtn = document.getElementById('account-button');
+const accountModal = document.getElementById('account-modal');
+const logoutBtn = document.querySelector('.modal-logout-btn');
 
-  // モーダルの開閉
-  if (accountBtn && accountModal) {
-    accountBtn.addEventListener('click', (event) => {
-      accountModal.classList.toggle('hidden');
-      event.stopPropagation();
-    });
+// モーダルの開閉
+if (accountBtn && accountModal) {
+  accountBtn.addEventListener('click', (event) => {
+    accountModal.classList.toggle('hidden');
+    event.stopPropagation();
+  });
 
-    // 画面外クリックで閉じる処理
-    document.addEventListener('click', (event) => {
-      if (!accountModal.classList.contains('hidden') &&
-        !accountModal.contains(event.target) &&
-        !accountBtn.contains(event.target)) {
-        accountModal.classList.add('hidden');
-      }
-    });
-  }
+  // 画面外クリックで閉じる処理
+  document.addEventListener('click', (event) => {
+    if (!accountModal.classList.contains('hidden') &&
+      !accountModal.contains(event.target) &&
+      !accountBtn.contains(event.target)) {
+      accountModal.classList.add('hidden');
+    }
+  });
+}
 
-  // ログアウト処理
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-      window.location.href = '/c4/logout';
-    });
-  }
-};
+// ログアウト処理
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    window.location.href = '/c4/logout';
+  });
+}
 
 // パスワード変更機能の制御（バリデーション・通信含む）
-const setupPasswordChange = () => {
-  // 要素の取得
-  const openPwdModalBtn = document.getElementById('open-pwd-modal-btn');
-  const closePwdModalBtn = document.getElementById('close-pwd-modal-btn');
-  const pwdModal = document.getElementById('password-modal');
-  const pwdModalOverlay = document.getElementById('pwd-modal-overlay');
-  const accountModal = document.getElementById('account-modal');
+// 要素の取得
+const openPwdModalBtn = document.getElementById('open-pwd-modal-btn');
+const closePwdModalBtn = document.getElementById('close-pwd-modal-btn');
+const pwdModal = document.getElementById('password-modal');
+const pwdModalOverlay = document.getElementById('pwd-modal-overlay');
+const pwdChangeForm = document.getElementById('pwd-change-form');
+const newPwdInput = document.getElementById('new-password');
+const confirmPwdInput = document.getElementById('confirm-password');
+const pwdMatchMsg = document.getElementById('pwd-match-msg');
+const submitPwdBtn = document.getElementById('submit-pwd-btn');
 
-  const pwdChangeForm = document.getElementById('pwd-change-form');
-  const newPwdInput = document.getElementById('new-password');
-  const confirmPwdInput = document.getElementById('confirm-password');
-  const pwdMatchMsg = document.getElementById('pwd-match-msg');
-  const submitPwdBtn = document.getElementById('submit-pwd-btn');
-
-  // 該当する画面がなければここで処理を終了する
-  if (!openPwdModalBtn || !pwdModal) return;
+// 該当する要素が存在する場合のみ、以下の処理を登録する
+if (openPwdModalBtn && pwdModal) {
 
   // サーバーメッセージを削除する
   const removeServerMessages = () => {
@@ -160,11 +153,4 @@ const setupPasswordChange = () => {
       if (submitPwdBtn) submitPwdBtn.disabled = false;
     }
   });
-};
-
-// メイン処理
-document.addEventListener('DOMContentLoaded', () => {
-  setupSidebarNavigation();
-  setupAccountModal();
-  setupPasswordChange();
-});
+}
