@@ -51,8 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   // マスタに登録されていないものが在庫ページから追加されるとき
    // 在庫ページから送られてきた hidden の値を取得
-const stockJan = document.querySelector("input[name='jancode']")?.value;
-const stockName = document.querySelector("input[name='productName']")?.value;
+const stockJan = document.querySelector("input[name='send-jancode']")?.value;
+const stockName = document.querySelector("input[name='send-productName']")?.value;
 
 // ▼ 在庫ページから来たときだけ自動で開く
 if (stockJan || stockName) {
