@@ -66,11 +66,9 @@ if (stockJan || stockName) {
   updateCaseUI();
 
   // ダイアログを自動で開く
-  dialogNewModal.showModal();
-  requestAnimationFrame(() => dialogNewModal.classList.add("show"));
+  newModaldialog.showModal();
+  requestAnimationFrame(() => newModaldialog.classList.add("show"));
 }
-
-
 
 
 
