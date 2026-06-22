@@ -74,7 +74,7 @@ public class PasswordResetServlet extends HttpServlet {
 					// 社員番号が数字でない場合
             request.setAttribute(
                     "errorMsg",
-                    "社員番号は数字で入力してください");
+                    "社員番号は整数で入力してください");
 
             RequestDispatcher dispatcher =
                     request.getRequestDispatcher("/WEB-INF/jsp/passwordReset.jsp");

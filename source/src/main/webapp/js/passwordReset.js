@@ -53,6 +53,33 @@ document.getElementById('login-form').onsubmit = function(event) {
 			newPasswordInput.style.backgroundColor = '#ffeeee';
 			event.preventDefault();
 
+		// 社員番号が整数以外かつ新規・確認用パスワードが未入力の場合
+		}else if (!/^\d+$/.test(employeeNumber) && newPassword === '' && checkPassword === '') {
+    	msgElement.textContent = '社員番号は整数で入力し、未入力項目を入力してください。';
+    	employeeNumberInput.style.backgroundColor = '#ffeeee';
+    	newPasswordInput.style.backgroundColor = '#ffeeee';
+   	 	checkPasswordInput.style.backgroundColor = '#ffeeee';
+    	event.preventDefault();
+
+		// 社員番号が整数以外かつ新規パスワードが未入力の場合
+		}else if (!/^\d+$/.test(employeeNumber) && newPassword === '') {
+			msgElement.textContent = '社員番号は整数で入力し、新規パスワードを入力してください。';
+			employeeNumberInput.style.backgroundColor = '#ffeeee';
+			newPasswordInput.style.backgroundColor = '#ffeeee';
+			event.preventDefault();
+
+		// 社員番号が整数以外かつ確認用パスワードが未入力の場合
+		}else if (!/^\d+$/.test(employeeNumber) && checkPassword === '') {
+			msgElement.textContent = '社員番号は整数で入力し、確認用パスワードを入力してください。';
+			employeeNumberInput.style.backgroundColor = '#ffeeee';
+			checkPasswordInput.style.backgroundColor = '#ffeeee';
+			event.preventDefault();
+
+		}else if (!/^\d+$/.test(employeeNumber)) {
+    	msgElement.textContent = '社員番号は整数で入力してください。';
+    	employeeNumberInput.style.backgroundColor = '#ffeeee';
+    	event.preventDefault();
+
 		// 新規パスワードと確認用パスワードが未入力の場合
 		}else if (newPassword === '' && checkPassword === '') {
 			msgElement.textContent = '新規・確認用パスワードを入力してください。';
