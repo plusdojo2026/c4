@@ -441,8 +441,8 @@ const stockJan = document.querySelector("input[name='send-jancode']")?.value;
 const stockName = document.querySelector("input[name='send-productName']")?.value;
 
 // ▼ 在庫ページから来たときだけ自動で開く
-if (stockJan && stockName) {
-  
+if (newModaldialog.dataset.isflag || (stockJan != null && stockName != null)) {
+
   // ダイアログを自動で開く
   newModaldialog.showModal();
   requestAnimationFrame(() => newModaldialog.classList.add("show"));

@@ -25,6 +25,8 @@ public class ProductServlet extends HttpServlet {
     	String productName = request.getParameter("productName");
     	
     	if (jancode != null || productName != null) {
+    		
+    		request.setAttribute("isflag", true);
     	    request.setAttribute("jancode", jancode);
     	    request.setAttribute("productName", productName);
     	}

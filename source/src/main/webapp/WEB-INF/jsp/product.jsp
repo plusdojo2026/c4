@@ -14,6 +14,9 @@
 		</head>
 
 		<body>
+			<!-- 確認用 -->
+			<p>JAN = [${jancode}]</p>
+			<p>NAME = [${productName}]</p>
 
 			<div class="product">
 				<!-- ここでheader.jspをinclude -->
@@ -92,7 +95,7 @@
 
 
 					<!-- 新規追加モーダル -->
-					<dialog id="dialog-new-modal" class="newmodal">
+					<dialog id="dialog-new-modal" class="newmodal" data-isflag="${isflag}">
 						<button id="dialog-new-modal-closeButton" class="btn">閉じる</button>
 						<img src="#" class="product-photo" id="preview">
 
