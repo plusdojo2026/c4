@@ -117,3 +117,50 @@ input {
   color: #ff4d4d;
   font-weight: bold;
 }
+
+/*スマホ*/
+@media screen and (max-width: 767px) {
+  .login-reset {
+    width: 95%;
+    max-width:400px;
+    margin-top: 200px;
+    padding: 25px 10px 35px;
+  }
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .input-box {
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  .input-box input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .birthday {
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  .birthday select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .login-btn {
+    width: 90%;
+  }
+
+  .login-btn button,
+  .pw-reset-btn button {
+    width: 100%;
+  }
+
+  .login-reset h1 {
+    font-size:28px;
+  }
+}

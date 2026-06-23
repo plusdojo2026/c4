@@ -17,8 +17,8 @@
 
 		<body>
 			<!-- 確認用 -->
-			<p>JAN = [${jancode}]</p>
-			<p>NAME = [${productName}]</p>
+			<!-- <p>JAN = [${jancode}]</p> -->
+			<!-- <p>NAME = [${productName}]</p> -->
 
 			<div class="product">
 				<!-- ここでheader.jspをinclude -->
