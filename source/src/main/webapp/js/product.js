@@ -440,20 +440,20 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
 
     // 要素が多すぎるため下に入れてます　↓
     // 在庫ページから送られてきた hidden の値を取得
-    // const stockJan = document.querySelector("input[name='send-jancode']")?.value;
-    // const stockName = document.querySelector("input[name='send-productName']")?.value;
+     const stockJan = document.querySelector("input[name='send-jancode']")?.value;
+     const stockName = document.querySelector("input[name='send-productName']")?.value;
 
     // ▼ 在庫ページから来たときだけ自動で開く
-    // if (newModaldialog.dataset.isflag == 'true' && (stockJan != null && stockName != null)) {
+     if (newModaldialog.dataset.isflag == 'true' && (stockJan != null && stockName != null)) {
 
       // ダイアログを自動で開く
-      // newModaldialog.showModal();
-      // requestAnimationFrame(() => newModaldialog.classList.add("show"));
+       newModaldialog.showModal();
+       requestAnimationFrame(() => newModaldialog.classList.add("show"));
 
       //  モーダル内の入力欄に値をセット
-      // document.querySelector("#JAN").value = stockJan;
-      // document.querySelector("#pname").value = stockName;
-    // }
+       document.querySelector("#JAN").value = stockJan;
+       document.querySelector("#pname").value = stockName;
+     }
 
 
 });
