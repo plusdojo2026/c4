@@ -303,13 +303,7 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
 
 
 
-  // 編集ポップアップ
-  const dialog5 = document.querySelector(".edit");
-  // 編集記号押す　→　dialog5開く
-  const showButton5 = document.querySelector("#edit-button");
-  showButton5.addEventListener("click", () => {
-
-  });
+  
   // 新規追加ダイアログ の「キャンセル」
   const closeButton5 = document.querySelector("#cancel4");
   closeButton5.addEventListener("click", () => {
@@ -318,6 +312,15 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
       dialog5.close();
     }, 250);
   });
+
+  // 編集ポップアップ
+  const dialog5 = document.querySelector(".edit");
+  // 編集記号押す　→　dialog5開く
+  // const showButton5 = document.querySelector("#edit-button");
+  // showButton5.addEventListener("click", () => {
+
+  // });
+
   // 編集ポップアップから削除ポップアップ
   const showButton6 = document.querySelector("#delete-check2");
   showButton6.addEventListener("click", () => {
@@ -338,33 +341,39 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
     });
   });
 
-  document.querySelector("#edit-button").addEventListener("click", () => {
+   
+
+  // document.querySelector("#edit-button").addEventListener("click", () => {
 
     // チェックされた行を取得
-    const checked = document.querySelectorAll(".edit-check:checked");
+    // const checked = document.querySelectorAll(".edit-check:checked");
 
     // 0 件 → エラー
-    if (checked.length === 0) {
-      alert("編集する商品を 1 件選択してください");
-      return;
-    }
+    // if (checked.length === 0) {
+      // alert("編集する商品を 1 件選択してください");
+      // return;
+    // }
 
     // 2 件以上 → エラー
-    if (checked.length > 1) {
-      alert("編集できるのは 1 件だけです");
-      return;
-    }
+    // if (checked.length > 1) {
+      // alert("編集できるのは 1 件だけです");
+      // return;
+    // }
 
     // 1 件だけ選択されている
-    const checkbox = checked[0];
-    const row = checkbox.closest("tr");
+    // const checkbox = checked[0];
+    // const row = checkbox.closest("tr");
+
+    // });
+   
+    // 行クリック編集
+     document.querySelectorAll("tr[data-base-product-id]").forEach(row => {
+     row.addEventListener("click", (e) => {
+
+  // チェックボックスをクリックしたときは無視
+     if (e.target.classList.contains("edit-check")) return;
     
-    // document.querySelectorAll("tr[data-base-product-id]").forEach(row => {
-    // row.addEventListener("click", (e) => {
-
-     // チェックボックスをクリックしたときは無視
-    // if (e.target.classList.contains("edit-check")) return;
-
+    
     // 行のデータ取得
     const id = row.querySelector(".edit-check").value;
     const janCode = row.querySelector(".td-jan").textContent;
@@ -391,9 +400,10 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
     requestAnimationFrame(() => {
       dialog5.classList.add("show");
       });
-  });
-    // });
-    //  });
+      });
+      });
+
+      
 
     // camera制御
     const video = document.getElementById('video');
