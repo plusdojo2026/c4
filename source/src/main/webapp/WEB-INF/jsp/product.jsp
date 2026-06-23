@@ -5,6 +5,8 @@
 
 		<head>
 			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品一覧</title>
 			<title>商品一覧</title>
 			<!-- /webappつける -->
 			<link rel="stylesheet" href="/c4/css/common.css">
