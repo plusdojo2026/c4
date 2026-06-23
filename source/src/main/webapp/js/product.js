@@ -49,11 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       newModaldialog.close();
     }, 250);
   });
-  // マスタに登録されていないものが在庫ページから追加されるとき
-   
-
-
-
+  
   // 新規追加ダイアログ の「追加する」→ 新規追加ダイアログ を閉じて newModaldialog を開く
   newCheckdialogAddButton.addEventListener("click", () => {
     newCheckdialog.classList.remove("show");
@@ -244,7 +240,7 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
   const dialog4 = document.querySelector(".deleteresult");
 
   // 削除記号押す　→　dialog3（削除確認）開く
-  const showButton3 = document.querySelector("#delete-check");
+  const showButton3 = document.querySelector("#delete-button");
   showButton3.addEventListener("click", () => {
     console.log("delete-check clicked");
     // 削除件数表示
