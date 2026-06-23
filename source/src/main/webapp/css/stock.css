@@ -7,15 +7,6 @@
   padding-top: 60px;
 }
 
-.wrapper>aside {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  width: 80px;
-  height: calc(100dvh - 60px);
-  z-index: 10;
-}
-
 .stock-content {
   flex: 1;
   margin-left: 80px;
@@ -258,5 +249,66 @@ dialog.show {
 }
 
 @media screen and (max-width: 767px) {
-  
+  .wrapper {
+    display: flex;
+    min-height: 100dvh;
+    height:   fit-content;
+    padding-bottom: 60px;
+  }
+
+  .stock-content {
+    flex: 1;
+    padding: 24px;
+    margin-left: unset;
+    background-color: #f8f9fb;
+    overflow-y: auto;
+  }
+
+  thead {
+    display: none;
+  }
+
+  table,
+  tbody,
+  tr,
+  td {
+    display: block;
+    width: 100%;
+  }
+
+  tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  tbody tr {
+    background: #fff;
+    color: var(--color-text);
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    padding: 12px;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+    padding: 8px 0;
+  }
+
+  td:nth-child(1)::before {
+    content: "JANコード";
+    font-weight: bold;
+  }
+
+  td:nth-child(2)::before {
+    content: "商品名";
+    font-weight: bold;
+  }
+
+  td:nth-child(3)::before {
+    content: "在庫数";
+    font-weight: bold;
+  }
 }
