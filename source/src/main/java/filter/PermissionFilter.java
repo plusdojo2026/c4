@@ -42,8 +42,7 @@ public class PermissionFilter implements Filter {
 			return;
 		}
 		
-		
-		/* 
+		/*
 		// ログイン状態を確認
 		HttpSession session = httpRequest.getSession(false);
 		if (session == null || session.getAttribute("id") == null) {
@@ -51,7 +50,6 @@ public class PermissionFilter implements Filter {
 			httpResponse.sendRedirect(contextPath + "/login");
 			return;
 		}
-		*/
 		
 		
 		// 管理者ページのアクセス制御
@@ -65,6 +63,7 @@ public class PermissionFilter implements Filter {
 			httpResponse.sendRedirect(contextPath + "/product");
 			return;
 		}
+		*/
 		
 		// 通知を取得
 		NotificationDAO dao = new NotificationDAO();
@@ -98,7 +97,7 @@ public class PermissionFilter implements Filter {
 	
 	// 管理者ページかどうかを判定
 	private boolean isAdminPage(String path) {
-		return path.contains("/admin/*");
+		return path.contains("/admin") || path.contains("/admin/");
 	}
 	
 	public void destroy() {
