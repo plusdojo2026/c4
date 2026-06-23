@@ -31,11 +31,12 @@ addDialogCancelBtn.addEventListener('click', function(){
 
 //モーダル内の「入力内容を確認する」ボタンが押されたときの処理
 openCheckDialogBtn.addEventListener('click', function(){
-  //required属性の箇所のチェック(空なら警告ポップアップを出す)
-  // 入力エラーがあればポップアップを表示
-  // reportValidity()は、エラーがあるとfalseを返す
-  if (!accountAddForm.checkVisibility()) {
-    accountAddForm.reportValidity();
+  const nameInput = document.getElementById('add-name');
+  const passwordInput = document.getElementById('add-default-pw');
+  // 名前の入力チェック
+  if (nameInput.value === "") {
+    nameInput.style.border = "2px solid red";
+    
     return;//エラーがあると処理を中断
   }
 
