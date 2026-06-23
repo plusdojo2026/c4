@@ -28,21 +28,26 @@
           <button id="add-button" type="button">
             <img class="active" src="/c4/img/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="従業員新規追加">
           </button>
-          <button id="edit-button">
-			<img class="active" src="/c4/img/edit_square_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="編集">
+		  <button id="delete-button" class="button">
+			<img class="" src="/c4/img/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="削除">
 		  </button>
-		  <button id="delete-check" class="option">削除</button>
         </div>
         <table>
           <thead>
             <tr>
-              <th><input type="checkbox" class="option" id="check-all"></th>
+              <th>社員番号</th>
               <th>名前</th>
               <th>生年月日</th>
               <th>権限（管理者/従業員）</th>
             </tr>
           </thead>
           <tbody id="account-table-body">
+			<c:if test="${empty accountList}">
+			  <tr>
+				<td colspan="5" style="text-align: center;">アカウントデータがありません。</td>
+			  </tr>
+			</c:if>
+
             <c:forEach var="a" items="${accountList}">
               <tr
                 class="account-row"
@@ -50,10 +55,15 @@
                 data-name="${a.name}"
                 data-birthday="${a.birthday}"
                 data-permissiond-id="${a.permissionsId == 1 ? '管理者' : '従業員'}">
-                <td>${a.id}</td>
-                <td>${a.name}</td>
-                <td>${a.birthday}</td>
-                <td>${a.permissionsId == 1 ? '管理者' : '従業員'}</td>
+                <td><c:out value="${a.id}"></c:out></td>
+                <td><c:out value="${a.name}"></c:out></td>
+                <td><c:out value="${a.birthday}"></c:out></td>
+                <td>
+				  <c:choose>
+					<c:when test="${a.permissionsId == 1}">管理者</c:when>
+					<c:otherwise>従業員</c:otherwise>
+				  </c:choose>
+				</td>
               </tr>
             </c:forEach>
           </tbody>
@@ -84,9 +94,9 @@
         <div class="">
           <fieldset>
             <legend>名前</legend>
-            <input type="text" name="name" placeholder="氏名を入力してください。" required>
+            <input type="text" id="add-name" name="name" placeholder="氏名を入力してください。" required>
           </fieldset>
-          <fieldset>
+ 
             <legend>生年月日</legend>
            <div id="birthday" class="birthday">
 			<select id="year" name="year">
@@ -243,40 +253,47 @@
 			<option value="31">31</option>
 			</select>
 			</div>
-          </fieldset>
-          <fieldset>
-            <legend>初期パスワード</legend>
-            <input class="default-password" type="text" name="default-password" required>
-          </fieldset>
-          <fieldset>
-            <legend>初期パスワード(確認用)</legend>
-            <input class="default-password" type="text" name="default-password" required>
-          </fieldset>
+
           <div class="">
-            <fieldset>
-              <legend>権限</legend>
-              <input type="text" id="permissionsId" name="permissionsId" placeholder="管理者:1  従業員:2" required>
-            </fieldset>
+              <p>権限</p>
+			  <select id="add-permissions" name="permissionsId">
+              <option value="1" required>管理者</option>
+			  <option value="2" required>従業員</option>
+			  </select>
           </div>
+
+		   <fieldset>
+            <legend>初期パスワード</legend>
+            <input id="add-default-pw" class="default-password" type="text" name="default-password" required>
+          </fieldset>
         </div>
         <div class="dialog-btn-wrapper">
           <button type="button" id="account-add-dialog-cancel-btn" class="cancel-btn btn">
             キャンセル
           </button>
-          <button type="submit" id="account-add-dialog-add-btn" class="btn">
-            追加
+          <button type="button" id="open-next-account-add-dialog" class="btn">
+            入力内容を確認する
           </button>
         </div>
       </form>
     </dialog>
     
-    <dialog id="account-add-check-dialog" class="account-form">
-        <p>本当に「${a.name}」さんの情報を追加しますか？</p>
-        <div>
+	<!-- 入力確認ダイアログ -->
+    <dialog id="account-add-check-dialog" class="account-check-dialog">
+		<h3>入力内容の確認</h3>
+        <div class="check-add-content">
+		  <p><strong>名前：</strong><span id="check-add-name"></span></p>
+		  <p><strong>生年月日：</strong><span id="check-add-birthday"></span></p>
+		  <p><strong>権限：</strong><span id="check-add-permissions"></span></p>
+		  <p><strong>初期パスワード：</strong><span id="check-add-default-password"></span></p>
+		</div>
+		  <p>この内容で追加しますか？</p>
+		    <div class="dialog-btn-wrapper">
         	<!-- キャンセルボタン -->
             <button type="button" class="btn cancel-btn">キャンセル</button>
-            <!-- 実際の追加実行ボタン -->
-            <button type="submit" class="btn add-btn">追加</button>
+            <!-- 実際の追加実行ボタン(DBへ送信) -->
+            <button type="button" id="account-add-confirm-btn" class="btn add-btn">追加</button>
+			</div>
         </div>
     </dialog>
     
