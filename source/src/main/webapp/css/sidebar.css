@@ -240,7 +240,7 @@
   border-radius: 4px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 767px) {
   .global-sidebar {
     position: fixed;
     bottom: 0;
