@@ -32,9 +32,11 @@ addDialogCancelBtn.addEventListener('click', function(){
 //モーダル内の「入力内容を確認する」ボタンが押されたときの処理
 openCheckDialogBtn.addEventListener('click', function(){
   //required属性の箇所のチェック(空なら警告ポップアップを出す)
+  // 入力エラーがあればポップアップを表示
+  // reportValidity()は、エラーがあるとfalseを返す
   if (!accountAddForm.checkVisibility()) {
     accountAddForm.reportValidity();
-    return;
+    return;//エラーがあると処理を中断
   }
 
   // 入力フォームから値を取得する
@@ -48,7 +50,7 @@ const password = document.getElementById('add-default-pw').value;
 const dialogSelect = document.getElementById('add-permissions');
 const permissionText = dialogSelect.options[dialogSelect.selectedIndex].text;
 
-// 確認ダイアログのspanタグに値を入れる
+// 確認ダイアログの(jspの)spanタグに値を入れる
 document.getElementById('check-add-name').textContent = name;
 document.getElementById('check-add-birthday').textContent = year + '年' + month + '月' + day + '日';
 document.getElementById('check-add-permissions').textContent = permissionText;

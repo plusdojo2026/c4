@@ -90,7 +90,7 @@
 
 <!-- 従業員新規追加 -->
     <dialog class="account-add-dialog">
-      <form id="account-add-form" class="account-form" action="${pageContext.request.contextPath}/account/add" method="post">  
+      <form id="account-add-form" class="account-form" action="${pageContext.request.contextPath}/admin/add" method="post">  
         <div class="">
           <fieldset>
             <legend>名前</legend>
@@ -297,7 +297,7 @@
         </div>
     </dialog>
     
-    
+    <!-- 編集モーダル -->
     <dialog class="account-edit-dialog">
       <p>名前: <span class="dialog-name"></span></p>
       <p>権限: <span class="dialog-permissions"></span></p>
