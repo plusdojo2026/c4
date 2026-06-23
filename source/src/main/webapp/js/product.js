@@ -246,6 +246,7 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
   // 削除記号押す　→　dialog3（削除確認）開く
   const showButton3 = document.querySelector("#delete-check");
   showButton3.addEventListener("click", () => {
+    console.log("delete-check clicked");
     // 削除件数表示
     const checked = document.querySelectorAll(".edit-check:checked").length;
 
@@ -384,20 +385,20 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
     requestAnimationFrame(() => {
       dialog5.classList.add("show");
       });
-     });
+  });
     // });
-  //  });
+    //  });
 
-  // camera制御
-  const video = document.getElementById('video');
-  const cameraButton = document.getElementById('camera-button');
-  const cameraOn = document.getElementById('camera-on');
-  const cameraOff = document.getElementById('camera-off');
+    // camera制御
+    const video = document.getElementById('video');
+    const cameraButton = document.getElementById('camera-button');
+    const cameraOn = document.getElementById('camera-on');
+    const cameraOff = document.getElementById('camera-off');
 
-  let stream = null;
-  let isCameraOn = false;
+    let stream = null;
+    let isCameraOn = false;
 
-  async function startCamera() {
+    async function startCamera() {
     navigator.mediaDevices.getUserMedia({
       video: {
         facingMode: "user",
@@ -431,32 +432,32 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
     video.classList.remove('active');
     cameraOff.classList.remove('active');
     cameraOn.classList.add('active');
-  }
+    }
 
-  cameraButton.addEventListener('click', () => {
+   cameraButton.addEventListener('click', () => {
     if (isCameraOn) {
       stopCamera();
     } else {
       startCamera();
     }
-  });
+    });
 
-  // 要素が多すぎるため下に入れてます　↓
- // 在庫ページから送られてきた hidden の値を取得
-const stockJan = document.querySelector("input[name='send-jancode']")?.value;
-const stockName = document.querySelector("input[name='send-productName']")?.value;
+    // 要素が多すぎるため下に入れてます　↓
+    // 在庫ページから送られてきた hidden の値を取得
+    // const stockJan = document.querySelector("input[name='send-jancode']")?.value;
+    // const stockName = document.querySelector("input[name='send-productName']")?.value;
 
-// ▼ 在庫ページから来たときだけ自動で開く
-if (newModaldialog.dataset.isflag == 'true' && (stockJan != null && stockName != null)) {
+    // ▼ 在庫ページから来たときだけ自動で開く
+    // if (newModaldialog.dataset.isflag == 'true' && (stockJan != null && stockName != null)) {
 
-  // ダイアログを自動で開く
-  newModaldialog.showModal();
-  requestAnimationFrame(() => newModaldialog.classList.add("show"));
+      // ダイアログを自動で開く
+      // newModaldialog.showModal();
+      // requestAnimationFrame(() => newModaldialog.classList.add("show"));
 
-  //  モーダル内の入力欄に値をセット
-  document.querySelector("#JAN").value = stockJan;
-  document.querySelector("#pname").value = stockName;
-}
+      //  モーダル内の入力欄に値をセット
+      // document.querySelector("#JAN").value = stockJan;
+      // document.querySelector("#pname").value = stockName;
+    // }
 
 
 });
