@@ -6,7 +6,7 @@
 		<head>
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品一覧</title>
+			<title>商品一覧</title>
 			<title>商品一覧</title>
 			<!-- /webappつける -->
 			<link rel="stylesheet" href="/c4/css/common.css">
@@ -93,79 +93,96 @@
 					<!-- 新規追加ポップアップ（確認） -->
 					<dialog id="dialog-new-confirm" class="newcheck">
 						<p>新規商品を追加しますか？</p>
-						<button id="new-dialog-closeButton" class="btn">キャンセル</button>
-						<button id="new-dialog-addButton" class="btn">追加する</button>
+						<div class="dialog-btn-wrapper">
+							<button id="new-dialog-closeButton" class="btn">キャンセル</button>
+							<button id="new-dialog-addButton" class="btn">追加する</button>
+						</div>
 					</dialog>
 
 
-					<!-- 新規追加モーダル -->
 					<dialog id="dialog-new-modal" class="newmodal" data-isflag="${isflag}">
-						<button id="dialog-new-modal-closeButton" class="btn">閉じる</button>
 						<img src="#" class="product-photo" id="preview">
 
-						<form action="/c4/ProductAddServlet" method="post" enctype="multipart/form-data">
+						<form action="/c4/ProductAddServlet" method="post" enctype="multipart/form-data" class="stock-form">
 							<div class="newform">
 
-								<input type="file" id="add-photo" name="add-photo" accept="image/*">
-								<!-- ケース選択 -->
-								<div class="case-block">
-									<label>
+								<fieldset>
+									<legend>商品区分</legend>
+									<div class="case-block">
 										<input type="radio" name="isCase" value="0" id="case-no" checked>
-										単品
-									</label>
+										<label for="case-no">単品</label>
 
-									<label>
 										<input type="radio" name="isCase" value="1" id="case-yes">
-										ケース商品
-									</label>
-								</div>
+										<label for="case-yes">ケース商品</label>
+									</div>
+								</fieldset>
 
-								<input type="number" id="JAN" name="jan" placeholder="JANを入力" required>
-								<input type="text" id="pname" name="productname" placeholder="商品名を入力" required>
-								<input type="number" id="term" name="term" placeholder="期間を入力" required>
+								<fieldset>
+									<legend>商品画像</legend>
+									<input type="file" id="add-photo" name="add-photo" accept="image/*">
+								</fieldset>
+
+								<fieldset>
+									<legend>JANコード</legend>
+									<input type="number" id="JAN" name="jan" placeholder="JANコードを入力してください" required>
+								</fieldset>
+
+								<fieldset>
+									<legend>商品名</legend>
+									<input type="text" id="pname" name="productname" placeholder="商品名を入力してください" required>
+								</fieldset>
+
+								<fieldset>
+									<legend>期間（日）</legend>
+									<input type="number" id="term" name="term" placeholder="期間を入力してください" required>
+								</fieldset>
+
 								<input type="hidden" name="send-jancode" value="${jancode}">
 								<input type="hidden" name="send-productName" value="${productName}">
 
-								<!-- 入数入力 -->
-								<div id="case-options">
-									<label>入数</label>
+								<fieldset id="case-options">
+									<legend>入数</legend>
 									<input type="number" id="case-qty" name="caseQty" value="1" min="1">
-								</div>
+								</fieldset>
 
+								<fieldset id="single-select-fieldset">
+									<legend>既存の単品商品がある場合は選択</legend>
+									<select id="single-select" name="singleSelect">
+										<option value="">既存の単品商品がある場合はここから選択してください</option>
+									</select>
+								</fieldset>
 
-
-								<!-- 単品プルダウン -->
-								<select id="single-select" name="singleSelect">
-									<option value="">既存の単品商品がある場合はここから選択してください</option>
-
-								</select>
-								<!-- 既存単品の情報をサーブレットへ渡す -->
 								<input type="hidden" id="selectedName" name="selectedName">
 								<input type="hidden" id="selectedTerm" name="selectedTerm">
 
-
-
-								<!-- バラフォーム -->
 								<div id="bara-form">
-									<label>バラJAN</label>
-									<input type="text" id="bara-jan" name="baraJan" required>
+									<fieldset>
+										<legend>バラJAN</legend>
+										<input type="text" id="bara-jan" name="baraJan">
+									</fieldset>
 
-									<label>バラ商品名</label>
-									<input type="text" id="bara-name" name="baraName" required>
+									<fieldset>
+										<legend>バラ商品名</legend>
+										<input type="text" id="bara-name" name="baraName">
+									</fieldset>
 
-									<label>バラ期間</label>
-									<input type="number" id="bara-term" name="baraTerm" required>
+									<fieldset>
+										<legend>バラ期間（日）</legend>
+										<input type="number" id="bara-term" name="baraTerm">
+									</fieldset>
 								</div>
 
-								<!-- メッセージ -->
 								<p id="single-message">
-									既存の単品を選択しています。
+									既存の単品を選択しています。<br>
 									バラ商品の入力内容を変更すると、既存単品の情報が更新されます。
 								</p>
 
 							</div>
 
-							<button type="submit" class="btn regist">登録</button>
+							<div class="dialog-btn-wrapper">
+								<button type="button" id="dialog-new-modal-closeButton" class="btn">閉じる</button>
+								<button type="submit" class="btn regist">登録</button>
+							</div>
 						</form>
 					</dialog>
 
