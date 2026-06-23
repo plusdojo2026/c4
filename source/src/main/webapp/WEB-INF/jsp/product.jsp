@@ -48,7 +48,9 @@
 											<img class="active" src="/c4/img/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="在庫新規追加">
 										</button>
 										<!-- 削除ボタン -->
-										<button id="delete-check" class="option">削除</button>
+										<button id="delete-button" class="button">
+											<img class="" src="/c4/img/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="削除">
+										</button>
 									</div>
 
 
@@ -121,7 +123,7 @@
 								<input type="number" id="term" name="term" placeholder="期間を入力" required>
 								<input type="hidden" name="send-jancode" value="${jancode}">
 								<input type="hidden" name="send-productName" value="${productName}">
-								
+
 								<!-- 入数入力 -->
 								<div id="case-options">
 									<label>入数</label>
@@ -229,7 +231,7 @@
 
 					</dialog>
 
-					
+
 					<script src="/c4/js/product.js"></script>
 			</div>
 		</body>
