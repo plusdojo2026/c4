@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+
   console.log("JS 読み込み OK");
 
   // 全選択チェックボックスの制御
@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // 新規追加ダイアログ の「追加する」→ 新規追加ダイアログ を閉じて newModaldialog を開く
   newCheckdialogAddButton.addEventListener("click", () => {
+    newModaldialog.dispatchEvent(new Event("close"));
     newCheckdialog.classList.remove("show");
     setTimeout(() => {
       newCheckdialog.close();
@@ -89,6 +90,15 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("bara-term").value = "";
       document.getElementById("selectedName").value = "";
       document.getElementById("selectedTerm").value = "";
+
+      document.getElementById("JAN").value = "";
+      document.getElementById("pname").value = "";
+      document.getElementById("term").value = "";
+      document.getElementById("add-photo").value = "";
+
+      // 画像プレビューがあるなら消す
+      const preview = document.getElementById("preview");
+      if (preview) preview.src = "";
     });
     //  プルダウン選択 → バラ欄に自動入力（1回だけ登録）
 singleSelect.addEventListener("change", () => {
@@ -443,6 +453,8 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
      const stockJan = document.querySelector("input[name='send-jancode']")?.value;
      const stockName = document.querySelector("input[name='send-productName']")?.value;
 
+    //  閉じるで初期化
+      newModaldialog.dispatchEvent(new Event("close"));
     // ▼ 在庫ページから来たときだけ自動で開く
      if (newModaldialog.dataset.isflag == 'true' && (stockJan != null && stockName != null)) {
 
@@ -456,4 +468,4 @@ document.querySelectorAll("#product-table-body tr").forEach(row => {
      }
 
 
-});
+
