@@ -78,14 +78,14 @@
     
 <!-- 削除ダイアログ -->
     <dialog class="account-delete-dialog">
-      <form id="account-delete-form" class="account-form" action="${pageContext.request.contextPath}/account/delete" method="post">
+      <form id="account-delete-form" class="account-form" action="${pageContext.request.contextPath}/admin/delete" method="post">
       <div class="">
           <p><span id="account-delete-count" style="font-weight: bold; color: red;">〇</span>件選択されています。<br>選択した情報を削除しますか？</p>
 		  <!-- ServletにIDを送る。最初は空っぽ。 -->
 		  <input type="hidden" id="delete-ids-input" name="deleteIdsStr">
 
           <div class="dialog-btn-wrapper">
-            <button type="button" class="cancel-btn btn">
+            <button type="button" id="account-delete-dialog-cancel-btn" class="cancel-btn btn">
               キャンセル
             </button>
             <button type="submit" class="btn delete-submit-btn">
@@ -312,10 +312,10 @@
       <form id="account-edit-form" class="account-form" action="${pageContext.request.contextPath}/admin/edit" method="post">
         <input class="id" type="hidden" name="id" value="">
 		<div>
-		<p><strong>名前:</strong><span class="dialog-name"></span></p>
+		<p><strong>名前:</strong><span class="dialog-name" value="${a.name}"></span></p>
 		<fieldset>
 		  <legend>権限の変更</legend>
-		  <select id="edit-permissions" name="permissionsId" required>
+		  <select id="edit-permissions" name="permissionsId" value="${a.permissionsId == 1 ? '管理者' : '従業員'}" required>
 			<option value="1">管理者</option>
 			<option value="2">従業員</option>
 		  </select>
