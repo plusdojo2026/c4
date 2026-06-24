@@ -197,6 +197,7 @@
 								requestAnimationFrame(() => {
 									dialog4.classList.add("show");
 								});
+								history.replaceState(null, "", "/c4/product");
 							});
 						</script>
 					</c:if>

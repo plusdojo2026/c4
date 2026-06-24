@@ -404,6 +404,7 @@ document.querySelectorAll("tr[data-base-product-id]").forEach(row => {
     const janCode = row.querySelector(".td-jan").textContent;
     const productName = row.querySelector(".td-name").textContent;
     const durationDays = row.querySelector(".td-term").textContent;
+    const durationDays = durationText.replace(/\D/g, "");  
     const photoPath = row.querySelector("img").getAttribute("src");
 
     // data- 属性から取得（JSP に追加済み）
