@@ -33,11 +33,59 @@ addDialogCancelBtn.addEventListener('click', function(){
 openCheckDialogBtn.addEventListener('click', function(){
   const nameInput = document.getElementById('add-name');
   const passwordInput = document.getElementById('add-default-pw');
+  const errorMsg = document.getElementById('add-form-error-msg');
+  let hasError = false;
+
+  // エラー状態とメッセージの初期化(エラーなし、枠線も通常、メッセージも隠す状態に戻す)
+  nameInput.style.backgroundColor = '';
+  passwordInput.style.backgroundColor = '';
+  hasError.style.fontWeight = '';//太字にする
+  hasError.style.color = '';//赤字にする
+  errorMsg.style.display = 'none';
+  
+  //入力された「文字（値）」を取得
+  let employeeNumber = employeeNumberInput.value;
+  let password = passwordInput.value;
+  
+  
+
+  //メッセージ変更とエラーの塗りつぶしの適用
+  if (employeeNumber === '' && password === '') {
+    msgElement.textContent = '社員番号とパスワードを入力してください。';
+    //中身を薄い赤で塗りつぶす
+    employeeNumberInput.style.backgroundColor = '#ffeeee';
+    passwordInput.style.backgroundColor = '#ffeeee';
+    event.preventDefault();
+  }
+  else if (employeeNumber === '') {
+    msgElement.textContent = '社員番号を入力してください。';
+    //中身を薄い赤で塗りつぶす
+    employeeNumberInput.style.backgroundColor = '#ffeeee';
+    event.preventDefault();
+  }
+  else if (password === '') {
+    msgElement.textContent = 'パスワードを入力してください。';
+    passwordInput.style.backgroundColor = '#ffeeee';
+    event.preventDefault();
+  }
+};
+
   // 名前の入力チェック
-  if (nameInput.value === "") {
+  if (nameInput.value.trim() === "") {
     nameInput.style.border = "2px solid red";
-    
-    return;//エラーがあると処理を中断
+    hasError = true;//エラーの目印ON
+  }
+
+  // 初期パスワードの入力チェック
+  if (passwordInput.value.trim() === "") {
+    passwordInput.style.border = "2px solid red";    
+    hasError = true;//エラーの目印ON
+  }
+
+  // エラーが1つでもあれば、一括表示して処理を中断する
+  if (hasError === true) {
+    errorMsg.style.display = 'block';// エラーメッセージを表示
+    return;
   }
 
   // 入力フォームから値を取得する
