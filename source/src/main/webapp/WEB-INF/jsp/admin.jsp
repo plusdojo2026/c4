@@ -8,7 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/c4/css/common.css">
+  <link rel="stylesheet" href="/c4/css/stock.css">
   <link rel="stylesheet" href="/c4/css/admin.css">
+
 
   <title>サカグラ | 管理者</title>
 </head>
@@ -28,8 +30,8 @@
           <button id="add-button" type="button">
             <img class="active" src="/c4/img/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="従業員新規追加">
           </button>
-		  <button id="delete-button" class="button">
-			<img class="" src="/c4/img/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="削除">
+		  <button id="delete-button" type="button">
+			<img class="active" src="/c4/img/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="削除">
 		  </button>
         </div>
         <table>
