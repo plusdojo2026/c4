@@ -51,7 +51,7 @@
 										</button>
 										<!-- 削除ボタン -->
 										<button id="delete-button" class="button">
-											<img class="" src="/c4/img/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="削除">
+											<img class="active" src="/c4/img/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="削除">
 										</button>
 									</div>
 
