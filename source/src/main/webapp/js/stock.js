@@ -172,11 +172,14 @@ const dialogJan = stockEditDialog.querySelector('.dialog-jan');
 const dialogProductName = stockEditDialog.querySelector('.dialog-product-name');
 const dialogStock = stockEditDialog.querySelector('.dialog-stock');
 const addReceivedAt = stockAddDialog.querySelector('.receivedAt');
+const editReceivedAt = stockEditDialog.querySelector('.receivedAt');
+const editNotifyAt = stockEditDialog.querySelector('.notifyAt');
 
 let currentId;
 let currentJancode;
 let currentStock;
 let changeQuantity;
+let currentDurationDays;
 
 document.querySelectorAll('.stock-row').forEach((row) => {
   row.addEventListener('click', () => {
@@ -185,16 +188,35 @@ document.querySelectorAll('.stock-row').forEach((row) => {
       jan,
       productName,
       stockQuantity,
+      durationDays,
     } = row.dataset;
 
     currentId = id;
     currentJancode = jan;
     currentStock = Number(stockQuantity);
     changeQuantity = 0;
+    currentDurationDays = Number(durationDays);
 
     dialogJan.textContent = jan;
     dialogProductName.textContent = productName;
     dialogStock.textContent = stockQuantity;
+
+    const date = new Date();
+
+    const year = String(date.getFullYear());
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    editReceivedAt.value = `${year}-${month}-${day}`;
+
+    const notifyDate = new Date(date);
+    notifyDate.setDate(notifyDate.getDate() + Number(currentDurationDays));
+
+    const notifyYear = String(notifyDate.getFullYear());
+    const notifyMonth = String(notifyDate.getMonth() + 1).padStart(2, "0");
+    const notifyDay = String(notifyDate.getDate()).padStart(2, "0");
+
+    editNotifyAt.value = `${notifyYear}-${notifyMonth}-${notifyDay}`;
 
     updateDisplay();
 
@@ -206,13 +228,8 @@ document.querySelectorAll('.stock-row').forEach((row) => {
   });
 });
 
-const date = new Date();
-
 addButton.addEventListener('click', () => {
   changeQuantity = 0;
-  const year = String(date.getFullYear());
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
 
   addReceivedAt.value = `${year}-${month}-${day}`;
 
@@ -247,8 +264,8 @@ function updateDisplay() {
   janCode.value = currentJancode;
   changeQuantityEl.value = changeQuantity;
 
-  if(stockAddDialog.open) {
-    if(Number(changeQuantity) < 1) {
+  if (stockAddDialog.open) {
+    if (Number(changeQuantity) < 1) {
       changeQuantity = 1;
       addQuantityEl.value = 1;
     } else {
@@ -256,7 +273,7 @@ function updateDisplay() {
     }
   }
 
-  if(stockEditDialog.open) {
+  if (stockEditDialog.open) {
     newQuantityEl.value = currentStock + changeQuantity;
   }
 }
@@ -280,7 +297,7 @@ changeQuantityEl.addEventListener('input', () => {
   newQuantityEl.value = Number(currentStock) + Number(changeQuantity);
 });
 
-if(newCheckDialog != null) {
+if (newCheckDialog != null) {
   newCheckDialog.showModal();
 
   requestAnimationFrame(() => {
