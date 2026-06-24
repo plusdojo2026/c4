@@ -403,7 +403,7 @@ document.querySelectorAll("tr[data-base-product-id]").forEach(row => {
     const id = row.querySelector(".edit-check").value;
     const janCode = row.querySelector(".td-jan").textContent;
     const productName = row.querySelector(".td-name").textContent;
-    const durationDays = row.querySelector(".td-term").textContent;
+    const durationText = row.querySelector(".td-term").textContent;
     const durationDays = durationText.replace(/\D/g, "");  
     const photoPath = row.querySelector("img").getAttribute("src");
 
