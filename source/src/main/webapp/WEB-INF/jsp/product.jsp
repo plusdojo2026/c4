@@ -6,6 +6,7 @@
 		<head>
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<script src="https://unpkg.com/@zxing/library@latest"></script>
 			<title>商品一覧</title>
 			<link rel="stylesheet" href="/c4/css/common.css">
 			<link rel="stylesheet" href="/c4/css/stock.css">
