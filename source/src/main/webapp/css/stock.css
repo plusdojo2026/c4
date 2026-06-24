@@ -297,18 +297,49 @@ dialog.show {
     padding: 8px 0;
   }
 
-  td:nth-child(1)::before {
-    content: "JANコード";
-    font-weight: bold;
+  /* stock用 */
+  tbody tr:has(> td:nth-child(3)):not(:has(> td:nth-child(4))) {
+    td:nth-child(1)::before {
+      content: "JANコード";
+      font-weight: bold;
+    }
+
+    td:nth-child(2)::before {
+      content: "商品名";
+      font-weight: bold;
+    }
+
+    td:nth-child(3)::before {
+      content: "在庫数";
+      font-weight: bold;
+    }
   }
 
-  td:nth-child(2)::before {
-    content: "商品名";
-    font-weight: bold;
-  }
+  /* product用 */
+  tbody tr:has(> td:nth-child(5)):not(:has(> td:nth-child(6))) {
+    td:nth-child(1)::before {
+      content: "";
+      font-weight: bold;
+    }
 
-  td:nth-child(3)::before {
-    content: "在庫数";
-    font-weight: bold;
+    td:nth-child(2)::before {
+      content: "商品画像";
+      font-weight: bold;
+    }
+
+    td:nth-child(3)::before {
+      content: "JANコード";
+      font-weight: bold;
+    }
+
+    td:nth-child(4)::before {
+      content: "商品名";
+      font-weight: bold;
+    }
+
+    td:nth-child(5)::before {
+      content: "期間";
+      font-weight: bold;
+    }
   }
 }

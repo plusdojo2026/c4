@@ -31,7 +31,7 @@ public class SearchServlet extends HttpServlet {
 		String keyword = search.trim();
 
 		// keywordがjanか商品名か判定
-		boolean isJan = keyword.matches("\\d{13}");
+		boolean isJan = keyword.matches("^(\\d{8}|\\d{13})$");
 		
 		// 検索元のページURLを取得
 		String sourcePage = request.getParameter("sourcePage");
