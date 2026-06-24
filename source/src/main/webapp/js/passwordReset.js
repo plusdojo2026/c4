@@ -13,8 +13,8 @@ document.getElementById('login-form').onsubmit = function(event) {
     employeeNumberInput.style.backgroundColor = '';
 		newPasswordInput.style.backgroundColor = '';
     checkPasswordInput.style.backgroundColor = '';
-    msgElement.style.fontWeight = 'bold';
-    msgElement.style.color = 'red';
+    msgElement.style.fontWeight = '';
+    msgElement.style.color = '';
 
 		// 入力値を取得
     let employeeNumber = employeeNumberInput.value;
