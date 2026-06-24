@@ -127,61 +127,155 @@ addConfirmBtn.addEventListener('click', function(){
 });
 
 
+
 // 2.編集ダイアログの処理
 // 行をタップしたときに編集モーダルへ遷移
+const accountEditDialog = document.querySelector('.account-edit-dialog');// 編集ダイアログ
+const accountEditForm = document.getElementById('account-edit-form');// 編集フォーム
+const editCancelBtn = accountEditDialog.querySelector('.cancel-btn');
 
-const accountEditDialog = document.querySelector('.account-edit-dialog');
+const accountEditCheckDialog = document.getElementById('account-edit-check-dialog');// 編集完了ダイアログ
+const editCloseBtn = document.getElementById('account-edit-close-btn');// 閉じるボタン
 
-const dialogName = accountEditDialog.querySelector('.dialog-name');
-const dialogPermissions = accountEditDialog.querySelector('.dialog-permissions');
-const idInput = accountEditDialog.querySelector('.account-form .id');
-const cancelButton = accountEditDialog.querySelector('cancel-button');
+const dialogNameSpan = accountEditDialog.querySelector('.dialog-name');// 更新した名前
+const editIdInput = accountEditDialog.querySelector('.account-form .id');// hiddenのID
+const editPermissionsSelect = document.getElementById('edit-permissions');// 権限
 
-let currentId;
-let currentName;
-let currentBirthday;
-let currentPermission;
 
 document.querySelectorAll('.account-row').forEach(function(row) {
   row.addEventListener('click', function(e) {
-    if (e.target.tagName === 'INPUT' || e.target.closest('button')){
+    // チェックボックスがクリックされたときに編集モーダルを開かない
+    if (e.target.tagName === 'INPUT' || e.target.closest('button') || e.target.closest('td:first-child')){
       return;
     }
 
-    currentId = id;
-    currentName = name;
-    currentBirthday = birthday;
-    currentPermission = permissionsId;
+    
+    // クリックされた行(row)からデータを取得する
+    const id = row.getAttribute('data-id');
+    const name = row.getAttribute('data-name');
+    const permission = row.getAttribute('data-permissions-id');
 
-    if (idInput) {
-      idInput.value = id;
-    }
+    // 編集モーダルの初期値をセットする
+    if (editIdInput) editIdInput.value = id;
+    if (dialogNameSpan) dialogNameSpan.textContent = name;
 
-    if (dialogName) {
-      dialogName.textContent = name;
-    }
-
-    if (dialogPermissions) {
-      dialogPermissions.textContent = permissionsId;
+    if (editPermissionsSelect) {
+      if (permission === '管理者') {
+        editPermissionsSelect.value = '1';
+      } else {
+        editPermissionsSelect.value = '2';
+      }
     }
 
     // モーダル表示
     accountEditDialog.showModal();
-
     requestAnimationFrame(function() {
       accountEditDialog.classList.add('show');
     });
-
   });
 });
 
 // キャンセルボタンを押したときの処理
-accountEditDialog.querySelector('.cancel-btn').addEventListener('click', function(){
-  accountEditDialog.classList.remove('show');
-  setTimeout(function(){
-    accountEditDialog.close();
-  }, 250);
-});
+if (editCancelBtn) {
+  editCancelBtn.addEventListener('click', function(){
+    accountEditDialog.classList.remove('show');
+    setTimeout(function(){
+      accountEditDialog.close();
+    }, 250);
+  });
+}
+
+// 更新ボタンが押されたときの処理
+if (accountEditForm) {
+  accountEditForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // 現在選択されているデータを取得
+    const name = dialogNameSpan.textContent;
+    const permissionText = editPermissionsSelect.options[editPermissionsSelect.selectedIndex].text;
+
+    // 編集完了ダイアログのspanタグへ最新の値を反映させる
+    document.getElementById('check-add-name').textContent = name;
+    document.getElementById('check-add-permissions').textContent = permissionText;
+
+    // 編集完了ダイアログを開く
+    accountEditCheckDialog.showModal();
+    requestAnimationFrame(function() {
+      accountEditCheckDialog.classList.add('show');
+    });
+
+    // 編集モーダルを閉じる
+    accountEditDialog.classList.remove('show');
+    setTimeout(function() {
+      accountEditDialog.close();
+    }, 250);
+  });
+}
+
+// 編集ダイアログの閉じるボタンを押したときの処理(ここでDBへ送信)
+if (editCloseBtn) {
+  editCloseBtn.addEventListener('click', function() {
+    accountEditCheckDialog.classList.remove('show');
+    setTimeout(function() {
+      accountEditCheckDialog.close();
+      
+      // DB（サーブレット）へデータを送るためにフォームを送信
+      accountEditForm.submit();
+    }, 250);
+  });
+}
+
+
+
+// 3.削除ダイアログの処理
+const deleteBtn = document.getElementById('delete-button');//ゴミ箱のアイコン
+const accountDeleteDialog = document.querySelector('.account-delete-dialog');//削除ダイアログ本体
+const deleteDialogCancelBtn = document.getElementById('account-delete-dialog-cancel-btn');//削除ダイアログ内のキャンセルボタン
+const deleteForm = document.getElementById('account-delete-form');//削除用フォーム
+
+// ゴミ箱ボタンが押されたときの処理
+if (deleteBtn) {
+  deleteBtn.addEventListener('click', function() {
+    // 現在チェックが入っているチェックボックスをすべて取得
+    const accountCheckBoxes = document.querySelectorAll('.account-edit-check:checked');
+
+    // 1つもチェックされてなければ、ダイアログを開かずにアラートを出す
+    if (accountCheckBoxes.length === 0) {
+      alert('削除するアカウントを1つ以上選択してください。');
+      return;
+    }
+
+    // 選択されている件数を表示する
+    document.getElementById('account-delete-count').textContent = accountCheckBoxes.length;
+
+    // チェックされたIDを配列に集める
+    const idArray = [];
+    accountCheckBoxes.forEach(function(checkbox) {
+      //pushメソッド 配列の一番最後に新しいデータを1つ追加する
+      idArray.push(checkbox.value);
+    });
+
+    //配列をカンマでつないだ文字列にする。JSPの入力欄へセットする
+    document.getElementById('delete-ids-input').value = idArray.join(',');
+
+    // 削除ダイアログを開く
+    accountDeleteDialog.showModal();
+    requestAnimationFrame(function() {
+      accountDeleteDialog.classList.add('show');
+      });    
+    });
+  } 
+
+  // 削除ダイアログのキャンセルボタンが押されたときに処理
+  if (deleteDialogCancelBtn) {
+    deleteDialogCancelBtn.addEventListener('click', function() {
+      accountDeleteDialog.classList.remove('show');
+      setTimeout(function(){
+        accountDeleteDialog.close();
+      }, 250);
+    });
+  }
+
 
 
 // ダイアログ処理

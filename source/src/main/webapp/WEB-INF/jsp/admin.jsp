@@ -37,6 +37,8 @@
         <table>
           <thead>
             <tr>
+			  <!-- 全選択チェックボックス -->
+			  <th><input type="checkbox" class="option" id="check-all"></th>
               <th>社員番号</th>
               <th>名前</th>
               <th>生年月日</th>
@@ -56,7 +58,8 @@
                 data-id="${a.id}"
                 data-name="${a.name}"
                 data-birthday="${a.birthday}"
-                data-permissiond-id="${a.permissionsId == 1 ? '管理者' : '従業員'}">
+                data-permissions-id="${a.permissionsId == 1 ? '管理者' : '従業員'}">
+				<td><input type="checkbox" class="account-edit-check" name="checks" value="${a.id}"></td>
                 <td><c:out value="${a.id}"></c:out></td>
                 <td><c:out value="${a.name}"></c:out></td>
                 <td><c:out value="${a.birthday}"></c:out></td>
@@ -75,15 +78,18 @@
     
 <!-- 削除ダイアログ -->
     <dialog class="account-delete-dialog">
-      <form id="account-delete-form" class="account-form" action="${pageContext.request.contextPath}/account/add" method="post">
+      <form id="account-delete-form" class="account-form" action="${pageContext.request.contextPath}/account/delete" method="post">
       <div class="">
-          <p>〇件選択されています。<br>選択した情報を削除しますか？</p>
+          <p><span id="account-delete-count" style="font-weight: bold; color: red;">〇</span>件選択されています。<br>選択した情報を削除しますか？</p>
+		  <!-- ServletにIDを送る。最初は空っぽ。 -->
+		  <input type="hidden" id="delete-ids-input" name="deleteIdsStr">
+
           <div class="dialog-btn-wrapper">
             <button type="button" class="cancel-btn btn">
               キャンセル
             </button>
-            <button type="submit" class="btn">
-              追加する
+            <button type="submit" class="btn delete-submit-btn">
+              削除する
             </button>
           </div>
       </div>
@@ -302,10 +308,19 @@
     
     <!-- 編集モーダル -->
     <dialog class="account-edit-dialog">
-      <p>名前: <span class="dialog-name"></span></p>
-      <p>権限: <span class="dialog-permissions"></span></p>
+	  <h3>従業員情報の編集</h3>
       <form id="account-edit-form" class="account-form" action="${pageContext.request.contextPath}/admin/edit" method="post">
         <input class="id" type="hidden" name="id" value="">
+		<div>
+		<p><strong>名前:</strong><span class="dialog-name"></span></p>
+		<fieldset>
+		  <legend>権限の変更</legend>
+		  <select id="edit-permissions" name="permissionsId" required>
+			<option value="1">管理者</option>
+			<option value="2">従業員</option>
+		  </select>
+		</fieldset>
+		</div>
         <div class="dialog-btn-wrapper">
           <button type="button" class="cancel-btn btn">
             キャンセル
@@ -315,6 +330,18 @@
           </button>
         </div>
       </form>
+    </dialog>
+
+	<!-- 編集完了ダイアログ -->
+    <dialog id="account-edit-check-dialog" class="account-check-dialog">
+		<h3>更新内容の確認</h3>
+        <div class="check-add-content">
+		  <p><strong>名前：</strong><span id="check-add-name"></span></p>
+		  <p><strong>権限：</strong><span id="check-add-permissions"></span></p>
+		</div>
+		    <div class="dialog-btn-wrapper">
+        	 <button type="button" id="account-edit-close-btn" class="btn">閉じる</button>
+			</div>
     </dialog>
   </div>
   
