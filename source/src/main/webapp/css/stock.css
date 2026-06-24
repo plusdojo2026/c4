@@ -93,6 +93,7 @@
 
 #edit-button img,
 #add-button img,
+#delete-button img,
 #camera-button img {
   width: 20px;
   height: 20px;
@@ -102,12 +103,14 @@
 
 #edit-button img:is(.active),
 #add-button img:is(.active),
+#delete-button img:is(.active),
 #camera-button img:is(.active) {
   display: block;
 }
 
 #edit-button:hover,
 #add-button:hover,
+#delete-button:hover,
 #camera-button:hover {
   box-shadow:
     0 2px 4px rgba(0, 0, 0, 0.3);
@@ -119,6 +122,7 @@
 
 #edit-button:active,
 #add-button:active,
+#delete-button:active,
 #camera-button:active {
   background:
     linear-gradient(rgba(0, 0, 0, .12), rgba(0, 0, 0, .12)),
@@ -132,6 +136,7 @@
 
 #edit-button:focus-visible,
 #add-button:focus-visible,
+#delete-button:focus-visible,
 #camera-button:focus-visible {
   outline: 3px solid rgba(144, 141, 60, 0.35);
   outline-offset: 2px;
