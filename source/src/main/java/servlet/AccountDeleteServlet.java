@@ -22,7 +22,10 @@ public class AccountDeleteServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // JSでhidden(id="delete-ids") に入っている文字列を取得
-        String idsStr = request.getParameter("deleteIds");
+        String idsStr = request.getParameter("deleteIdsStr");
+
+        //ログ
+        System.out.println("Javaが受け取ったID文字列:" + idsStr);
 
         if (idsStr == null || idsStr.isEmpty()) {
             // 何も選択されていない場合は従業員一覧へ戻す

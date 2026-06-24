@@ -54,6 +54,9 @@ public class AccountAddServlet extends HttpServlet {
 
              // 5. 処理終了後、AccountServlet(従業員一覧)へリダイレクト
             response.sendRedirect(request.getContextPath() + "/admin");
+        } else {
+            System.out.println("データベースへの登録に失敗しました。");
+            response.sendRedirect(request.getContextPath() + "/admin");
         }
  }
 }

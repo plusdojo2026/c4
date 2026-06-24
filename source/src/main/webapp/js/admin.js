@@ -255,7 +255,7 @@ if (deleteBtn) {
       idArray.push(checkbox.value);
     });
 
-    //配列をカンマでつないだ文字列にする。JSPの入力欄へセットする
+    // joinメソッドで「配列の中に入っている複数のデータを、指定した文字で1つにつなぎ合わせて、1つの文字列に変換する」
     document.getElementById('delete-ids-input').value = idArray.join(',');
 
     // 削除ダイアログを開く

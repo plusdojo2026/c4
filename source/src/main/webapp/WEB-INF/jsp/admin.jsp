@@ -274,7 +274,7 @@
 
 		   <fieldset>
             <legend>初期パスワード</legend>
-            <input id="add-default-pw" class="default-password" type="text" name="default-password" required>
+            <input id="add-default-pw" class="default-password" type="text" name="password" required>
           </fieldset>
         </div>
         <div class="dialog-btn-wrapper">
