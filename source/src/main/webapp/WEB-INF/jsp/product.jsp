@@ -162,11 +162,6 @@
 										</fieldset>
 									</div>
 								</div>
-
-								<p id="single-message">
-									既存の単品を選択しています。<br>
-									バラ商品の入力内容を変更すると、既存単品の情報が更新されます。
-								</p>
 							</div>
 
 							<div class="dialog-btn-wrapper">
