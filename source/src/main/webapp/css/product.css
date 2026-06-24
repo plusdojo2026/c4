@@ -118,6 +118,11 @@
   margin-top: 10px;
 }
 
+td img {
+  width: 60px;
+  height: auto;
+}
+
 @media screen and (max-width: 767px) {
   #product-table-body td:nth-child(1) {
     justify-content: flex-end;

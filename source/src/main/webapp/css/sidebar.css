@@ -252,7 +252,7 @@
     width: 100%;
     height: 60px;
     flex-direction: row;
-    padding: 0 20px;
+    padding: 0;
   }
 
   .sidebar-top,
@@ -262,7 +262,20 @@
   }
 
   .sidebar-top {
-    gap: 50px;
+    flex: 1;
+    gap: 0;
+    justify-content: space-around;
+  }
+
+  .sidebar-item {
+    width: auto;
+    flex: 1;
+    padding: 8px 0;
+  }
+
+  .sidebar-item.active {
+    border-left: none;
+    border-bottom: 4px solid #ffffff;
   }
 
   .account-modal {
