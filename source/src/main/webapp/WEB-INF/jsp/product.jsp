@@ -7,19 +7,12 @@
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<title>商品一覧</title>
-			<title>商品一覧</title>
-			<!-- /webappつける -->
 			<link rel="stylesheet" href="/c4/css/common.css">
 			<link rel="stylesheet" href="/c4/css/stock.css">
 			<link rel="stylesheet" href="/c4/css/product.css">
-
 		</head>
 
 		<body>
-			<!-- 確認用 -->
-			<!-- <p>JAN = [${jancode}]</p> -->
-			<!-- <p>NAME = [${productName}]</p> -->
-
 			<div class="product">
 				<!-- ここでheader.jspをinclude -->
 				<%@ include file="/WEB-INF/jsp/header.jsp" %>
@@ -32,9 +25,7 @@
 								<section class="stock-card">
 									<div class="video-wrapper">
 										<video id="video" autoplay playsinline disablePictureInPicture></video>
-										<div class="barcode-frame">
-
-										</div>
+										<div class="barcode-frame"></div>
 									</div>
 									<div class="button-wrapper">
 										<button id="edit-button">
@@ -55,10 +46,6 @@
 										</button>
 									</div>
 
-
-
-
-
 									<table>
 										<thead>
 											<tr>
@@ -78,7 +65,7 @@
 													<td><img src="${p.photoPath}"></td>
 													<td class="td-jan">${p.janCode}</td>
 													<td class="td-name">${p.productName}</td>
-													<td class="td-term">${p.durationDays}</td>
+													<td class="td-term">${p.durationDays} 日後</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -86,8 +73,6 @@
 								</section>
 							</main>
 					</div>
-
-
 
 
 					<!-- 新規追加ポップアップ（確認） -->
@@ -100,6 +85,7 @@
 					</dialog>
 
 
+					<!-- 新規追加ダイアログ -->
 					<dialog id="dialog-new-modal" class="newmodal" data-isflag="${isflag}">
 						<img src="#" class="product-photo" id="preview">
 
@@ -111,7 +97,6 @@
 									<div class="case-block">
 										<input type="radio" name="isCase" value="0" id="case-no" checked>
 										<label for="case-no">単品</label>
-
 										<input type="radio" name="isCase" value="1" id="case-yes">
 										<label for="case-yes">ケース商品</label>
 									</div>
@@ -178,7 +163,6 @@
 									既存の単品を選択しています。<br>
 									バラ商品の入力内容を変更すると、既存単品の情報が更新されます。
 								</p>
-
 							</div>
 
 							<div class="dialog-btn-wrapper">
@@ -188,12 +172,10 @@
 						</form>
 					</dialog>
 
-
 					<!-- 削除フォーム -->
 					<form id="delete-form" action="/c4/product/delete" method="post">
 						<input type="hidden" name="deleteIds" id="delete-ids">
 					</form>
-
 
 					<!-- 削除確認ポップアップ -->
 					<dialog class="deletecheck">
@@ -201,7 +183,6 @@
 						<button id="cancel2" class="btn">キャンセル</button>
 						<button id="delete" class="btn">削除する</button>
 					</dialog>
-
 
 					<!-- 削除結果通知ポップアップ -->
 					<dialog class="deleteresult">
@@ -211,7 +192,6 @@
 						</c:if>
 						<button id="cancel3" class="btn">キャンセル</button>
 					</dialog>
-
 
 					<!-- 削除通知 -->
 					<c:if test="${showDeleteResult}">
