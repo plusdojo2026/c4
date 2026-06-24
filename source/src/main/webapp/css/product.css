@@ -95,10 +95,9 @@
 }
 
 /* バラフォーム */
-#bara-form {
+.bara-form-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
 
 /* 注記メッセージ */
@@ -168,8 +167,7 @@
 }*/
 
 
-  td img {
-    width: 60px;
-    height: auto;
-  }
-
+td img {
+  width: 60px;
+  height: auto;
+}

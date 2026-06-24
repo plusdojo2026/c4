@@ -156,20 +156,22 @@
 								<input type="hidden" id="selectedTerm" name="selectedTerm">
 
 								<div id="bara-form">
-									<fieldset>
-										<legend>バラJAN</legend>
-										<input type="text" id="bara-jan" name="baraJan">
-									</fieldset>
+									<div class="bara-form-wrapper">
+										<fieldset>
+											<legend>バラJAN</legend>
+											<input type="text" id="bara-jan" name="baraJan">
+										</fieldset>
 
-									<fieldset>
-										<legend>バラ商品名</legend>
-										<input type="text" id="bara-name" name="baraName">
-									</fieldset>
+										<fieldset>
+											<legend>バラ商品名</legend>
+											<input type="text" id="bara-name" name="baraName">
+										</fieldset>
 
-									<fieldset>
-										<legend>バラ期間（日）</legend>
-										<input type="number" id="bara-term" name="baraTerm">
-									</fieldset>
+										<fieldset>
+											<legend>バラ期間（日）</legend>
+											<input type="number" id="bara-term" name="baraTerm">
+										</fieldset>
+									</div>
 								</div>
 
 								<p id="single-message">
