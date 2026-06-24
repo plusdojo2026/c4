@@ -68,7 +68,7 @@ public class ProductDAO {
         return -1;
     }
 
-    // base_product_id を更新（内部用）
+    // base_product_id を更新
     private void updateBaseProductId(int id, int baseId) throws SQLException {
         String sql = "UPDATE products SET base_product_id = ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
