@@ -242,12 +242,14 @@ public class StockDAO {
 			updateStmt.setInt(2, stock.getId()); // 在庫ID
 			int updateCount = updateStmt.executeUpdate();
 			
-			String insertSql = "INSERT INTO stock_movements (jancode, stock_id, reason, quantity) VALUES (?, ?, ?, ?)";
+			String insertSql = "INSERT INTO stock_movements (jancode, stock_id, reason, quantity, received_at, notify_at) VALUES (?, ?, ?, ?, ?, ?)";
 			insertStmt = conn.prepareStatement(insertSql);
 			insertStmt.setString(1, stock.getJancode()); // JANコード
 			insertStmt.setInt(2, stock.getId()); // 在庫ID
 			insertStmt.setString(3, movement.getReason() != null ? movement.getReason() : "入出庫"); // 理由（空の場合は「入出庫」）
 			insertStmt.setInt(4, movement.getQuantity()); // 入出庫数量     
+			insertStmt.setObject(5, movement.getReceivedAt()); // 入庫日
+			insertStmt.setObject(6, movement.getNotifyAt()); // 通知日（期限）
 			int insertCount = insertStmt.executeUpdate();
 			
 			// 両方のSQLが成功した場合のみコミット
