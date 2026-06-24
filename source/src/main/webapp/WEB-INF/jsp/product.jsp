@@ -28,8 +28,8 @@
 										<div class="barcode-frame"></div>
 									</div>
 									<div class="button-wrapper">
-										<button id="edit-button">
-											<img class="active" src="/c4/img/edit_square_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="編集">
+										<button id="add-button" type="button">
+											<img class="active" src="/c4/img/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="在庫新規追加">
 										</button>
 										<button id="camera-button">
 											<img id="camera-on" class="active"
@@ -37,10 +37,6 @@
 											<img id="camera-off" class=""
 												src="/c4/img/videocam_off_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="カメラOFF">
 										</button>
-										<button id="add-button" type="button">
-											<img class="active" src="/c4/img/add_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="在庫新規追加">
-										</button>
-										<!-- 削除ボタン -->
 										<button id="delete-button" class="button">
 											<img class="active" src="/c4/img/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="削除">
 										</button>
