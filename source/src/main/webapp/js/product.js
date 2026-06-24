@@ -70,7 +70,6 @@ const caseQty = document.getElementById("case-qty");
 const singleSelect = document.getElementById("single-select");
 const singleSelectFieldset = document.getElementById("single-select-fieldset");
 const baraForm = document.getElementById("bara-form");
-const singleMessage = document.getElementById("single-message");
 
 //  新規追加モーダルを閉じたときに初期表示へ戻す
 newModaldialog.addEventListener("close", () => {
@@ -199,14 +198,14 @@ function updateCaseUI() {
 
 
     // メッセージ
-    singleMessage.style.display = (singleSelect.value !== "") ? "block" : "none";
+    // singleMessage.style.display = (singleSelect.value !== "") ? "block" : "none";
 
   } else {
     // 単品
     caseQty.value = 1;
     caseQty.disabled = true;
     baraForm.style.display = "none";
-    singleMessage.style.display = "none";
+    singleSelectFieldset.style.display = "none";
 
     // バラ入力欄を無効化（required を無効化）
     document.getElementById("bara-jan").disabled = true;
@@ -260,7 +259,7 @@ showButton3.addEventListener("click", () => {
   console.log("delete-check clicked");
 
   // チェックボックス数見る
-  let deleteStyle = "checkbox";
+   deleteStyle = "checkbox";
 
   // 削除件数表示
   const checked = document.querySelectorAll(".edit-check:checked").length;
@@ -299,12 +298,17 @@ const deleteIdsInput = document.querySelector("#delete-ids");
 // dialog3 の「削除する」ボタンに削除処理を追加
 document.querySelector("#delete").addEventListener("click", () => {
 
-  // チェックされた項目を取得
-  const checked = document.querySelectorAll(".edit-check:checked");
-  const ids = Array.from(checked).map(c => c.value);
+  if (deleteStyle === "clicked") {
+    // 行クリックされた1件を削除
+    const jan = clickedRow.querySelector(".td-jan").textContent.trim();
+    deleteIdsInput.value = jan;
 
-  // hidden にセット
-  deleteIdsInput.value = ids.join(",");
+  } else {
+    // チェックボックス削除
+    const checked = document.querySelectorAll(".edit-check:checked");
+    const ids = Array.from(checked).map(c => c.value);
+    deleteIdsInput.value = ids.join(",");
+  }
 
   // フォーム送信
   deleteForm.submit();
