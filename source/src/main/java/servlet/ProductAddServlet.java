@@ -3,6 +3,7 @@ package servlet;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -24,12 +25,21 @@ public class ProductAddServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         ProductDAO dao = new ProductDAO();
-
+        List<Product> list = dao.selectAll(); 
+        
         int isCase = Integer.parseInt(request.getParameter("isCase"));
         String photoPath = saveImage(request.getPart("add-photo"));
-
+        
         // ▼ 単品
         if (isCase == 0) {
+        	
+        	if (isDuplicate(list, request.getParameter("jan"), request.getParameter("productname"))) {
+                request.getSession().setAttribute("error", "JAN または商品名が既に登録されていたため登録できませんでした。");
+                request.getSession().setAttribute("errorflag", true); 
+                response.sendRedirect(request.getContextPath() + "/product");
+                return;
+            }
+        	
             Product p = new Product(
                 request.getParameter("jan"),
                 request.getParameter("productname"),
@@ -40,12 +50,18 @@ public class ProductAddServlet extends HttpServlet {
                 null, null
             );
             dao.insert(p);
-            p.setBaseProductId(p.getJanCode());
-            dao.update(p);
+//            p.setBaseProductId(p.getJanCode());
+//            dao.update(p);
         }
 
         // ▼ ケース
         else {
+        	
+        	if (isDuplicate(list, request.getParameter("jan"), request.getParameter("productname"))) {
+                request.getSession().setAttribute("error", "JAN または商品名が既に登録されていたため登録出来ませんでした");
+                request.getSession().setAttribute("errorflag", true); 
+                response.sendRedirect(request.getContextPath() + "/product");                return;
+        	}
             String selected = request.getParameter("singleSelect");
             String baraJan, baraName;
             int baraTerm;
@@ -66,8 +82,8 @@ public class ProductAddServlet extends HttpServlet {
                     baraJan, baraName, null, 1, photoPath, baraTerm, null, null
                 );
                 dao.insert(bara);
-                bara.setBaseProductId(baraJan);
-                dao.update(bara);
+//                bara.setBaseProductId(baraJan);
+//                dao.update(bara);
             }
 
             // ケース商品
@@ -83,8 +99,9 @@ public class ProductAddServlet extends HttpServlet {
             dao.insert(kase);
         }
 
-        response.sendRedirect("/c4/product");
-    }
+        response.sendRedirect(request.getContextPath() +"/product");
+        }
+    
 
     private String saveImage(Part filePart) throws IOException {
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -95,6 +112,14 @@ public class ProductAddServlet extends HttpServlet {
         filePart.write(uploadPath + File.separator + fileName);
 
         return "/c4/img/" + fileName;
+    }
+    private boolean isDuplicate(List<Product> list, String jan, String name) {
+        for (Product p : list) {
+            if (p.getJanCode().equals(jan) || p.getProductName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

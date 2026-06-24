@@ -103,7 +103,7 @@ public class ProductDAO {
             int baraId = insertAndReturnId(bara);
 
             // ② バラ商品の base_product_id を自分自身に更新
-            updateBaseProductId(baraId, baraId);
+            //updateBaseProductId(baraId, baraId);
 
             // ③ ケース商品を登録（case_quantity = caseQty）
             Product kase = new Product(caseJan, caseName, String.valueOf(baraId), caseQty, photo, caseTerm, null, null);

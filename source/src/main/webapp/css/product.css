@@ -155,3 +155,10 @@ td img {
     margin-bottom: 12px;
   }
 }
+
+/* 重複エラーメッセージ */
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+}

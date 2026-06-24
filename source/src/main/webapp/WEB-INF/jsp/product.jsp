@@ -41,6 +41,11 @@
 										<button id="delete-button" class="button">
 											<img class="active" src="/c4/img/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="削除">
 										</button>
+										
+										<c:if test="${not empty error}">
+    										<div class="error-message">${error}</div>
+										</c:if>
+
 									</div>
 
 									<table>
@@ -110,7 +115,7 @@
 
 								<fieldset>
 									<legend>JANコード</legend>
-									<input type="number" id="JAN" name="jan" placeholder="JANコードを入力してください" required>
+									<input type="number" id="JAN" name="jan" pattern="\d{13}" maxlength="13" placeholder="JANコードを入力してください" required>
 								</fieldset>
 
 								<fieldset>
@@ -145,7 +150,7 @@
 									<div class="bara-form-wrapper">
 										<fieldset>
 											<legend>バラJAN</legend>
-											<input type="text" id="bara-jan" name="baraJan">
+											<input type="text" id="bara-jan" pattern="\d{13}" maxlength="13" name="baraJan">
 										</fieldset>
 
 										<fieldset>
@@ -166,7 +171,13 @@
 								<button type="submit" class="btn regist">登録</button>
 							</div>
 						</form>
+						
+						
+						
 					</dialog>
+					<!-- 重複エラー -->
+					<input type="hidden" id="error-flag" value="${errorFlag}">
+					<input type="hidden" id="error-message" value="${error}">
 
 					<!-- 削除フォーム -->
 					<form id="delete-form" action="/c4/product/delete" method="post">

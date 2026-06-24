@@ -20,6 +20,17 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     	
+    	//重複エラー時
+    	Object errorFlag = request.getSession().getAttribute("errorFlag");
+    	Object error = request.getSession().getAttribute("error");
+
+    	if (errorFlag != null) {
+    	    request.setAttribute("errorflag", true);
+    	    request.setAttribute("error", error);
+    	    request.getSession().removeAttribute("errorflag");
+    	    request.getSession().removeAttribute("error");
+    	}
+
     	// 在庫ページから受け取る   	
     	String jancode = request.getParameter("jancode");
     	String productName = request.getParameter("productName");

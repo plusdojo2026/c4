@@ -614,5 +614,15 @@ if (newModaldialog.dataset.isflag == 'true' && (stockJan != null && stockName !=
   document.querySelector("#pname").value = stockName;
 }
 
+//  重複エラー時
+document.addEventListener("DOMContentLoaded", () => {
+    const errorFlag = document.getElementById("error-flag")?.value;
+    const errorMessage = document.getElementById("error-message")?.value;
+
+    if (errorFlag === "true") {
+        confirm(errorMessage);
+    }
+});
+
 
 
