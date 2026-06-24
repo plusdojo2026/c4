@@ -92,6 +92,8 @@
     <dialog class="account-add-dialog">
       <form id="account-add-form" class="account-form" action="${pageContext.request.contextPath}/admin/add" method="post">  
         <div class="">
+        <div id="add-form-error-msg" style="color: red; font-weight: bold; margin-bottom: 15px;
+		 display: none;">未入力の項目があります。</div>
           <fieldset>
             <legend>名前</legend>
             <input type="text" id="add-name" name="name" placeholder="氏名を入力してください。" required>
@@ -294,7 +296,6 @@
             <!-- 実際の追加実行ボタン(DBへ送信) -->
             <button type="button" id="account-add-confirm-btn" class="btn add-btn">追加</button>
 			</div>
-        </div>
     </dialog>
     
     <!-- 編集モーダル -->
