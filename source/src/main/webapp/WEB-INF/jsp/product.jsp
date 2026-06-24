@@ -229,29 +229,37 @@
 
 					<!-- 編集ポップアップ -->
 					<dialog class="edit">
+						<form action="/c4/product/edit" method="post" class="stock-form">
+							<div class="newform">
+								<input type="hidden" name="id" id="edit-id">
+								<input type="hidden" id="edit-photo" name="photoPath">
+								<input type="hidden" id="edit-base" name="baseProductId">
+								<input type="hidden" id="edit-case" name="caseQuantity">
 
-						<button id="cancel4" class="btn">閉じる</button>
+								<fieldset>
+									<legend>JANコード</legend>
+									<input type="number" id="edit-jan" name="janCode" placeholder="JANを入力" readonly>
+								</fieldset>
+								<div class="edit-comment-jan">※JANコードの編集は出来ません</div>
 
-						<form action="/c4/product/edit" method="post">
-							<input type="hidden" name="id" id="edit-id">
-							<!-- 表示項目 -->
-							<input type="hidden" id="edit-photo" name="photoPath">
-							<div>
-								<input type="number" id="edit-jan" name="janCode" placeholder="JANを入力" readonly>
+								<fieldset>
+									<legend>商品名</legend>
+									<input type="text" id="edit-name" name="productName" placeholder="商品名を入力" required>
+								</fieldset>
+
+								<fieldset>
+									<legend>期間（日）</legend>
+									<input type="number" id="edit-term" name="durationDays" placeholder="期間を入力" required>
+								</fieldset>
 							</div>
-							<div class="edit-comment-jan">※JANコードの編集は出来ません</div>
-							<input type="text" id="edit-name" name="productName" placeholder="商品名を入力" required>
-							<input type="number" id="edit-term" name="durationDays" placeholder="期間を入力" required>
-							<!-- 非表示項目 -->
-							<input type="hidden" id="edit-base" name="baseProductId">
-							<input type="hidden" id="edit-case" name="caseQuantity">
 
-							<button type="submit" class="btn edit">保存</button>
-							<button type="button" id="delete-check2" class="btn delete">削除</button>
+							<div class="dialog-btn-wrapper">
+								<button type="button" id="cancel4" class="btn">閉じる</button>
+								<button type="button" id="delete-check2" class="btn delete">削除</button>
+								<button type="submit" class="btn edit">保存</button>
+							</div>
 						</form>
-
 					</dialog>
-
 
 					<script src="/c4/js/product.js"></script>
 			</div>
