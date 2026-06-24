@@ -222,4 +222,20 @@ public class ProductDAO {
         }
         return productList;
     }
+    //base_product_idの重複チェック
+    public boolean isBaseUsed(String baraJan) {
+        String sql = "SELECT COUNT(*) FROM products WHERE base_product_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, baraJan);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;  // 1件でもあれば使用中
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

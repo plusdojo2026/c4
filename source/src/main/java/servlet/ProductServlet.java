@@ -21,7 +21,7 @@ public class ProductServlet extends HttpServlet {
     throws ServletException, IOException {
     	
     	//重複エラー時
-    	Object errorFlag = request.getSession().getAttribute("errorFlag");
+    	Object errorFlag = request.getSession().getAttribute("errorflag");
     	Object error = request.getSession().getAttribute("error");
 
     	if (errorFlag != null) {
@@ -29,6 +29,7 @@ public class ProductServlet extends HttpServlet {
     	    request.setAttribute("error", error);
     	    request.getSession().removeAttribute("errorflag");
     	    request.getSession().removeAttribute("error");
+    	
     	}
 
     	// 在庫ページから受け取る   	

@@ -54,39 +54,51 @@ public class ProductAddServlet extends HttpServlet {
 //            dao.update(p);
         }
 
-        // ▼ ケース
+       
+     // ▼ ケース
         else {
-        	
-        	if (isDuplicate(list, request.getParameter("jan"), request.getParameter("productname"))) {
+
+            if (isDuplicate(list, request.getParameter("jan"), request.getParameter("productname"))) {
                 request.getSession().setAttribute("error", "JAN または商品名が既に登録されていたため登録出来ませんでした");
                 request.getSession().setAttribute("errorflag", true); 
-                response.sendRedirect(request.getContextPath() + "/product");                return;
-        	}
+                response.sendRedirect(request.getContextPath() + "/product");
+                return;
+            }
+
             String selected = request.getParameter("singleSelect");
             String baraJan, baraName;
             int baraTerm;
 
-            // 既存単品を使う
+            // baraJan を決める（既存 or 新規）
             if (selected != null && !selected.isEmpty()) {
+                // 既存バラ
                 baraJan = selected;
                 baraName = request.getParameter("selectedName");
                 baraTerm = Integer.parseInt(request.getParameter("selectedTerm"));
-            }
-            // 新規バラ
-            else {
+            } else {
+                // 新規バラ
                 baraJan = request.getParameter("baraJan");
                 baraName = request.getParameter("baraName");
                 baraTerm = Integer.parseInt(request.getParameter("baraTerm"));
+            }
 
+            // ▼  ここで必ずチェック（既存・新規どちらも）
+            if (dao.isBaseUsed(baraJan)) {
+                request.getSession().setAttribute("error", "このバラ商品はすでに別のケース商品に使われています。");
+                request.getSession().setAttribute("errorflag", true);
+                response.sendRedirect(request.getContextPath() + "/product");
+                return;
+            }
+
+            // ▼ 新規バラなら登録
+            if (selected == null || selected.isEmpty()) {
                 Product bara = new Product(
                     baraJan, baraName, null, 1, photoPath, baraTerm, null, null
                 );
                 dao.insert(bara);
-//                bara.setBaseProductId(baraJan);
-//                dao.update(bara);
             }
 
-            // ケース商品
+            // ▼ ケース商品登録
             Product kase = new Product(
                 request.getParameter("jan"),
                 request.getParameter("productname"),
@@ -98,6 +110,7 @@ public class ProductAddServlet extends HttpServlet {
             );
             dao.insert(kase);
         }
+
 
         response.sendRedirect(request.getContextPath() +"/product");
         }

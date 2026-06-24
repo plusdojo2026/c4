@@ -116,7 +116,10 @@ singleSelect.addEventListener("change", () => {
 
   document.getElementById("bara-jan").value = opt.value;
   document.getElementById("bara-name").value = opt.dataset.name;
-  document.getElementById("bara-term").value = opt.dataset.term;
+
+  //  期間は数字だけにする
+  document.getElementById("bara-term").value =
+      opt.dataset.term.replace(/\D/g, "");
 });
 
 

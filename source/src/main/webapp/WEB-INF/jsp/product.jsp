@@ -41,7 +41,7 @@
 										<button id="delete-button" class="button">
 											<img class="active" src="/c4/img/delete_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" alt="削除">
 										</button>
-										
+
 										<c:if test="${not empty error}">
     										<div class="error-message">${error}</div>
 										</c:if>
@@ -125,7 +125,7 @@
 
 								<fieldset>
 									<legend>期間（日）</legend>
-									<input type="number" id="term" name="term" placeholder="期間を入力してください" required>
+									<input type="text" id="term" name="term" placeholder="期間を入力してください" required>
 								</fieldset>
 
 								<input type="hidden" name="send-jancode" value="${jancode}">
