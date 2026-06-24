@@ -134,7 +134,7 @@ caseNo.addEventListener("change", () => {
 caseYes.addEventListener("change", () => {
 
   // プルダウン初期化
-  singleSelect.innerHTML = '<option value="">すでに単品商品がある場合はここから選択してください</option>';
+  singleSelect.innerHTML = '<option value="">選択してください</option>';
 
   // 商品一覧テーブルから単品だけ抽出して追加
   document.querySelectorAll("#product-table-body tr").forEach(row => {
@@ -178,7 +178,7 @@ function updateCaseUI() {
     document.getElementById("term").placeholder = "ケース期間";
 
     // ▼ プルダウンを単品だけで再生成
-    singleSelect.innerHTML = '<option value="">すでに単品商品がある場合はここから選択してください</option>';
+    singleSelect.innerHTML = '<option value="">選択してください</option>';
 
     document.querySelectorAll("#product-table-body tr").forEach(row => {
       if (row.dataset.caseQuantity === "1") {  // 単品だけ
