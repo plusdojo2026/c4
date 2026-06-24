@@ -130,8 +130,8 @@ td img {
   }
 
   .edit-check {
-    transform: scale(1.4);
-    margin-right: 8px;
+    width: 19px;
+    height: 19px;
     cursor: pointer;
   }
 
