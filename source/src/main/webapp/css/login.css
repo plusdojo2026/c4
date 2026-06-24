@@ -120,10 +120,14 @@ input {
 
 /*スマホ*/
 @media screen and (max-width: 767px) {
+  .login-reset-page {
+    min-height: 100vh;
+  }
+
   .login-reset {
     width: 95%;
     max-width:400px;
-    margin-top: 200px;
+    margin-top: 0;
     padding: 25px 10px 35px;
   }
 
@@ -162,5 +166,110 @@ input {
 
   .login-reset h1 {
     font-size:28px;
+  }
+}
+
+/*タブレット端末 (縦向き)*/
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .login-reset-page {
+    min-height: 100vh;
+  }
+
+  .login-reset {
+    width:85%;
+    max-width: 600px;
+    margin-top: 0;
+    padding: 30px 20px 40px;
+  }
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .input-box {
+    width: 85%;
+    margin: 15px auto;
+  }
+
+  .input-box input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .birthday {
+    width: 85%;
+    margin: 15px auto;
+  }
+
+  .birthday select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .login-btn {
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  .login-btn button,
+  .pw-reset-btn button {
+    width: 100%;
+  }
+
+  .login-reset h1 {
+    font-size: 32px;
+  }
+}
+
+/*タブレット端末 (横向き)*/
+@media screen and (min-width: 768px) and (max-width: 1194px) and (orientation: landscape) {
+  .login-reset-page {
+    min-height:100vh;
+  }
+
+  .login-reset {
+    width: 85%;
+    max-width: 500px;
+    margin-top: 0;
+    padding: 20px 20px 30px;
+  }
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .input-box {
+    width: 85%;
+    margin: 10px auto;
+  }
+
+  .input-box input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .birthday {
+    width: 85%;
+    margin: 10px auto;
+  }
+
+  .birthday select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .login-btn {
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  .login-btn button,
+  .pw-reset-btn button {
+    width: 100%;
+  }
+
+  .login-reset h1 {
+    font-size: 28px;
+    padding-top: 20px;
   }
 }
