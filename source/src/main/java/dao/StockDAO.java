@@ -100,50 +100,94 @@ public class StockDAO {
 	public boolean insert(Stock stock, StockMovement movement) {
 		Connection conn = null;
 		boolean result = false;
-		PreparedStatement insertStockStmt = null;
+		PreparedStatement checkProductStmt = null;
+		ResultSet checkProductRs = null;
+		PreparedStatement checkStockStmt = null;
+		ResultSet checkStockRs = null;
+		PreparedStatement saveStockStmt = null;
 		PreparedStatement insertMovementStmt = null;
 		ResultSet generatedKeys = null;
 		
 		try {
 			conn = DBConnection.getConnection();
-			// トランザクション開始
-			conn.setAutoCommit(false);
 			
-			// stocksテーブルへ新規登録
-			String insertStockSql = "INSERT INTO stocks (jancode, stock_quantity, stores) VALUES (?, ?, ?)";
-			// Statement.RETURN_GENERATED_KEYSを使用して自動採番されたIDを取得
-			insertStockStmt = conn.prepareStatement(insertStockSql, Statement.RETURN_GENERATED_KEYS);
-			insertStockStmt.setString(1, stock.getJancode());
-			insertStockStmt.setInt(2, stock.getStockQuantity());
-			insertStockStmt.setInt(3, stock.getStores());
-			int stockCount = insertStockStmt.executeUpdate();
+			// ケース商品の場合、バラのJANと入数を取得する
+			String checkProductSql = "SELECT base_product_id, case_quantity FROM products WHERE jan_code = ?";
+			checkProductStmt = conn.prepareStatement(checkProductSql);
+			checkProductStmt.setString(1, stock.getJancode());
+			checkProductRs = checkProductStmt.executeQuery();
 			
-			// 自動採番された stocks の id を取得
-			int generatedStockId = 0; // 初期値
-			if (stockCount == 1) {
-				generatedKeys = insertStockStmt.getGeneratedKeys();
-				if (generatedKeys.next()) {
-					generatedStockId = generatedKeys.getInt(1);
+			if (checkProductRs.next()) {
+				String baseProductId = checkProductRs.getString("base_product_id");
+				// 紐づけ先（バラのJAN）が存在する場合はケース商品として扱う
+				if (baseProductId != null && !baseProductId.isEmpty()) {
+					int caseQuantity = checkProductRs.getInt("case_quantity");
+					
+					// 登録するJANコードと在庫数をバラのものに書き換える
+					stock.setJancode(baseProductId);
+					stock.setStockQuantity(stock.getStockQuantity() * caseQuantity);
 				}
 			}
 			
-			// 自動採番されたIDが正常に取得できたら、入出庫履歴(stock_movements)を登録
+			// トランザクション開始
+			conn.setAutoCommit(false);
+			
+			// すでに同じJANコードの在庫レコードが存在するか確認
+			String checkStockSql = "SELECT id FROM stocks WHERE jancode = ? AND stores = ?";
+			checkStockStmt = conn.prepareStatement(checkStockSql);
+			checkStockStmt.setString(1, stock.getJancode());
+			checkStockStmt.setInt(2, stock.getStores());
+			checkStockRs = checkStockStmt.executeQuery();
+			
+			int stockId = 0;
+			int stockCount = 0;
+			boolean isExisting = false;
+			
+			if (checkStockRs.next()) {
+				// 既に在庫が存在する場合：既存レコードを UPDATE
+				stockId = checkStockRs.getInt("id");
+				isExisting = true;
+				
+				String updateStockSql = "UPDATE stocks SET stock_quantity = stock_quantity + ? WHERE id = ?";
+				saveStockStmt = conn.prepareStatement(updateStockSql);
+				saveStockStmt.setInt(1, stock.getStockQuantity());
+				saveStockStmt.setInt(2, stockId);
+				stockCount = saveStockStmt.executeUpdate();
+			} else {
+				// 在庫が存在しない場合：新規 INSERT
+				String insertStockSql = "INSERT INTO stocks (jancode, stock_quantity, stores) VALUES (?, ?, ?)";
+				saveStockStmt = conn.prepareStatement(insertStockSql, Statement.RETURN_GENERATED_KEYS);
+				saveStockStmt.setString(1, stock.getJancode());
+				saveStockStmt.setInt(2, stock.getStockQuantity());
+				saveStockStmt.setInt(3, stock.getStores());
+				stockCount = saveStockStmt.executeUpdate();
+				
+				// stocks の id を取得
+				if (stockCount == 1) {
+					generatedKeys = saveStockStmt.getGeneratedKeys();
+					if (generatedKeys.next()) {
+						stockId = generatedKeys.getInt(1);
+					}
+				}
+			}
+			
+			// 入出庫履歴(stock_movements)を登録
 			int movementCount = 0;
-			if (generatedStockId > 0) {
+			if (stockId > 0) {
 				String insertMovementSql = "INSERT INTO stock_movements (jancode, stock_id, reason, quantity, received_at, notify_at) VALUES (?, ?, ?, ?, ?, ?)";
 				insertMovementStmt = conn.prepareStatement(insertMovementSql);
 				insertMovementStmt.setString(1, stock.getJancode());
-				insertMovementStmt.setInt(2, generatedStockId); // 採番されたIDをセット
+				insertMovementStmt.setInt(2, stockId);
 				
-				// 理由が空の場合はデフォルト値「初期登録」をセット
+				// 理由が空の場合のデフォルト値設定
 				String reason = movement.getReason();
 				if (reason == null || reason.isBlank()) {
-					reason = "初期登録";
+					reason = isExisting ? "入庫" : "初期登録"; 
 				}
 				insertMovementStmt.setString(3, reason);
-				insertMovementStmt.setInt(4, stock.getStockQuantity()); // 初期登録時の数量をそのまま履歴に反映
-				insertMovementStmt.setObject(5, movement.getReceivedAt()); // 入庫日
-				insertMovementStmt.setObject(6, movement.getNotifyAt()); // 通知日（期限）
+				insertMovementStmt.setInt(4, stock.getStockQuantity());
+				insertMovementStmt.setObject(5, movement.getReceivedAt());
+				insertMovementStmt.setObject(6, movement.getNotifyAt());
 				movementCount = insertMovementStmt.executeUpdate();
 			}
 			
@@ -198,14 +242,12 @@ public class StockDAO {
 			updateStmt.setInt(2, stock.getId()); // 在庫ID
 			int updateCount = updateStmt.executeUpdate();
 			
-			String insertSql = "INSERT INTO stock_movements (jancode, stock_id, reason, quantity, received_at, notify_at) VALUES (?, ?, ?, ?, ?, ?)";
+			String insertSql = "INSERT INTO stock_movements (jancode, stock_id, reason, quantity) VALUES (?, ?, ?, ?)";
 			insertStmt = conn.prepareStatement(insertSql);
 			insertStmt.setString(1, stock.getJancode()); // JANコード
 			insertStmt.setInt(2, stock.getId()); // 在庫ID
 			insertStmt.setString(3, movement.getReason() != null ? movement.getReason() : "入出庫"); // 理由（空の場合は「入出庫」）
 			insertStmt.setInt(4, movement.getQuantity()); // 入出庫数量     
-			insertStmt.setObject(5, movement.getReceivedAt()); // 入庫日
-			insertStmt.setObject(6, movement.getNotifyAt()); // 通知日（期限）
 			int insertCount = insertStmt.executeUpdate();
 			
 			// 両方のSQLが成功した場合のみコミット
