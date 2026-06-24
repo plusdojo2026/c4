@@ -29,8 +29,10 @@
 
 /* ダイアログ・モーダル関連 */
 .newmodal {
-  max-height: 90vh;
-  overflow-y: auto;
+  width: 550px;
+  height: 660px;
+  max-width: 95vw;
+  max-height: 85vh;
 }
 
 .newmodal .product-photo {
