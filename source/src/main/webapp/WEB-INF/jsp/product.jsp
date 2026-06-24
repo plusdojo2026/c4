@@ -62,7 +62,11 @@
 											<c:forEach var="p" items="${productList}">
 												<tr data-base-product-id="${p.baseProductId}" data-case-quantity="${p.caseQuantity}">
 													<td><input type="checkbox" class="edit-check" name="checks" value="${p.janCode}"></td>
-													<td><img src="${p.photoPath}"></td>
+													<td>
+														<img src="${not empty p.photoPath ? p.photoPath : '/c4/img/no-image.png'}"
+															onerror="this.onerror=null; this.src='/c4/img/broken_image_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg';"
+															alt="商品画像">
+													</td>
 													<td class="td-jan">${p.janCode}</td>
 													<td class="td-name">${p.productName}</td>
 													<td class="td-term">${p.durationDays} 日後</td>

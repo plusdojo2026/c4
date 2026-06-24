@@ -1,5 +1,4 @@
-@import url(./common.css);
-
+/* バーコードスキャン用のビデオ表示 */
 #video {
   display: none;
   position: absolute;
@@ -119,55 +118,33 @@
   margin-top: 10px;
 }
 
-/* スマホ対応 */
-/* スマホでテーブルを縮小表示 */
-/* @media screen and (max-width: 767px) { 
-    table {
-        transform: scale(0.8);      
-        transform-origin: top left; 
-        width: 125%;                
-    }
 @media screen and (max-width: 767px) {
-  table {
-    transform: scale(0.8);
-    transform-origin: top left;
-    width: 125%;
+  #product-table-body td:nth-child(1) {
+    justify-content: flex-end;
+    padding-bottom: 0;
   }
 
-  th, td {
-    padding: 4px;
-    font-size: 12px;
+  .edit-check {
+    transform: scale(1.4);
+    margin-right: 8px;
+    cursor: pointer;
   }
 
-  td img {
-    width: 50px;
+  #product-table-body td img {
+    width: 70px;
     height: auto;
+    border-radius: 8px;
+    object-fit: cover;
   }
-}
 
-/* ダイアログ 
-@media screen and (max-width: 767px) {
   dialog {
-    width: 90%;
+    width: 95%;
     max-width: 400px;
+    padding: 16px;
   }
 
-  .newform input,
-  .newform select {
-    width: 100%;
+  .newmodal .product-photo {
+    width: 120px;
+    margin-bottom: 12px;
   }
-}
-
-/* 画像 
-@media screen and (max-width: 767px) {
-    td img {
-        width: 60px;
-        height: auto;
-    }
-}*/
-
-
-td img {
-  width: 60px;
-  height: auto;
 }
