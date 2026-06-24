@@ -68,6 +68,7 @@ const caseNo = document.getElementById("case-no");
 const caseYes = document.getElementById("case-yes");
 const caseQty = document.getElementById("case-qty");
 const singleSelect = document.getElementById("single-select");
+const singleSelectFieldset = document.getElementById("single-select-fieldset");
 const baraForm = document.getElementById("bara-form");
 const singleMessage = document.getElementById("single-message");
 
@@ -77,7 +78,7 @@ newModaldialog.addEventListener("close", () => {
   caseYes.checked = false;
 
   singleSelect.style.display = "none";
-  singleMessage.style.display = "none";
+  singleSelectFieldset.style.display = "none";
   baraForm.style.display = "none";
 
   caseQty.value = 1;
@@ -122,12 +123,12 @@ singleSelect.addEventListener("change", () => {
 
 // ▼ 初期状態（単品）ではプルダウン非表示
 singleSelect.style.display = "none";
-singleMessage.style.display = "none";
+singleSelectFieldset.style.display = "none";
 
 // ▼ 単品を選んだとき
 caseNo.addEventListener("change", () => {
   singleSelect.style.display = "none";
-  singleMessage.style.display = "none";
+  singleSelectFieldset.style.display = "none";
 });
 
 // ▼ ケース商品を選んだとき
@@ -154,7 +155,7 @@ caseYes.addEventListener("change", () => {
   });
 
   singleSelect.style.display = "block";
-  singleMessage.style.display = "block";
+  singleSelectFieldset.style.display = "block";
 });
 
 
@@ -246,6 +247,8 @@ if (addPhoto) {
     reader.readAsDataURL(file);
   })
 }
+// 削除のスタイル
+let deleteStyle = "checkbox";
 // 削除確認ポップアップ
 const dialog3 = document.querySelector(".deletecheck");
 // 削除結果通知ポップアップ
@@ -255,6 +258,10 @@ const dialog4 = document.querySelector(".deleteresult");
 const showButton3 = document.querySelector("#delete-button");
 showButton3.addEventListener("click", () => {
   console.log("delete-check clicked");
+
+  // チェックボックス数見る
+  let deleteStyle = "checkbox";
+
   // 削除件数表示
   const checked = document.querySelectorAll(".edit-check:checked").length;
 
@@ -323,18 +330,27 @@ const dialog5 = document.querySelector(".edit");
 
 // });
 
+// 行クリックを数える変数
+let clickedRow = null;
 // 編集ポップアップから削除ポップアップ
 const showButton6 = document.querySelector("#delete-check2");
 showButton6.addEventListener("click", () => {
+
+  // 行数見る
+  deleteStyle = "clicked"
+
   dialog5.classList.remove("show");
   setTimeout(() => {
     dialog5.close();
   }, 250);
 
-  const checked = document.querySelectorAll(".edit-check:checked").length;
+  if (clickedRow) {
+    const jan = clickedRow.querySelector(".td-jan").textContent;
+    const name = clickedRow.querySelector(".td-name").textContent;
 
-  document.querySelector(".deletecheck p").innerHTML =
-    `${checked} 件選択されています。<br>選択商品を削除しますか？`;
+    document.querySelector(".deletecheck p").innerHTML =
+      `1 件選択されています。<br>選択商品を削除しますか？`;
+  }
 
 
   dialog3.showModal();
@@ -368,8 +384,7 @@ showButton6.addEventListener("click", () => {
 
 // });
 
-// 行クリックを数える変数
-let clickedRow = null;
+
 // 行クリック編集
 document.querySelectorAll("tr[data-base-product-id]").forEach(row => {
   row.addEventListener("click", (e) => {
