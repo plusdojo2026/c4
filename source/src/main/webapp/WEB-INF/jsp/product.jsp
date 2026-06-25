@@ -116,7 +116,7 @@
 
 								<fieldset>
 									<legend>JANコード</legend>
-									<input type="number" id="JAN" name="jan" pattern="\d{13}" maxlength="13" placeholder="JANコードを入力してください" required>
+									<input type="text" id="JAN" name="jan" pattern="\d{13}" maxlength="13" placeholder="JANコードを入力してください" required>
 								</fieldset>
 
 								<fieldset>
@@ -154,7 +154,7 @@
 
 										<fieldset>
 											<legend>バラJAN</legend>
-											<input type="number" id="bara-jan" pattern="\d{13}" maxlength="13" name="baraJan">
+											<input type="text" id="bara-jan" pattern="\d{13}" maxlength="13" name="baraJan">
 										</fieldset>
 
 										<fieldset>
