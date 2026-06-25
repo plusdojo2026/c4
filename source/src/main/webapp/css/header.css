@@ -177,29 +177,114 @@
 
 @media screen and (max-width: 767px) {
   .global-header {
+    height: 56px;
     padding: 0 12px;
+    gap: 8px;
+    box-sizing: border-box;
   }
 
   .header-logo,
   .header-notification {
     width: auto;
+    display: flex;
+    align-items: center;
   }
 
-  .search-input {
-    min-width: auto;
-    width: 100%;
-    margin: 0 10px;
-    padding: 8px 10px;
+  .header-logo {
+    flex: 0 0 auto;
+    min-width: 64px;
+    max-width: 120px;
+    padding-right: 8px;
+    padding-left: 6px;
+    overflow: visible;
   }
 
   .logo-text {
-    padding: 6px 8px;
-    font-size: 13px;
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 14px;
+    line-height: 1.1;
+    white-space: normal;
+    word-break: break-word;
+    overflow: visible;
+  }
+
+  .header-search {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .search-input {
+    display: block;
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    margin: 0 8px;
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    background-color: #f9fafb;
+    box-sizing: border-box;
+  }
+
+  .header-search .btn {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0 10px;
+    min-width: 44px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+    -webkit-tap-highlight-color: transparent;
+    line-height: 1;
+    font-size: 14px;
+    text-align: center;
+    flex: 0 0 auto;
+  }
+
+  .header-search .btn::before {
+    display: none;
+  }
+
+  .header-search .btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .header-search .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  .header-search .btn:active {
+    transform: translateY(0);
+  }
+
+  .header-notification {
+    width: auto;
+    margin-left: 8px;
+  }
+
+  .notification-icon {
+    width: 26px;
+    height: 26px;
   }
 
   .notification-modal {
     position: fixed;
-    top: 60px;
-    right: 12px;
+    top: 56px;
+    right: 8px;
+    left: 8px;
+    width: auto;
   }
 }
