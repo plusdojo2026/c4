@@ -3,7 +3,7 @@
 .wrapper {
   display: flex;
   min-height: 100dvh;
-  height:   fit-content;
+  height: fit-content;
   padding-top: 60px;
 }
 
@@ -216,7 +216,7 @@ dialog.show {
   gap: 16px;
 }
 
-.stock-form > div:nth-of-type(1) {
+.stock-form>div:nth-of-type(1) {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -233,7 +233,7 @@ dialog.show {
   background-color: #ffffff;
 }
 
-.stock-form div:nth-of-type(1) > div {
+.stock-form div:nth-of-type(1)>div {
   display: flex;
   gap: 16px;
 }
@@ -257,7 +257,7 @@ dialog.show {
   .wrapper {
     display: flex;
     min-height: 100dvh;
-    height:   fit-content;
+    height: fit-content;
     padding-bottom: 60px;
   }
 
@@ -291,7 +291,7 @@ dialog.show {
     background: #fff;
     color: var(--color-text);
     border-radius: 16px;
-    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
     padding: 12px;
   }
 
@@ -300,18 +300,16 @@ dialog.show {
     justify-content: space-between;
     text-align: right;
     padding: 8px 0;
+    font-size: clamp(12px, 3vw, 16px);
+  }
+
+  td::before {
+    font-size: clamp(11px, 2.8vw, 14px);
+    font-weight: bold;
   }
 
   /* stock用 */
-  tbody tr:has(> td:nth-child(3)):not(:has(> td:nth-child(4))) {
-    td {
-      font-size: clamp(12px, 3vw, 16px);
-    }
-
-    td::before {
-      font-size: clamp(11px, 2.8vw, 14px);
-    }
-
+  table:has(#stock-table-body) {
     td:nth-child(1)::before {
       content: "JANコード";
     }
@@ -326,16 +324,7 @@ dialog.show {
   }
 
   /* product用 */
-  tbody tr:has(> td:nth-child(5)):not(:has(> td:nth-child(6))) {
-    td {
-      font-size: clamp(12px, 3vw, 16px);
-    }
-
-    td::before {
-      font-size: clamp(11px, 2.8vw, 14px);
-      font-weight: bold;
-    }
-
+  table:has(#product-table-body) {
     td:nth-child(1)::before {
       content: "";
     }
@@ -354,6 +343,29 @@ dialog.show {
 
     td:nth-child(5)::before {
       content: "期間";
+    }
+  }
+
+  /* admin用 */
+  table:has(#account-table-body) {
+    td:nth-child(1)::before {
+      content: "";
+    }
+
+    td:nth-child(2)::before {
+      content: "社員番号";
+    }
+
+    td:nth-child(3)::before {
+      content: "名前";
+    }
+
+    td:nth-child(4)::before {
+      content: "生年月日";
+    }
+
+    td:nth-child(5)::before {
+      content: "権限（管理者/従業員）";
     }
   }
 }
