@@ -108,6 +108,7 @@
 									</div>
 								</fieldset>
 
+								
 								<fieldset>
 									<legend>商品画像</legend>
 									<input type="file" id="add-photo" name="add-photo" accept="image/*">
@@ -145,12 +146,15 @@
 
 								<input type="hidden" id="selectedName" name="selectedName">
 								<input type="hidden" id="selectedTerm" name="selectedTerm">
+								
 
 								<div id="bara-form">
 									<div class="bara-form-wrapper">
+										
+
 										<fieldset>
 											<legend>バラJAN</legend>
-											<input type="text" id="bara-jan" pattern="\d{13}" maxlength="13" name="baraJan">
+											<input type="number" id="bara-jan" pattern="\d{13}" maxlength="13" name="baraJan">
 										</fieldset>
 
 										<fieldset>
@@ -192,13 +196,27 @@
 					</dialog>
 
 					<!-- 削除結果通知ポップアップ -->
-					<dialog class="deleteresult">
+					 <dialog class="deleteresult">
+						<p>成功: ${success} 件<br>失敗: ${fail} 件</p>
+
+						<c:if test="${not empty stockFail}">
+							<p>以下の商品は在庫があるため削除できませんでした。</p>
+							<ul>
+								<c:forEach var="jan" items="${stockFail}">
+									<li>商品JANコード：${jan}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
+
+						<button id="cancel3" class="btn">キャンセル</button>
+					</dialog>
+					<!-- <dialog class="deleteresult">
 						<p>成功: ${success} 件<br>失敗: ${fail} 件</p>
 						<c:if test="${fail > 0}">
 							<p>「JANコード」は在庫があるため削除できませんでした。</p>
 						</c:if>
 						<button id="cancel3" class="btn">キャンセル</button>
-					</dialog>
+					</dialog> -->
 
 					<!-- 削除通知 -->
 					<c:if test="${showDeleteResult}">
@@ -224,6 +242,7 @@
 								<input type="hidden" id="edit-base" name="baseProductId">
 								<input type="hidden" id="edit-case" name="caseQuantity">
 
+								
 								<fieldset>
 									<legend>JANコード</legend>
 									<input type="number" id="edit-jan" name="janCode" placeholder="JANを入力" readonly>

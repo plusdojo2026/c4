@@ -159,7 +159,26 @@ public class ProductDAO {
         }
         return result;
     }
+ // 在庫があるかチェックするメソッド
+    public boolean hasStock(String jan) {
+        String sql = "SELECT COUNT(*) FROM stocks WHERE jancode = ? AND stock_quantity > 0";
 
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, jan);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // 在庫が1件以上ある
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
     // 指定されたJANコードの商品をマスターから削除します。
     public boolean delete(String janCode) {
         Connection conn = null;

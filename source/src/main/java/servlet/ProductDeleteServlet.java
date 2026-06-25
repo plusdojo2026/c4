@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,9 +36,20 @@ public class ProductDeleteServlet extends HttpServlet {
 
         int success = 0;
         int fail = 0;
+        
+     //  在庫があって削除できなかった JAN を保持するリスト
+        List<String> stockFailList = new ArrayList<>();
 
-        // JANコードごとに削除
         for (String jan : janCodes) {
+
+            //  ① 在庫チェックを追加
+            if (dao.hasStock(jan)) {
+                stockFailList.add(jan); // JSP に表示するため保存
+                fail++;
+                continue; // 削除しない
+            }
+
+            //  ② 在庫がない場合のみ削除
             if (dao.delete(jan)) {
                 success++;
             } else {
@@ -44,12 +57,30 @@ public class ProductDeleteServlet extends HttpServlet {
             }
         }
 
-        // JSP に結果を渡す
-        request.setAttribute("success", success);
-        request.setAttribute("fail", fail);
-        request.setAttribute("showDeleteResult", true);
+        //  ③ 削除できなかった JAN をクエリパラメータに追加
+        String stockFailParam = String.join(",", stockFailList);
 
-        // 一覧ページに成功と失敗の結果を持っていく（ポップアップ用）
-        response.sendRedirect("/c4/product?success=" + success + "&fail=" + fail);
+        response.sendRedirect(
+            request.getContextPath() +
+            "/product?success=" + success +
+            "&fail=" + fail +
+            "&stockFail=" + stockFailParam
+        );
+        // JANコードごとに削除
+//        for (String jan : janCodes) {
+//            if (dao.delete(jan)) {
+//                success++;
+//            } else {
+//                fail++;
+//            }
+//        }
+
+        // JSP に結果を渡す
+//        request.setAttribute("success", success);
+//        request.setAttribute("fail", fail);
+//        request.setAttribute("showDeleteResult", true);
+//
+//        // 一覧ページに成功と失敗の結果を持っていく（ポップアップ用）
+//        response.sendRedirect("/c4/product?success=" + success + "&fail=" + fail);
     }
 }

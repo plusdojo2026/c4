@@ -97,7 +97,7 @@ newModaldialog.addEventListener("close", () => {
   document.getElementById("pname").value = "";
   document.getElementById("term").value = "";
   document.getElementById("add-photo").value = "";
-
+  
   // 画像プレビューがあるなら消す
   const preview = document.getElementById("preview");
   if (preview) preview.src = "";
@@ -123,17 +123,17 @@ singleSelect.addEventListener("change", () => {
 });
 
 
-// ▼ 初期状態（単品）ではプルダウン非表示
+//  初期状態（単品）ではプルダウン非表示
 singleSelect.style.display = "none";
 singleSelectFieldset.style.display = "none";
 
-// ▼ 単品を選んだとき
+// 単品を選んだとき
 caseNo.addEventListener("change", () => {
   singleSelect.style.display = "none";
   singleSelectFieldset.style.display = "none";
 });
 
-// ▼ ケース商品を選んだとき
+// ケース商品を選んだとき
 caseYes.addEventListener("change", () => {
 
   // プルダウン初期化
@@ -180,7 +180,7 @@ function updateCaseUI() {
     document.getElementById("pname").placeholder = "ケース商品名";
     document.getElementById("term").placeholder = "ケース期間";
 
-    // ▼ プルダウンを単品だけで再生成
+    //  プルダウンを単品だけで再生成
     singleSelect.innerHTML = '<option value="">選択してください</option>';
 
     document.querySelectorAll("#product-table-body tr").forEach(row => {
@@ -222,7 +222,7 @@ function updateCaseUI() {
   }
 }
 
-// ★ イベント登録
+//  イベント登録
 caseNo.addEventListener("change", updateCaseUI);
 caseYes.addEventListener("change", updateCaseUI);
 caseQty.addEventListener("input", updateCaseUI);
@@ -249,6 +249,8 @@ if (addPhoto) {
     reader.readAsDataURL(file);
   })
 }
+
+
 // 削除のスタイル
 let deleteStyle = "checkbox";
 // 削除確認ポップアップ
@@ -420,7 +422,6 @@ document.querySelectorAll("tr[data-base-product-id]").forEach(row => {
     document.getElementById("edit-name").value = productName;
     document.getElementById("edit-term").value = durationDays;
 
-    document.getElementById("edit-photo").value = photoPath;
     document.getElementById("edit-base").value = baseProductId;
     document.getElementById("edit-case").value = caseQuantity;
 

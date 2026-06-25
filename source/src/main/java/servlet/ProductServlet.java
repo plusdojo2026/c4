@@ -46,11 +46,16 @@ public class ProductServlet extends HttpServlet {
     	// 削除結果パラメータを受け取る
     	String success = request.getParameter("success");
     	String fail = request.getParameter("fail");
-
-    	if (success != null || fail != null) {
+    	String stockFail = request.getParameter("stockFail");
+    	
+    	if (success != null || fail != null || stockFail != null) {
     	    request.setAttribute("showDeleteResult", true);
     	    request.setAttribute("success", success);
     	    request.setAttribute("fail", fail);
+    	    
+    	    if (stockFail != null && !stockFail.isEmpty()) {
+    	        request.setAttribute("stockFail", stockFail.split(","));
+    	    }
     	}
 
         //  DAO から商品一覧を取得
