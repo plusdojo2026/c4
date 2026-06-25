@@ -33,7 +33,7 @@ public class AccountAddServlet extends HttpServlet {
 		int permissionsId = Integer.parseInt(request.getParameter("permissionsId"));
 
         // 2.年月日を「yyyy-mm-dd」の表記に変更
-        String birthday = String.format("%s-%02d-%02d", year, Integer.parseInt(month), Integer.parseInt(day));
+        String birthday = String.format("%s%02d%02d", year, Integer.parseInt(month), Integer.parseInt(day));
 
         // 3.引数5つのコンストラクタを使ってオブジェクトを作成
         Account account = new Account(0, name, birthday, password, permissionsId);
