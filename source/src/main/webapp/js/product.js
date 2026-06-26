@@ -473,9 +473,8 @@ let stream = null;
 let isCameraOn = false;
 
 const ua = navigator.userAgent;
-const mobileDevices = "/Android|iPhone|iPad|iPod/i";
-
-if (ua.match(mobileDevices)) video.style.transform = "unset";
+const mobileDevices = /Android|iPhone|iPad|iPod/i;
+if (mobileDevices.test(ua)) video.style.transform = "unset";
 
 async function startCamera() {
   try {
@@ -642,10 +641,12 @@ const stockName = document.querySelector("input[name='send-productName']")?.valu
 newModaldialog.dispatchEvent(new Event("close"));
 // ▼ 在庫ページから来たときだけ自動で開く
 if (newModaldialog.dataset.isflag == 'true' && (stockJan != null && stockName != null)) {
-
+// if (newModaldialog.dataset.isflag === 'true' && stockJan && stockName)スマホ用の応急処置
   // ダイアログを自動で開く
   newModaldialog.showModal();
   requestAnimationFrame(() => newModaldialog.classList.add("show"));
+// newModaldialog.showModal();スマホ応急処置（使用しないかも）
+  // newModaldialog.classList.add("show");
 
   //  モーダル内の入力欄に値をセット
   document.querySelector("#JAN").value = stockJan;
@@ -661,6 +662,5 @@ document.addEventListener("DOMContentLoaded", () => {
         confirm(errorMessage);
     }
 });
-
 
 
