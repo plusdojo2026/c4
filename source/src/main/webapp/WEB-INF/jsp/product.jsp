@@ -126,7 +126,7 @@
 
 								<fieldset>
 									<legend>期間（日）</legend>
-									<input type="text" id="term" name="term" placeholder="期間を入力してください" required>
+									<input type="number" id="term" name="term" min="1" placeholder="期間を入力してください" required>
 								</fieldset>
 
 								<input type="hidden" name="send-jancode" value="${jancode}">
@@ -168,7 +168,7 @@
 
 										<fieldset>
 											<legend>バラ期間（日）</legend>
-											<input type="number" id="bara-term" name="baraTerm">
+											<input type="number" id="bara-term" name="baraTerm" min="1">
 										</fieldset>
 									</div>
 								</div>
@@ -264,7 +264,7 @@
 
 								<fieldset>
 									<legend>期間（日）</legend>
-									<input type="number" id="edit-term" name="durationDays" placeholder="期間を入力" required>
+									<input type="number" id="edit-term" name="durationDays" placeholder="期間を入力" min="1" required>
 								</fieldset>
 							</div>
 

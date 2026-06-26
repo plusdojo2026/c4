@@ -16,7 +16,6 @@ checkAll.addEventListener("change", () => {
 });
 
 
-
 // 商品追加確認ダイアログの制御
 const addButton = document.querySelector("#add-button"); // 商品追加確認ダイアログ起動ボタン
 const newCheckdialog = document.querySelector("#dialog-new-confirm");   // 商品追加確認ダイアログ
@@ -63,6 +62,12 @@ newCheckdialogAddButton.addEventListener("click", () => {
     newModaldialog.classList.add("show");
   });
 });
+const input = document.getElementById('bara-term');
+  input.addEventListener('input', () => {
+    if (input.value < 0) {
+      input.value = 0;
+    }
+  });
 // ケース・バラの入力
 const caseNo = document.getElementById("case-no");
 const caseYes = document.getElementById("case-yes");
