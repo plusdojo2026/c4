@@ -44,19 +44,24 @@ public class ProductServlet extends HttpServlet {
     	}
     	
     	// 削除結果パラメータを受け取る
+    	// 削除結果（success / fail）
     	String success = request.getParameter("success");
     	String fail = request.getParameter("fail");
-    	String stockFail = request.getParameter("stockFail");
-    	
-    	if (success != null || fail != null || stockFail != null) {
+
+    	// ★ 削除できなかった商品リストをセッションから取得
+    	Object stockFailObj = request.getSession().getAttribute("stockFail");
+
+    	if (success != null || fail != null || stockFailObj != null) {
     	    request.setAttribute("showDeleteResult", true);
     	    request.setAttribute("success", success);
     	    request.setAttribute("fail", fail);
-    	    
-    	    if (stockFail != null && !stockFail.isEmpty()) {
-    	        request.setAttribute("stockFail", stockFail.split(","));
+
+    	    if (stockFailObj != null) {
+    	        request.setAttribute("stockFail", stockFailObj);
+    	        request.getSession().removeAttribute("stockFail"); // ★ 1回だけ表示
     	    }
     	}
+
 
         //  DAO から商品一覧を取得
         ProductDAO dao = new ProductDAO();

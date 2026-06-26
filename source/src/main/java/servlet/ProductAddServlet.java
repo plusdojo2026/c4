@@ -29,7 +29,8 @@ public class ProductAddServlet extends HttpServlet {
         
         int isCase = Integer.parseInt(request.getParameter("isCase"));
         String photoPath = saveImage(request.getPart("add-photo"));
-        
+		// String photoPathCase = saveImage(request.getPart("add-photo"));
+		//String photoPathBara = saveImage(request.getPart("bara-photo"));
         // ▼ 単品
         if (isCase == 0) {
         	
@@ -44,8 +45,8 @@ public class ProductAddServlet extends HttpServlet {
                 request.getParameter("jan"),
                 request.getParameter("productname"),
                 null,
-                1,
-                photoPath,
+                1,                
+                photoPath,//photoPathCase,
                 Integer.parseInt(request.getParameter("term")),
                 null, null
             );
@@ -75,6 +76,12 @@ public class ProductAddServlet extends HttpServlet {
                 baraJan = selected;
                 baraName = request.getParameter("selectedName");
                 baraTerm = Integer.parseInt(request.getParameter("selectedTerm"));
+                
+             //  既存バラの画像を取得して photoPathBara にセット
+//                Product existing = dao.findByJan(baraJan);
+//                if (existing != null) {
+//                    photoPathBara = existing.getPhotoPath();
+//                }
             } else {
                 // 新規バラ
                 baraJan = request.getParameter("baraJan");
@@ -94,7 +101,7 @@ public class ProductAddServlet extends HttpServlet {
             if (selected == null || selected.isEmpty()) {
                 Product bara = new Product(
                     baraJan, baraName, null, 1, photoPath, baraTerm, null, null
-                );
+                );                             //photoPathBara
                 dao.insert(bara);
             }
 
@@ -104,7 +111,7 @@ public class ProductAddServlet extends HttpServlet {
                 request.getParameter("productname"),
                 baraJan,
                 Integer.parseInt(request.getParameter("caseQty")),
-                photoPath,
+                photoPath, //photoPathCase,
                 Integer.parseInt(request.getParameter("term")),
                 null, null
             );

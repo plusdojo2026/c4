@@ -257,4 +257,32 @@ public class ProductDAO {
         }
         return false;
     }
+    public Product findByJan(String jan) {
+        String sql = "SELECT jan_code, product_name, base_product_id, case_quantity, photo_path, duration_days, created_at, updated_at FROM products WHERE jan_code = ?";
+                      
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, jan);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Product(
+                    rs.getString("jan_code"),
+                    rs.getString("product_name"),
+                    rs.getString("base_product_id"),
+                    rs.getInt("case_quantity"),
+                    rs.getString("photo_path"),
+                    rs.getInt("duration_days"),
+                    rs.getObject("created_at", LocalDateTime.class),
+                    rs.getObject("updated_at", LocalDateTime.class)
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -150,7 +150,11 @@
 
 								<div id="bara-form">
 									<div class="bara-form-wrapper">
-										
+										<!-- <fieldset>
+											<legend>バラ商品画像</legend>
+											<img src="#" id="bara-preview" class="product-photo">
+											<input type="file" id="bara-photo" name="bara-photo" accept="image/*">
+										</fieldset> -->
 
 										<fieldset>
 											<legend>バラJAN</legend>
@@ -202,8 +206,12 @@
 						<c:if test="${not empty stockFail}">
 							<p>以下の商品は在庫があるため削除できませんでした。</p>
 							<ul>
-								<c:forEach var="jan" items="${stockFail}">
-									<li>商品JANコード：${jan}</li>
+								<c:forEach var="p" items="${stockFail}">
+									<li>
+										商品JANコード：${p.janCode}<br>
+										商品名：${p.productName}
+									</li>
+									<br>
 								</c:forEach>
 							</ul>
 						</c:if>
