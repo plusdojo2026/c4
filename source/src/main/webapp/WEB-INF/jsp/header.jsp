@@ -6,9 +6,8 @@
 			<link rel="stylesheet" href="/c4/css/header.css">
 
 			<header class="global-header">
-				<div class="header-logo">
-					<span class="logo-text">サカグラ</span>
-				</div>
+				<img class="header-logo" src="/c4/img/logo.svg" alt="Logo">
+				</img>
 
 				<!-- 管理者ページでは検索を非表示にするが、通知は常に表示 -->
 				<c:if test="${not empty sessionScope.id and not fn:contains(pageContext.request.requestURI, '/admin')}">
