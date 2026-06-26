@@ -22,6 +22,15 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		// もしsessionにログイン情報があったらproductにリダイレクトする
+		HttpSession session = request.getSession();
+
+		if(session.getAttribute("id") != null) {
+			response.sendRedirect("/c4/product");
+			return;
+		}
+
 		// ログインページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
