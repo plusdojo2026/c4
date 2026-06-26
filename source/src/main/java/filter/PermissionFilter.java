@@ -42,7 +42,7 @@ public class PermissionFilter implements Filter {
 			return;
 		}
 		
-		/*
+		
 		// ログイン状態を確認
 		HttpSession session = httpRequest.getSession(false);
 		if (session == null || session.getAttribute("id") == null) {
@@ -63,7 +63,7 @@ public class PermissionFilter implements Filter {
 			httpResponse.sendRedirect(contextPath + "/product");
 			return;
 		}
-		*/
+		
 		
 		// 通知を取得
 		NotificationDAO dao = new NotificationDAO();
