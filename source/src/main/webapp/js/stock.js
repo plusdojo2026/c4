@@ -10,7 +10,7 @@ let isCameraOn = false;
 const ua = navigator.userAgent;
 const mobileDevices = "/Android|iPhone|iPad|iPod/i";
 
-if (mobileDevices.test(ua)) video.style.transform = "unset";
+if (ua.match(mobileDevices)) video.style.transform = "unset";
 
 async function startCamera() {
   try {
