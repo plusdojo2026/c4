@@ -101,6 +101,15 @@ newModaldialog.addEventListener("close", () => {
   // 画像プレビューがあるなら消す
   const preview = document.getElementById("preview");
   if (preview) preview.src = "";
+
+  // バラ画像プレビューを消す
+// const baraPreview = document.getElementById("bara-preview");
+// if (baraPreview) baraPreview.src = "";
+
+// // バラ画像 input の値も消す
+// const baraPhotoInput = document.getElementById("bara-photo");
+// if (baraPhotoInput) baraPhotoInput.value = "";
+
 });
 //  プルダウン選択 → バラ欄に自動入力（1回だけ登録）
 singleSelect.addEventListener("change", () => {
@@ -249,6 +258,21 @@ if (addPhoto) {
     reader.readAsDataURL(file);
   })
 }
+
+// // バラ画像追加
+// const baraPhoto = document.getElementById("bara-photo");
+// if (baraPhoto) {
+//   baraPhoto.addEventListener("change", function (e) {
+//     const file = e.target.files[0];
+//     if (!file) return;
+
+//     const reader = new FileReader();
+//     reader.onload = function (event) {
+//       document.getElementById("bara-preview").src = event.target.result;
+//     };
+//     reader.readAsDataURL(file);
+//   });
+// }
 
 
 // 削除のスタイル
@@ -442,6 +466,11 @@ const cameraOff = document.getElementById('camera-off');
 
 let stream = null;
 let isCameraOn = false;
+
+const ua = navigator.userAgent;
+const mobileDevices = "/Android|iPhone|iPad|iPod/i";
+
+if (mobileDevices.test(ua)) video.style.transform = "unset";
 
 async function startCamera() {
   try {

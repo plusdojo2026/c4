@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ProductDAO;
+import model.Product;
 
 @WebServlet("/product/delete")
 public class ProductDeleteServlet extends HttpServlet {
@@ -38,16 +39,20 @@ public class ProductDeleteServlet extends HttpServlet {
         int fail = 0;
         
      //  在庫があって削除できなかった JAN を保持するリスト
-        List<String> stockFailList = new ArrayList<>();
+        List<Product> stockFailList = new ArrayList<>();
 
         for (String jan : janCodes) {
 
             //  ① 在庫チェックを追加
-            if (dao.hasStock(jan)) {
-                stockFailList.add(jan); // JSP に表示するため保存
-                fail++;
-                continue; // 削除しない
-            }
+        	if (dao.hasStock(jan)) {
+        	    Product p = dao.findByJan(jan);  // ★ 商品情報を取得
+        	    if (p != null) {
+        	        stockFailList.add(p);        // ★ Product を保存
+        	    }
+        	    fail++;
+        	    continue;
+        	}
+
 
             //  ② 在庫がない場合のみ削除
             if (dao.delete(jan)) {
@@ -58,14 +63,8 @@ public class ProductDeleteServlet extends HttpServlet {
         }
 
         //  ③ 削除できなかった JAN をクエリパラメータに追加
-        String stockFailParam = String.join(",", stockFailList);
-
-        response.sendRedirect(
-            request.getContextPath() +
-            "/product?success=" + success +
-            "&fail=" + fail +
-            "&stockFail=" + stockFailParam
-        );
+        request.getSession().setAttribute("stockFail", stockFailList);
+        response.sendRedirect("/c4/product?success=" + success + "&fail=" + fail);
         // JANコードごとに削除
 //        for (String jan : janCodes) {
 //            if (dao.delete(jan)) {
