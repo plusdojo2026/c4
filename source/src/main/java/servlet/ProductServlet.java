@@ -48,7 +48,7 @@ public class ProductServlet extends HttpServlet {
     	String success = request.getParameter("success");
     	String fail = request.getParameter("fail");
 
-    	// ★ 削除できなかった商品リストをセッションから取得
+    	//  削除できなかった商品リストをセッションから取得
     	Object stockFailObj = request.getSession().getAttribute("stockFail");
 
     	if (success != null || fail != null || stockFailObj != null) {

@@ -157,11 +157,11 @@
 
 								<div id="bara-form">
 									<div class="bara-form-wrapper">
-										<!-- <fieldset>
+										 <fieldset>
 											<legend>バラ商品画像</legend>
 											<img src="#" id="bara-preview" class="product-photo">
 											<input type="file" id="bara-photo" name="bara-photo" accept="image/*">
-										</fieldset> -->
+										</fieldset> 
 
 										<fieldset>
 											<legend>バラJAN</legend>

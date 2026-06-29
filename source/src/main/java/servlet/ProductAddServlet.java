@@ -28,10 +28,10 @@ public class ProductAddServlet extends HttpServlet {
         List<Product> list = dao.selectAll(); 
         
         int isCase = Integer.parseInt(request.getParameter("isCase"));
-        String photoPath = saveImage(request.getPart("add-photo"));
-		// String photoPathCase = saveImage(request.getPart("add-photo"));
-		//String photoPathBara = saveImage(request.getPart("bara-photo"));
-        // ▼ 単品
+        //String photoPath = saveImage(request.getPart("add-photo"));
+		 String photoPathCase = saveImage(request.getPart("add-photo"));
+		String photoPathBara = saveImage(request.getPart("bara-photo"));
+        //  単品
         if (isCase == 0) {
         	
         	if (isDuplicate(list, request.getParameter("jan"), request.getParameter("productname"))) {
@@ -46,7 +46,7 @@ public class ProductAddServlet extends HttpServlet {
                 request.getParameter("productname"),
                 null,
                 1,                
-                photoPath,//photoPathCase,
+                photoPathCase,//photoPath,
                 Integer.parseInt(request.getParameter("term")),
                 null, null
             );
@@ -78,10 +78,10 @@ public class ProductAddServlet extends HttpServlet {
                 baraTerm = Integer.parseInt(request.getParameter("selectedTerm"));
                 
              //  既存バラの画像を取得して photoPathBara にセット
-//                Product existing = dao.findByJan(baraJan);
-//                if (existing != null) {
-//                    photoPathBara = existing.getPhotoPath();
-//                }
+                Product existing = dao.findByJan(baraJan);
+                if (existing != null) {
+                    photoPathBara = existing.getPhotoPath();
+                }
             } else {
                 // 新規バラ
                 baraJan = request.getParameter("baraJan");
@@ -89,7 +89,7 @@ public class ProductAddServlet extends HttpServlet {
                 baraTerm = Integer.parseInt(request.getParameter("baraTerm"));
             }
 
-            // ▼  ここで必ずチェック（既存・新規どちらも）
+            //   ここでチェック（既存・新規どちらも）
             if (dao.isBaseUsed(baraJan)) {
                 request.getSession().setAttribute("error", "このバラ商品はすでに別のケース商品に使われています。");
                 request.getSession().setAttribute("errorflag", true);
@@ -97,21 +97,21 @@ public class ProductAddServlet extends HttpServlet {
                 return;
             }
 
-            // ▼ 新規バラなら登録
+            //  新規バラなら登録
             if (selected == null || selected.isEmpty()) {
                 Product bara = new Product(
-                    baraJan, baraName, null, 1, photoPath, baraTerm, null, null
+                    baraJan, baraName, null, 1, photoPathBara, baraTerm, null, null
                 );                             //photoPathBara
                 dao.insert(bara);
             }
 
-            // ▼ ケース商品登録
+            //  ケース商品登録
             Product kase = new Product(
                 request.getParameter("jan"),
                 request.getParameter("productname"),
                 baraJan,
                 Integer.parseInt(request.getParameter("caseQty")),
-                photoPath, //photoPathCase,
+                photoPathCase, //photoPathCase,
                 Integer.parseInt(request.getParameter("term")),
                 null, null
             );

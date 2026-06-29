@@ -107,13 +107,13 @@ newModaldialog.addEventListener("close", () => {
   const preview = document.getElementById("preview");
   if (preview) preview.src = "";
 
-  // バラ画像プレビューを消す
-// const baraPreview = document.getElementById("bara-preview");
-// if (baraPreview) baraPreview.src = "";
+   //バラ画像プレビューを消す
+ const baraPreview = document.getElementById("bara-preview");
+ if (baraPreview) baraPreview.src = "";
 
-// // バラ画像 input の値も消す
-// const baraPhotoInput = document.getElementById("bara-photo");
-// if (baraPhotoInput) baraPhotoInput.value = "";
+ // バラ画像 input の値も消す
+ const baraPhotoInput = document.getElementById("bara-photo");
+ if (baraPhotoInput) baraPhotoInput.value = "";
 
 });
 //  プルダウン選択 → バラ欄に自動入力（1回だけ登録）
@@ -265,19 +265,19 @@ if (addPhoto) {
 }
 
 // // バラ画像追加
-// const baraPhoto = document.getElementById("bara-photo");
-// if (baraPhoto) {
-//   baraPhoto.addEventListener("change", function (e) {
-//     const file = e.target.files[0];
-//     if (!file) return;
+ const baraPhoto = document.getElementById("bara-photo");
+ if (baraPhoto) {
+   baraPhoto.addEventListener("change", function (e) {
+     const file = e.target.files[0];
+     if (!file) return;
 
-//     const reader = new FileReader();
-//     reader.onload = function (event) {
-//       document.getElementById("bara-preview").src = event.target.result;
-//     };
-//     reader.readAsDataURL(file);
-//   });
-// }
+     const reader = new FileReader();
+     reader.onload = function (event) {
+       document.getElementById("bara-preview").src = event.target.result;
+     };
+     reader.readAsDataURL(file);
+   });
+ }
 
 
 // 削除のスタイル
@@ -655,7 +655,7 @@ const stockName = document.querySelector("input[name='send-productName']")?.valu
 
 //  閉じるで初期化
 newModaldialog.dispatchEvent(new Event("close"));
-// ▼ 在庫ページから来たときだけ自動で開く
+//  在庫ページから来たときだけ自動で開く
 if (newModaldialog.dataset.isflag == 'true' && (stockJan != null && stockName != null)) {
 // if (newModaldialog.dataset.isflag === 'true' && stockJan && stockName)スマホ用の応急処置
   // ダイアログを自動で開く

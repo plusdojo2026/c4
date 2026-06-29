@@ -33,11 +33,11 @@ public class ProductEditServlet extends HttpServlet {
 //        p.setPhotoPath(request.getParameter("photoPath"));
         p.setDurationDays(Integer.parseInt(request.getParameter("durationDays")));
 
-     // ★ 画像ファイル取得
+     //  画像ファイル取得
         Part imagePart = request.getPart("imageFile");
         String fileName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
 
-        // ★ 新しい画像が選ばれていたら保存
+        //  新しい画像が選ばれていたら保存
         if (fileName != null && !fileName.isEmpty()) {
 
             String uploadPath = getServletContext().getRealPath("/img/");
@@ -51,7 +51,7 @@ public class ProductEditServlet extends HttpServlet {
             p.setPhotoPath("/c4/img/" + fileName);
 
         } else {
-            // ★ 新しい画像が選ばれていない → hidden の既存画像を使う
+            //  新しい画像が選ばれていない → hidden の既存画像を使う
             p.setPhotoPath(request.getParameter("photoPath"));
         }
         

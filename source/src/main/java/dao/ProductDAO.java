@@ -79,7 +79,7 @@ public class ProductDAO {
         }
     }
 
-    // ★ 単品登録（サーブレットから呼ぶ）
+    //  単品登録（サーブレットから呼ぶ）
     public void insertSingle(String jan, String name, int term, String photo) {
         try {
             Product p = new Product(jan, name, "0", 1, photo, term, null, null);
@@ -92,7 +92,7 @@ public class ProductDAO {
         }
     }
 
-    // ★ ケース＋バラの2商品を登録（サーブレットから呼ぶ）
+    //  ケース＋バラの2商品を登録（サーブレットから呼ぶ）
     public void insertCasePair(
             String caseJan, String caseName, int caseTerm, int caseQty, String photo,
             String baraJan, String baraName, int baraTerm
@@ -147,7 +147,7 @@ public class ProductDAO {
             String sql;
             PreparedStatement pStmt;
 
-            // ★ 画像が変更されていない場合（null または空文字）
+            //  画像が変更されていない場合（null または空文字）
             if (product.getPhotoPath() == null || product.getPhotoPath().isEmpty()) {
 
                 sql = "UPDATE products SET product_name = ?, base_product_id = ?, case_quantity = ?, duration_days = ? WHERE jan_code = ?";
@@ -160,7 +160,7 @@ public class ProductDAO {
                 pStmt.setString(5, product.getJanCode());
 
             } else {
-                // ★ 画像が変更された場合
+                //  画像が変更された場合
                 sql = "UPDATE products SET product_name = ?, base_product_id = ?, case_quantity = ?, photo_path = ?, duration_days = ? WHERE jan_code = ?";
                 pStmt = conn.prepareStatement(sql);
 
