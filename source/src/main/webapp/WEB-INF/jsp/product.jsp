@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		<!DOCTYPE html>
-		<html>
+		<html lang="ja">
 
 		<head>
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<script src="https://unpkg.com/@zxing/library@latest"></script>
-			<title>商品一覧</title>
+			<title>サカグラ | 商品一覧</title>
 			<link rel="stylesheet" href="/c4/css/common.css">
 			<link rel="stylesheet" href="/c4/css/stock.css">
 			<link rel="stylesheet" href="/c4/css/product.css">
@@ -43,7 +43,7 @@
 										</button>
 
 										<c:if test="${not empty error}">
-    										<div class="error-message">${error}</div>
+											<div class="error-message">${error}</div>
 										</c:if>
 
 										<c:if test="${isSearched}">
@@ -114,7 +114,7 @@
 									</div>
 								</fieldset>
 
-								
+
 								<fieldset>
 									<legend>商品画像</legend>
 									<input type="file" id="add-photo" name="add-photo" accept="image/*">
@@ -122,7 +122,8 @@
 
 								<fieldset>
 									<legend>JANコード</legend>
-									<input type="text" id="JAN" name="jan" pattern="\d{13}" maxlength="13" placeholder="JANコードを入力してください" required>
+									<input type="text" id="JAN" name="jan" pattern="\d{13}" maxlength="13" placeholder="JANコードを入力してください"
+										required>
 								</fieldset>
 
 								<fieldset>
@@ -152,7 +153,7 @@
 
 								<input type="hidden" id="selectedName" name="selectedName">
 								<input type="hidden" id="selectedTerm" name="selectedTerm">
-								
+
 
 								<div id="bara-form">
 									<div class="bara-form-wrapper">
@@ -185,9 +186,9 @@
 								<button type="submit" class="btn regist">登録</button>
 							</div>
 						</form>
-						
-						
-						
+
+
+
 					</dialog>
 					<!-- 重複エラー -->
 					<input type="hidden" id="error-flag" value="${errorFlag}">
@@ -206,7 +207,7 @@
 					</dialog>
 
 					<!-- 削除結果通知ポップアップ -->
-					 <dialog class="deleteresult">
+					<dialog class="deleteresult">
 						<p>成功: ${success} 件<br>失敗: ${fail} 件</p>
 
 						<c:if test="${not empty stockFail}">
@@ -296,7 +297,11 @@
 						</form>
 					</dialog>
 
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> 8863f7654bc002fb515a4df949c534620189c057
 					<script src="/c4/js/product.js"></script>
 			</div>
 		</body>

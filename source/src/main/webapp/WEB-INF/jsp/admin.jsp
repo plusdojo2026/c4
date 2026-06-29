@@ -307,42 +307,45 @@
     </dialog>
     
     <!-- 編集モーダル -->
-    <dialog class="account-edit-dialog">
-	  <h3>従業員情報の編集</h3>
-      <form id="account-edit-form" class="account-form" action="${pageContext.request.contextPath}/admin/edit" method="post">
-        <input class="id" type="hidden" name="id" value="">
-		<div>
-		<p><strong>名前:</strong><span class="dialog-name" value="${a.name}"></span></p>
-		<fieldset>
-		  <legend>権限の変更</legend>
-		  <select id="edit-permissions" name="permissionsId" value="${a.permissionsId == 1 ? '管理者' : '従業員'}" required>
-			<option value="1">管理者</option>
-			<option value="2">従業員</option>
-		  </select>
-		</fieldset>
-		</div>
-        <div class="dialog-btn-wrapper">
-          <button type="button" class="cancel-btn btn">
-            キャンセル
-          </button>
-          <button type="submit" class="btn">
-            更新
-          </button>
-        </div>
-      </form>
-    </dialog>
+	<dialog class="account-edit-dialog">
+  	<h3>従業員情報の編集</h3>
+  	<form id="account-edit-form" class="account-form" action="${pageContext.request.contextPath}/admin/edit" method="post">
+    <!-- 従業員ID（非表示で送信） -->
+    <input class="id" type="hidden" name="id" value="${a.id}">
+    <div>
+      <fieldset>
+        <legend>名前</legend>
+        <input type="text" class="dialog-name" name="newName" value="${a.name}" required>
+      </fieldset>
+      
+      <fieldset>
+        <legend>権限の変更</legend>
+        <select id="edit-permissions" name="newPermissionsId" required>
+			<!-- もしa.permissionsIdが1なら文字列'selected'を出力、そうでなければ''を出力 -->
+          <option value="1" ${a.permissionsId == 1 ? 'selected' : ''}>管理者</option>
+          <option value="2" ${a.permissionsId == 2 ? 'selected' : ''}>従業員</option>
+        </select>
+      </fieldset>
+    </div>
+    <div class="dialog-btn-wrapper">
+      <button type="button" class="cancel-btn btn">キャンセル</button>
+      <button type="submit" class="btn">更新</button>
+    </div>
+  </form>
+</dialog>
 
-	<!-- 編集完了ダイアログ -->
-    <dialog id="account-edit-check-dialog" class="account-check-dialog">
-		<h3>更新内容の確認</h3>
-        <div class="check-add-content">
-		  <p><strong>名前：</strong><span id="check-add-name"></span></p>
-		  <p><strong>権限：</strong><span id="check-add-permissions"></span></p>
-		</div>
-		    <div class="dialog-btn-wrapper">
-        	 <button type="button" id="account-edit-close-btn" class="btn">閉じる</button>
-			</div>
-    </dialog>
+<!-- 編集完了ダイアログ -->
+<dialog id="account-edit-check-dialog" class="account-check-dialog">
+  <h3>更新内容の確認</h3>
+  <p>この内容で更新しますか？</p>
+  <div class="check-add-content">
+    <p><strong>名前：</strong><span id="check-edit-name"></span></p>
+    <p><strong>権限：</strong><span id="check-edit-permissions"></span></p>
+  </div>
+  <div class="dialog-btn-wrapper">
+    <button type="button" id="account-edit-close-btn" class="btn">閉じる</button>
+  	</div>
+	</dialog>
   </div>
   
   <script src="/c4/js/admin.js"></script>
