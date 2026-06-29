@@ -680,20 +680,15 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //  編集モーダルの画像プレビュー処理
-const editImageInput = document.querySelector("#edit-image");
-const editPreview = document.querySelector("#edit-preview");
-
-editImageInput?.addEventListener("change", function () {
+document.querySelector("#edit-image")?.addEventListener("change", function () {
     const file = this.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            editPreview.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
+    if (!file) return;
 
-        
-        document.getElementById("edit-file-name").textContent = file.name;
-    }
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        document.getElementById("edit-preview").src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+
+    document.getElementById("edit-file-name").textContent = file.name;
 });
-
