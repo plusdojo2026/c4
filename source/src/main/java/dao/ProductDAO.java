@@ -143,20 +143,45 @@ public class ProductDAO {
         boolean result = false;
         try {
             conn = DBConnection.getConnection();
-            String sql = "UPDATE products SET product_name = ?, base_product_id = ?, case_quantity = ?, photo_path = ?, duration_days = ? WHERE jan_code = ?";
-            PreparedStatement pStmt = conn.prepareStatement(sql);
-            pStmt.setString(1, product.getProductName());
-            pStmt.setString(2, product.getBaseProductId());
-            pStmt.setInt(3, product.getCaseQuantity());
-            pStmt.setString(4, product.getPhotoPath());
-            pStmt.setInt(5, product.getDurationDays());
-            pStmt.setString(6, product.getJanCode());
 
-            if (pStmt.executeUpdate() == 1) { result = true; }
-        } catch (SQLException e) { e.printStackTrace();
+            String sql;
+            PreparedStatement pStmt;
+
+            // ★ 画像が変更されていない場合（null または空文字）
+            if (product.getPhotoPath() == null || product.getPhotoPath().isEmpty()) {
+
+                sql = "UPDATE products SET product_name = ?, base_product_id = ?, case_quantity = ?, duration_days = ? WHERE jan_code = ?";
+                pStmt = conn.prepareStatement(sql);
+
+                pStmt.setString(1, product.getProductName());
+                pStmt.setString(2, product.getBaseProductId());
+                pStmt.setInt(3, product.getCaseQuantity());
+                pStmt.setInt(4, product.getDurationDays());
+                pStmt.setString(5, product.getJanCode());
+
+            } else {
+                // ★ 画像が変更された場合
+                sql = "UPDATE products SET product_name = ?, base_product_id = ?, case_quantity = ?, photo_path = ?, duration_days = ? WHERE jan_code = ?";
+                pStmt = conn.prepareStatement(sql);
+
+                pStmt.setString(1, product.getProductName());
+                pStmt.setString(2, product.getBaseProductId());
+                pStmt.setInt(3, product.getCaseQuantity());
+                pStmt.setString(4, product.getPhotoPath());
+                pStmt.setInt(5, product.getDurationDays());
+                pStmt.setString(6, product.getJanCode());
+            }
+
+            if (pStmt.executeUpdate() == 1) {
+                result = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
-            if (conn != null) { try { conn.close(); } catch (SQLException e) { e.printStackTrace(); } }
+            if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
         }
+
         return result;
     }
  // 在庫があるかチェックするメソッド

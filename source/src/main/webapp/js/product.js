@@ -439,7 +439,9 @@ document.querySelectorAll("tr[data-base-product-id]").forEach(row => {
     const productName = row.querySelector(".td-name").textContent;
     const durationText = row.querySelector(".td-term").textContent;
     const durationDays = durationText.replace(/\D/g, "");  
-    const photoPath = row.querySelector("img").getAttribute("src");
+
+    let photoPath = ((row.querySelector("img")?.getAttribute("src") || "").replace(location.origin, "")) || "/c4/img/no-image.png";
+
 
     // data- 属性から取得（JSP に追加済み）
     const baseProductId = row.dataset.baseProductId;
@@ -453,6 +455,20 @@ document.querySelectorAll("tr[data-base-product-id]").forEach(row => {
 
     document.getElementById("edit-base").value = baseProductId;
     document.getElementById("edit-case").value = caseQuantity;
+
+    const editPreview = document.getElementById("edit-preview");
+    const editPhotoHidden = document.getElementById("edit-photo");
+
+    // ★ プレビューに表示
+    editPreview.src = photoPath;
+
+    // ★ hidden に相対パスをセット
+    editPhotoHidden.value = photoPath;
+
+    // ★ ファイル名を表示（追加）
+    const fileName = photoPath.split("/").pop();
+    document.getElementById("edit-file-name").textContent = fileName;
+
 
     // モーダルを開く
     dialog5.showModal();
@@ -663,4 +679,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+//  編集モーダルの画像プレビュー処理
+const editImageInput = document.querySelector("#edit-image");
+const editPreview = document.querySelector("#edit-preview");
 
+editImageInput?.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            editPreview.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+
+        document.getElementById("edit-file-name").textContent = fileName;
+
+    }
+});
