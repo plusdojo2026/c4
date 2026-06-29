@@ -692,7 +692,8 @@ editImageInput?.addEventListener("change", function () {
         };
         reader.readAsDataURL(file);
 
-        document.getElementById("edit-file-name").textContent = fileName;
-
+        
+        document.getElementById("edit-file-name").textContent = file.name;
     }
 });
+

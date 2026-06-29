@@ -7,7 +7,7 @@
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<script src="https://unpkg.com/@zxing/library@latest"></script>
-			<title>商品一覧</title>
+			<title>サカグラ | 商品一覧</title>
 			<link rel="stylesheet" href="/c4/css/common.css">
 			<link rel="stylesheet" href="/c4/css/stock.css">
 			<link rel="stylesheet" href="/c4/css/product.css">
@@ -258,6 +258,20 @@
 								<input type="hidden" id="edit-case" name="caseQuantity">
 
 
+								<fieldset>
+									<legend>商品画像</legend>
+
+									<!-- 現在の画像プレビュー -->
+									<img id="edit-preview" src="" alt="商品画像" style="max-width: 150px; display: block; margin-bottom: 10px;">
+
+									<div id="edit-file-name" style="margin-top: 5px; color: #555;"></div>
+
+
+									<!-- 新しい画像を選択 -->
+									<input type="file" id="edit-image" name="imageFile" accept="image/*">
+									
+								</fieldset>
+								
 								<fieldset>
 									<legend>JANコード</legend>
 									<input type="number" id="edit-jan" name="janCode" placeholder="JANを入力" readonly>
