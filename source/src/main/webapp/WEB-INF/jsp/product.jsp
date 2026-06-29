@@ -46,6 +46,12 @@
 											<div class="error-message">${error}</div>
 										</c:if>
 
+										<c:if test="${isSearched}">
+											<c:if test="${empty productList}">
+												<p>該当する商品はありませんでした。</p>
+											</c:if>
+										</c:if>
+
 									</div>
 
 									<table>
@@ -197,7 +203,7 @@
 					<dialog class="deletecheck">
 						<p>〇件選択されています。<br>選択商品を削除しますか？</p>
 						<button id="cancel2" class="btn">キャンセル</button>
-						<button id="delete" class="btn">削除する</button>
+						<button id="delete" class="btn delete">削除する</button>
 					</dialog>
 
 					<!-- 削除結果通知ポップアップ -->
@@ -244,7 +250,7 @@
 
 					<!-- 編集ポップアップ -->
 					<dialog class="edit">
-						<form action="/c4/product/edit" method="post" class="stock-form">
+						<form action="/c4/product/edit" method="post" class="stock-form" enctype="multipart/form-data">
 							<div class="newform">
 								<input type="hidden" name="id" id="edit-id">
 								<input type="hidden" id="edit-photo" name="photoPath">
