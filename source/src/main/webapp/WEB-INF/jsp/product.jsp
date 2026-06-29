@@ -258,6 +258,7 @@
 								<input type="hidden" id="edit-case" name="caseQuantity">
 
 
+<<<<<<< HEAD
 								<fieldset>
 									<legend>商品画像</legend>
 
@@ -272,6 +273,8 @@
 									
 								</fieldset>
 								
+=======
+>>>>>>> 148d24d1070b1e395f2ef499e343cae7a9d5755d
 								<fieldset>
 									<legend>JANコード</legend>
 									<input type="number" id="edit-jan" name="janCode" placeholder="JANを入力" readonly>
@@ -298,10 +301,14 @@
 					</dialog>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 			
 =======
 
 >>>>>>> 8863f7654bc002fb515a4df949c534620189c057
+=======
+
+>>>>>>> 148d24d1070b1e395f2ef499e343cae7a9d5755d
 					<script src="/c4/js/product.js"></script>
 			</div>
 		</body>
