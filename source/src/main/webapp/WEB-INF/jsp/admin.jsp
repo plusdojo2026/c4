@@ -321,6 +321,7 @@
       <fieldset>
         <legend>権限の変更</legend>
         <select id="edit-permissions" name="newPermissionsId" required>
+			<!-- もしa.permissionsIdが1なら文字列'selected'を出力、そうでなければ''を出力 -->
           <option value="1" ${a.permissionsId == 1 ? 'selected' : ''}>管理者</option>
           <option value="2" ${a.permissionsId == 2 ? 'selected' : ''}>従業員</option>
         </select>
